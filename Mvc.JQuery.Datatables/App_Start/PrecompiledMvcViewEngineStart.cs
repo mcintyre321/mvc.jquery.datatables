@@ -17,4 +17,3 @@ namespace Mvc.JQuery.Datatables.App_Start {
         }
     }
 }
-

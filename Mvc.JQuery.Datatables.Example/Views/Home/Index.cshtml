@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "title";
+}
+<link type="text/css" href="@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
+<script src="@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript"></script>
+<script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+<script type="text/javascript">    $.SyntaxHighlighter.init();</script>
+
+<h1>Strongly typed datatable example</h1>
+<p>
+<pre>
+Nuget install-package Mvc.JQuery.Datatables
+</pre>
+</p>
+<p>
+In the controller:
+<pre class="highlight">
+public IDataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
+{
+    var users = new List&lt;User>
+    (
+        Enumerable.Range(1, 100).Select(i => new User(){Id = i, Email = "user" + i + "@@gmail.com", Name = "User" + i})
+    ).AsQueryable();
+
+    return DataTablesResult.Create(users, dataTableParam, user => new UserView()
+    {
+        Id = user.Id,
+        Name = user.Name
+    });
+}
+</pre>
+</p>
+<p>
+in the view 
+
+<pre class="highlight">
+@@using Mvc.JQuery.Datatables
+@@using Mvc.JQuery.Datatables.Example.Controllers
+
+&lt;link type="text/css" href="@@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
+&lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
+
+@@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))
+</pre>
+</p>
+
+<h1>Voila</h1>
+
+
+@using Mvc.JQuery.Datatables
+@using Mvc.JQuery.Datatables.Example.Controllers
+
+@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))

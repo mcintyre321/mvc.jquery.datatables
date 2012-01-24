@@ -1,0 +1,54 @@
+﻿body {
+    padding-top: 40px;
+}
+
+.white {
+    color: White;
+}
+
+.field-validation-error {
+  color: #b94a48;
+}
+
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+  border-color: #c87872;
+  -webkit-box-shadow: 0 0 3px rgba(171, 41, 32, 0.25);
+  -moz-box-shadow: 0 0 3px rgba(171, 41, 32, 0.25);
+  box-shadow: 0 0 3px rgba(171, 41, 32, 0.25);
+}
+
+.input-validation-error:focus {
+  border-color: #b9554d;
+  -webkit-box-shadow: 0 0 6px rgba(171, 41, 32, 0.5);
+  -moz-box-shadow: 0 0 6px rgba(171, 41, 32, 0.5);
+  box-shadow: 0 0 6px rgba(171, 41, 32, 0.5);
+}
+
+.form .clearfix {
+  margin-bottom: 18px;
+  zoom: 1;
+}
+.form .clearfix:before, form .clearfix:after {
+  display: table;
+  content: "";
+  zoom: 1;
+  *display: inline;
+}
+.form .clearfix:after {
+  clear: both;
+}
+.form .input {
+  margin-left: 150px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  padding-top: 6px;
+  line-height: 18px;
+  color: #404040;
+}

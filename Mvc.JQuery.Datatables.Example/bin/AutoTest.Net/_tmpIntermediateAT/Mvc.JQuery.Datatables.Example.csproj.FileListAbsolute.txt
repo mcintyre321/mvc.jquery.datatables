@@ -1,0 +1,8 @@
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\_tmpIntermediateAT\ResolveAssemblyReference.cache
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\_tmpIntermediateAT\Mvc.JQuery.Datatables.Example.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\_tmpIntermediateAT\Mvc.JQuery.Datatables.Example.pdb
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\Mvc.JQuery.Datatables.Example.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\Mvc.JQuery.Datatables.Example.pdb
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\EntityFramework.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\Mvc.JQuery.Datatables.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Example\bin\AutoTest.Net\EntityFramework.xml

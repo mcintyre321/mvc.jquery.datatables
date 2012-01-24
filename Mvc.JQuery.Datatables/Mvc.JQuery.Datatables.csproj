@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RazorGenerator.Mvc, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RazorGenerator.Mvc, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RazorGenerator.Mvc.1.2.1\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+      <HintPath>..\packages\RazorGenerator.Mvc.1.3\lib\net40\RazorGenerator.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,13 +43,13 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebActivator, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WebActivator, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebActivator.1.4.3\lib\net40\WebActivator.dll</HintPath>
+      <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\PrecompiledMvcViewEngineStart.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="DataTablesData.cs" />
     <Compile Include="DataTablesFilter.cs" />
     <Compile Include="DataTablesHelper.cs" />
@@ -147,9 +147,9 @@
     <Content Include="Scripts\DataTables-1.8.2\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.8.2\media\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables-1.8.2\media\js\jquery.js" />
-    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="App_Start\RegisterDatatablesModelBinder.cs.pp" />
     <None Include="Content\DataTables-1.8.2\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.8.2\extras\TableTools\media\images\psd\copy document.psd" />

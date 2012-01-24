@@ -166,10 +166,10 @@
     <None Include="Scripts\DataTables-1.8.2\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.8.2\extras\TableTools\media\js\TableTools.min.js.gz" />
     <None Include="Scripts\DataTables-1.8.2\media\js\jquery.dataTables.min.js.gz" />
-    <None Include="Views\Shared\DataTable.cshtml">
+    <Content Include="Views\Shared\DataTable.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DataTable.generated.cs</LastGenOutput>
-    </None>
+    </Content>
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup />

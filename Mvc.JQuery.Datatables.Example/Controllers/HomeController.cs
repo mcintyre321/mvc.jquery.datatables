@@ -17,7 +17,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         }
 
 
-        public IDataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
+        public DataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
         {
             var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
             var users = new List<User>

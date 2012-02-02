@@ -5,17 +5,17 @@ using Mvc.JQuery.Datatables.DynamicLinq;
 
 namespace Mvc.JQuery.Datatables
 {
-    public static class DataTablesResult
+    public class DataTablesResult : JsonResult
     {
-        public static IDataTablesResult<TRes> Create<T, TRes>(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
+        public static DataTablesResult<TRes> Create<T, TRes>(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
         {
             return new DataTablesResult<T, TRes>(q, dataTableParam, transform);
         }
-        public static IDataTablesResult<T> Create<T>(IQueryable<T> q, DataTablesParam dataTableParam)
+        public static DataTablesResult<T> Create<T>(IQueryable<T> q, DataTablesParam dataTableParam)
         {
             return new DataTablesResult<T, T>(q, dataTableParam, t => t);
         }
-        public static IDataTablesResult Create(object queryable, DataTablesParam dataTableParam)
+        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace Mvc.JQuery.Datatables
                     typeof(DataTablesResult).GetMethods().Single(x => x.Name == "Create" && x.GetGenericArguments().Count() == 1);
                 var queryableType = queryable.GetType().GetGenericArguments()[0];
                 var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-                return (IDataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable });
+                return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable });
             }
             catch (Exception ex)
             {
@@ -31,9 +31,13 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-
+         
     }
-    public class DataTablesResult<T, TRes> : JsonResult, IDataTablesResult<TRes>
+    public class DataTablesResult<T> : DataTablesResult
+    {
+        
+    }
+    public class DataTablesResult<T, TRes> : DataTablesResult<TRes>
     {
         private readonly Func<T, TRes> _transform;
 
@@ -82,14 +86,6 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
     }
-
-    public interface IDataTablesResult<T> : IDataTablesResult
-    {
-    }
-
-    public interface IDataTablesResult
-    {
-
-    }
+ 
 
 }

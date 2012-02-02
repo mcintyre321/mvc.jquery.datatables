@@ -9,7 +9,7 @@ namespace Mvc.JQuery.Datatables.Example.App_Start {
     public static class RazorGeneratorMvcStart {
         public static void Start() {
             var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly) {
-                UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
+                UsePhysicalViewsIfNewer = false
             };
 
             ViewEngines.Engines.Insert(0, engine);

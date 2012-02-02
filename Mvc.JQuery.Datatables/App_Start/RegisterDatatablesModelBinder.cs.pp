@@ -7,7 +7,8 @@ using RazorGenerator.Mvc;
 namespace $rootnamespace$.App_Start {
     public static class RegisterDatatablesModelBinder {
         public static void Start() {
-            ModelBinders.Binders.Add(typeof(Mvc.JQuery.Datatables.DataTablesParam), new Mvc.JQuery.Datatables.DataTablesModelBinder());
+            if (!ModelBinders.Binders.ContainsKey(typeof(Mvc.JQuery.Datatables.DataTablesParam)))
+                ModelBinders.Binders.Add(typeof(Mvc.JQuery.Datatables.DataTablesParam), new Mvc.JQuery.Datatables.DataTablesModelBinder());
         }
     }
 }

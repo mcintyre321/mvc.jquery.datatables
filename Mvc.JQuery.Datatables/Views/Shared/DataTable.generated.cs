@@ -145,7 +145,7 @@ WriteLiteral("\');\r\n        var dt = $table.dataTable({\r\n            \"bProc
 
             
             #line 33 "..\..\Views\Shared\DataTable.cshtml"
-                       Write(Model.AjaxUrl);
+                       Write(Html.Raw(Model.AjaxUrl));
 
             
             #line default

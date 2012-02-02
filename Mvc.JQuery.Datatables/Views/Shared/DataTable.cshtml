@@ -30,7 +30,7 @@
             "bProcessing": true,
             "bStateSave": true,
             "bServerSide": true,
-            "sAjaxSource": "@Model.AjaxUrl",
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)",
             "fnServerData": function (sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',

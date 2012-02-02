@@ -1,24 +1,34 @@
 ﻿@using Mvc.JQuery.Datatables
 @model DataTableVm
 <table id="@Model.Id" class="display" >
-   <thead>
-		<tr>
+    <thead>
+        <tr>
             @foreach (var column in Model.Columns)
             {
                 <th>@column</th>
             }
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td colspan="5" class="dataTables_empty">Loading data from server</td>
-		</tr>
-	</tbody>
+        </tr>
+        <tr>
+            @foreach (var column in Model.Columns)
+            {
+                <th>@column</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="5" class="dataTables_empty">
+                Loading data from server
+            </td>
+        </tr>
+    </tbody>
 </table>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#@Model.Id').dataTable({
+        var $table = $('#@Model.Id');
+        var dt = $table.dataTable({
             "bProcessing": true,
+            "bStateSave": true,
             "bServerSide": true,
             "sAjaxSource": "@Model.AjaxUrl",
             "fnServerData": function (sSource, aoData, fnCallback) {
@@ -31,6 +41,6 @@
                 });
             }
         });
+        dt.columnFilter({ sPlaceHolder: "head:before" });
     });
 </script>
-

@@ -125,6 +125,7 @@
     <Content Include="Scripts\DataTables-1.8.2\extras\ColReorder\ColReorder\media\js\ColReorder.min.js" />
     <Content Include="Scripts\DataTables-1.8.2\extras\ColReorder\media\js\ColReorder.js" />
     <Content Include="Scripts\DataTables-1.8.2\extras\ColReorder\media\js\ColReorder.min.js" />
+    <Content Include="Scripts\DataTables-1.8.2\extras\ColumnFilter\jquery.dataTables.columnFilter.js" />
     <Content Include="Scripts\DataTables-1.8.2\extras\ColVis\ColVis\media\js\ColVis.js" />
     <Content Include="Scripts\DataTables-1.8.2\extras\ColVis\ColVis\media\js\ColVis.min.js" />
     <Content Include="Scripts\DataTables-1.8.2\extras\ColVis\media\js\ColVis.js" />
@@ -166,10 +167,10 @@
     <None Include="Scripts\DataTables-1.8.2\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.8.2\extras\TableTools\media\js\TableTools.min.js.gz" />
     <None Include="Scripts\DataTables-1.8.2\media\js\jquery.dataTables.min.js.gz" />
-    <Content Include="Views\Shared\DataTable.cshtml">
+    <EmbeddedResource Include="Views\Shared\DataTable.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DataTable.generated.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup />

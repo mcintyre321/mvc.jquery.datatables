@@ -11,13 +11,19 @@ namespace Mvc.JQuery.Datatables
         {
             return new DataTablesResult<T, TRes>(q, dataTableParam, transform);
         }
+        public static IDataTablesResult<T> Create<T>(IQueryable<T> q, DataTablesParam dataTableParam)
+        {
+            return new DataTablesResult<T, T>(q, dataTableParam, t => t);
+        }
+
     }
     public class DataTablesResult<T, TRes> : JsonResult, IDataTablesResult<TRes>
     {
         private readonly Func<T, TRes> _transform;
 
-        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform) 
+        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
         {
+
             _transform = transform;
             var properties = typeof(T).GetProperties();
 
@@ -29,7 +35,7 @@ namespace Mvc.JQuery.Datatables
 
         private DataTablesData GetResults(IQueryable q, DataTablesParam param, Tuple<string, Type>[] searchColumns)
         {
-            
+
             int totalRecords = q.Count();
 
             var data = q;
@@ -41,13 +47,14 @@ namespace Mvc.JQuery.Datatables
 
             data = filters.FilterPagingSortingSearch(param, data, out totalRecordsDisplay, searchColumns);
             var dataArray = data.Cast<T>().ToArray().AsQueryable().Select(_transform).Cast<object>();
-                var type = dataArray.First().GetType();
-                var properties = type.GetProperties();
+            var type = typeof (TRes);
+            var properties = type.GetProperties();
 
             var toArrayQuery = from i in dataArray
-                    let values = properties.Select(p => (p.GetGetMethod().Invoke(i, null) ?? "").ToString())
-                    select values;
-            
+                               let values =
+                                   properties.Select(p => (p.GetGetMethod().Invoke(i, null) ?? "").ToString())
+                               select values;
+
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,

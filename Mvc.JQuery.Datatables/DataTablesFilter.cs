@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Mvc.JQuery.Datatables.DynamicLinq;
 
@@ -6,43 +7,39 @@ namespace Mvc.JQuery.Datatables
 {
     public class DataTablesFilter
     {
-        public IQueryable FilterPagingSortingSearch(DataTablesParam DTParams, IQueryable data, out int totalRecordsDisplay, Tuple<string, Type>[] columns)
+        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, out int totalRecordsDisplay, Tuple<string, Type>[] columns)
         {
-
-            if (!String.IsNullOrEmpty(DTParams.sSearch))
+            if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
-                string searchString = "";
                 bool first = true;
-                for (int i = 0; i < DTParams.iColumns; i++)
+                List<string> parts = new List<string>();
+                for (int i = 0; i < dtParameters.iColumns; i++)
                 {
-                    if (DTParams.bSearchable[i])
+                    if (dtParameters.bSearchable[i])
                     {
-                        string columnName = columns[i].Item1;
-
-                        if (!first)
-                            searchString += " or ";
-                        else
-                            first = false;
-
-                        if (columns[i].Item2 == typeof(int))
-                        {
-                            searchString += columnName + ".ToString().StartsWith(\"" + DTParams.sSearch + "\")";
-                        }
-                        else
-                        {
-                            searchString += columnName + ".Contains(\"" + DTParams.sSearch + "\")";
-                        }
+                        parts.Add(GetFilterClause(dtParameters.sSearch, columns[i]));
                     }
                 }
-                data = data.Where(searchString);
+                data = data.Where(string.Join(" or ", parts));
+            }
+            for (int i = 0; i < dtParameters.sSearchColumns.Count; i++)
+            {
+                if (dtParameters.bSearchable[i])
+                {
+                    var searchColumn = dtParameters.sSearchColumns[i];
+                    if (!string.IsNullOrWhiteSpace(searchColumn))
+                    {
+                        data = data.Where(GetFilterClause(dtParameters.sSearchColumns[i], columns[i]));
+                    }
+                }
             }
             string sortString = "";
-            for (int i = 0; i < DTParams.iSortingCols; i++)
+            for (int i = 0; i < dtParameters.iSortingCols; i++)
             {
                 
-                int columnNumber = DTParams.iSortCol[i];
+                int columnNumber = dtParameters.iSortCol[i];
                 string columnName = columns[columnNumber].Item1;
-                string sortDir = DTParams.sSortDir[i];
+                string sortDir = dtParameters.sSortDir[i];
                 if (i != 0)
                     sortString += ", ";
                 sortString += columnName + " " + sortDir;
@@ -51,9 +48,21 @@ namespace Mvc.JQuery.Datatables
             totalRecordsDisplay = data.Count();
 
             data = data.OrderBy(sortString);
-            data = data.Skip(DTParams.iDisplayStart).Take(DTParams.iDisplayLength);
+            data = data.Skip(dtParameters.iDisplayStart).Take(dtParameters.iDisplayLength);
 
             return data;
+        }
+
+        private static string GetFilterClause(string query, Tuple<string, Type> column)
+        {
+            if (column.Item2 == typeof (int))
+            {
+                return (column.Item1 + ".ToString().StartsWith(\"" + query + "\")");
+            }
+            else
+            {
+                return (column.Item1 + ".Contains(\"" + query + "\")");
+            }
         }
     }
 }

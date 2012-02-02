@@ -14,8 +14,8 @@ namespace Mvc.JQuery.Datatables
         {
             const string cssHtml = @"<link type=""text/css"" href=""@Url.Content(""~/Content/DataTables-1.8.2/media/css/demo_table.css"" rel=""stylesheet""/>";
 
-            const string jsHtml = @"<script src=""/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js"" type=""text/javascript""></script>";
-            const string filtersHtml = @"<script src=""/Scripts/DataTables-1.8.2/extras/columnfilter/jquery.dataTables.columnFilter.js"" type=""text/javascript""></script>";
+            const string jsHtml = @"<script src=""/Scripts/DataTables-1.9.0/media/js/jquery.dataTables.js"" type=""text/javascript""></script>";
+            const string filtersHtml = @"<script src=""/Scripts/jquery.dataTables.columnFilter.js"" type=""text/javascript""></script>";
             return helper.Raw(jsHtml + (filters ? filtersHtml : "") + (css ? cssHtml : ""));
 
         }

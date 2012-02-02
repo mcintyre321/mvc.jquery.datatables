@@ -12,7 +12,7 @@ namespace Mvc.JQuery.Datatables
         
         public static MvcHtmlString DataTable<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, IDataTablesResult<TResult>>> exp, params string[] columns)
         {
-            columns = columns ?? typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => p.Name).ToArray();
+            if (columns == null || columns.Length == 0) columns = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => p.Name).ToArray();
 
             var mi = exp.MethodInfo();
              var controllerName = typeof(TController).Name;

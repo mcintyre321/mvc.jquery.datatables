@@ -12,7 +12,7 @@ namespace Mvc.JQuery.Datatables
     {
         public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool css = true, bool filters = true)
         {
-            const string cssHtml = @"<link type=""text/css"" href=""@Url.Content(""~/Content/DataTables-1.8.2/media/css/demo_table.css"" rel=""stylesheet""/>";
+            const string cssHtml = @"<link type=""text/css"" href=""/Content/DataTables-1.9.0/media/css/demo_table.css"" rel=""stylesheet""/>";
 
             const string jsHtml = @"<script src=""/Scripts/DataTables-1.9.0/media/js/jquery.dataTables.js"" type=""text/javascript""></script>";
             const string filtersHtml = @"<script src=""/Scripts/jquery.dataTables.columnFilter.js"" type=""text/javascript""></script>";

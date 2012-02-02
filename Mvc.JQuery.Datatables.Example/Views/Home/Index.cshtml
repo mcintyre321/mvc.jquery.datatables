@@ -1,9 +1,7 @@
 ﻿@{
     ViewBag.Title = "title";
 }
-<link type="text/css" href="@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
-<script src="@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/DataTables-1.8.2/extras/columnfilter/jquery.dataTables.columnFilter.js")" type="text/javascript"></script>
+@Html.DataTableIncludes()
 <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
 <script type="text/javascript">    $.SyntaxHighlighter.init();</script>
 
@@ -14,7 +12,8 @@ Nuget install-package Mvc.JQuery.Datatables
 </pre>
 </p>
 <p>
-In the controller:
+    In the controller:
+</p>
 <pre class="highlight">
 public IDataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
 {
@@ -30,7 +29,7 @@ public IDataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
     });
 }
 </pre>
-</p>
+
 <p>
 and in the view...
 

@@ -42,6 +42,10 @@ and in the view...
 &lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
 
 @@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))
+
+can also use 
+
+@@Html.DataTable("table-id", "/home/getusers")
 </pre>
 </p>
 
@@ -52,3 +56,5 @@ and in the view...
 @using Mvc.JQuery.Datatables.Example.Controllers
 
 @Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))
+
+

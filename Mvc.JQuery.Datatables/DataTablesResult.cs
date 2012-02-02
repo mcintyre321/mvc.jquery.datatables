@@ -15,6 +15,22 @@ namespace Mvc.JQuery.Datatables
         {
             return new DataTablesResult<T, T>(q, dataTableParam, t => t);
         }
+        public static IDataTablesResult Create(object queryable, DataTablesParam dataTableParam)
+        {
+            try
+            {
+                var openCreateMethod =
+                    typeof(DataTablesResult).GetMethods().Single(x => x.Name == "Create" && x.GetGenericArguments().Count() == 1);
+                var queryableType = queryable.GetType().GetGenericArguments()[0];
+                var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+                return (IDataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Was the object passed in a Something<T>?", ex);
+            }
+        }
+
 
     }
     public class DataTablesResult<T, TRes> : JsonResult, IDataTablesResult<TRes>
@@ -47,7 +63,7 @@ namespace Mvc.JQuery.Datatables
 
             data = filters.FilterPagingSortingSearch(param, data, out totalRecordsDisplay, searchColumns);
             var dataArray = data.Cast<T>().ToArray().AsQueryable().Select(_transform).Cast<object>();
-            var type = typeof (TRes);
+            var type = typeof(TRes);
             var properties = type.GetProperties();
 
             var toArrayQuery = from i in dataArray
@@ -67,7 +83,13 @@ namespace Mvc.JQuery.Datatables
         }
     }
 
-    public interface IDataTablesResult<T>
+    public interface IDataTablesResult<T> : IDataTablesResult
     {
     }
+
+    public interface IDataTablesResult
+    {
+
+    }
+
 }

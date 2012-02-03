@@ -52,6 +52,9 @@ can also use
 @using Mvc.JQuery.Datatables
 @using Mvc.JQuery.Datatables.Example.Controllers
 
-@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))
+@*@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))*@
+
+@Html.DataTable("table-id", "/home/getusersuntyped", "Name")
+
 
 

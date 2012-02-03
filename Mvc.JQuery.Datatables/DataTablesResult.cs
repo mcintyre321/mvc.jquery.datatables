@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables.DynamicLinq;
@@ -15,15 +17,22 @@ namespace Mvc.JQuery.Datatables
         {
             return new DataTablesResult<T, T>(q, dataTableParam, t => t);
         }
+
+        public static DataTablesResult<T> CreateResultUsingEnumerable<T>(IEnumerable<T> q, DataTablesParam dataTableParam)
+        {
+            return new DataTablesResult<T, T>(q.AsQueryable(), dataTableParam, t => t);
+        }
+
         public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
         {
             try
             {
-                var openCreateMethod =
-                    typeof(DataTablesResult).GetMethods().Single(x => x.Name == "Create" && x.GetGenericArguments().Count() == 1);
+                var s = (queryable as IQueryable == null && queryable as IEnumerable != null) ? "CreateResultUsingEnumerable" : "Create";
+
+                var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
                 var queryableType = queryable.GetType().GetGenericArguments()[0];
                 var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-                return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable });
+                return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
             }
             catch (Exception ex)
             {

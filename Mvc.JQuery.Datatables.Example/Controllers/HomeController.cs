@@ -38,6 +38,22 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Email = user.Email
             });
         }
+        public DataTablesResult GetUsersUntyped(DataTablesParam dataTableParam)
+        {
+            var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
+            var users = new List<User>
+            (
+                Enumerable.Range(1, 100).Select(i =>
+                    new User()
+                    {
+                        Id = i,
+                        Email = "user" + i + "@" + domains[i % domains.Length],
+                        Name = "User" + i
+                    })
+            );
+
+            return DataTablesResult.Create(users, dataTableParam);
+        }
     }
 
     public class User

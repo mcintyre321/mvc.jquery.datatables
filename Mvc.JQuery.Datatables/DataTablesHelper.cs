@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables
             return DataTable(html, id, ajaxUrl, columns);
         }
 
-        private static MvcHtmlString DataTable(HtmlHelper html, string id, string ajaxUrl, params string[] columns)
+        public static MvcHtmlString DataTable(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
             var vm = new DataTableVm(id, ajaxUrl, columns);
             return html.Partial("DataTable", vm);

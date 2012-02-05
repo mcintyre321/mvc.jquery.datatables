@@ -61,7 +61,7 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return (column.Item1 + ".Contains(\"" + query + "\")");
+                return (column.Item1 + ".ToString().Contains(\"" + query + "\")");
             }
         }
     }

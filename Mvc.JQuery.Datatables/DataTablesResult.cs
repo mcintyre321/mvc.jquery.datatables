@@ -27,7 +27,8 @@ namespace Mvc.JQuery.Datatables
         {
             try
             {
-                var s = (queryable as IQueryable == null && queryable as IEnumerable != null) ? "CreateResultUsingEnumerable" : "Create";
+                queryable = ((IEnumerable)queryable).AsQueryable();
+                var s = "Create";
 
                 var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
                 var queryableType = queryable.GetType().GetGenericArguments()[0];
@@ -39,7 +40,6 @@ namespace Mvc.JQuery.Datatables
                 throw new Exception("Was the object passed in a Something<T>?", ex);
             }
         }
-
          
     }
     public class DataTablesResult<T> : DataTablesResult
@@ -95,6 +95,4 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
     }
- 
-
 }

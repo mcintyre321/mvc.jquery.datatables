@@ -11,9 +11,8 @@ namespace Mvc.JQuery.Datatables
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
-                bool first = true;
-                List<string> parts = new List<string>();
-                for (int i = 0; i < dtParameters.iColumns; i++)
+                var parts = new List<string>();
+                for (var i = 0; i < dtParameters.iColumns; i++)
                 {
                     if (dtParameters.bSearchable[i])
                     {

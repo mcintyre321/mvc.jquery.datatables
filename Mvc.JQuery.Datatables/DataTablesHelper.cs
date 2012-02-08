@@ -20,7 +20,7 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static DataTableVm DataTable<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params string[] columns)
+        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params string[] columns)
         {
             if (columns == null || columns.Length == 0) columns = typeof(TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => p.Name).ToArray();
 

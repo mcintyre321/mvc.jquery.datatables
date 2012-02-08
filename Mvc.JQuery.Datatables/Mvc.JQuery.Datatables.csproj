@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Start\RegisterDatatablesModelBinder.cs.pp" />
+    <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Views\Shared\DataTable.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

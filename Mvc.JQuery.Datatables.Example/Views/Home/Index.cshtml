@@ -38,11 +38,11 @@ and in the view...
 &lt;link type="text/css" href="@@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
 &lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
 
-@@Html.DataTable("table-id", (HomeController h) => h.GetUsers(null))
+@@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
 
 can also use 
 
-@@Html.DataTable("table-id", "/home/getusers", "Id", "Name", "Email")
+@@Html.Partial("DataTable", Html.DataTableVm("table-id", "/home/getusers", "Id", "Name", "Email"))
 </pre>
 </p>
 
@@ -52,7 +52,7 @@ can also use
 @using Mvc.JQuery.Datatables
 @using Mvc.JQuery.Datatables.Example.Controllers
 
-@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
+@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
 
 
 

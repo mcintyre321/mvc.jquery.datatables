@@ -56,11 +56,6 @@
     <Compile Include="DynamicLinq\DynamicLinq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticReflectionHelper.cs" />
-    <Compile Include="Views\Shared\DataTable.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataTable.cshtml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
@@ -142,10 +137,7 @@
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\printer.psd" />
     <None Include="Content\DataTables-1.9.0\media\images\Sorting icons.psd" />
     <None Include="packages.config" />
-    <Content Include="Views\Shared\DataTable.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>DataTable.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\DataTable.cshtml" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup />

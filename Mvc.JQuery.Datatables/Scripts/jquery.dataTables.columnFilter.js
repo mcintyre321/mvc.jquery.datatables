@@ -1,4 +1,6 @@
-﻿/*
+﻿/// <reference path="~/scripts/DataTables-1.9.0/media/js/jquery.dataTables.js"/>
+
+/*
 * File:        jquery.dataTables.columnFilter.js
 * Version:     1.4.1.
 * Author:      Jovan Popovic 

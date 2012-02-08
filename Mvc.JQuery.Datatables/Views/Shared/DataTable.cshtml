@@ -41,6 +41,8 @@
                 });
             }
         });
-        dt.columnFilter({ sPlaceHolder: "head:before" });
+        @if(Model.ColumnFilter){
+            @:dt.columnFilter({ sPlaceHolder: "head:before" });
+        }
     });
 </script>

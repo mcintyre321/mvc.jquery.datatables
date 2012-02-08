@@ -16,5 +16,7 @@ namespace Mvc.JQuery.Datatables
         public string AjaxUrl { get; private set; }
 
         public IEnumerable<string> Columns { get; private set; }
+
+        public bool ColumnFilter { get; set; }
     }
 }

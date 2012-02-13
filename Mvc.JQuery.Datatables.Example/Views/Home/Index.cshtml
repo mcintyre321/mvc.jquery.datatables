@@ -51,8 +51,11 @@ can also use
 
 @using Mvc.JQuery.Datatables
 @using Mvc.JQuery.Datatables.Example.Controllers
-
-@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
+@{
+    var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    vm.ColumnFilter = true;
+}
+@Html.Partial("DataTable", vm)
 
 
 

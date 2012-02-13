@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
+using Mvc.JQuery.Datatables.DynamicLinq;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -35,7 +35,7 @@ namespace Mvc.JQuery.Datatables
             string sortString = "";
             for (int i = 0; i < dtParameters.iSortingCols; i++)
             {
-                
+
                 int columnNumber = dtParameters.iSortCol[i];
                 string columnName = columns[columnNumber].Item1;
                 string sortDir = dtParameters.sSortDir[i];
@@ -54,18 +54,28 @@ namespace Mvc.JQuery.Datatables
 
         public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType);
 
+        static string FilterMethod(string q)
+        {
+            if (q.StartsWith("^"))
+            {
+                return "ToLower().StartsWith(\"" + q.ToLower().Substring(1).Replace("\"", "\"\"") + "\")";
+            }
+            else
+            {
+                return "ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\")";
+            }
+        }
+
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard<int>((q, c) => string.Format("{1}.ToString().StartsWith(\"{0}\")", q, c)),
-            Guard<DateTimeOffset>((q, c) => string.Format("{1}.ToString().StartsWith(\"{0}\")", q, c)),
-            Guard<string>((q, c) => string.Format("{1}.ToString().Contains(\"{0}\")", q, c))
+            Guard<DateTimeOffset>((q, c) => string.Format("{1}.ToString(\"g\").{0}", FilterMethod(q), c)),
         };
         public delegate string GuardedFilter(string query, string columnName);
         static ReturnedFilteredQueryForType Guard<T>(GuardedFilter filter)
         {
             return (q, c, t) =>
             {
-                if (typeof (T) != t)
+                if (typeof(T) != t)
                 {
                     return null;
                 }
@@ -76,15 +86,18 @@ namespace Mvc.JQuery.Datatables
         {
             Filters.Add(Guard<T>(filter));
         }
-        
+
         private static string GetFilterClause(string query, Tuple<string, Type> column)
         {
             foreach (var filter in Filters)
             {
                 var filteredQuery = filter(query, column.Item1, column.Item2);
-                if (filteredQuery != null) return filteredQuery;
+                if (filteredQuery != null)
+                {
+                    return filteredQuery;
+                }
             }
-            throw new NotImplementedException(string.Format("No dynamic filter registered for type {0}. Use Mvc.Jquery.DataTables.DataTablesFilter.RegisterFilter()"));
+            return string.Format("{1}.ToString().{0}", FilterMethod(query), column.Item1);
         }
     }
 }

@@ -274,7 +274,6 @@
     <None Include="Scripts\DataTables-1.9.0\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\TableTools\media\js\TableTools.min.js.gz" />
-    <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj">

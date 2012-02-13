@@ -9,6 +9,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 {
     public class HomeController : Controller
     {
+        private static List<User> _users;
         //
         // GET: /Home/
 
@@ -33,7 +34,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                Position = user.Position == null ? "" : user.Position.ToString()
+                Position = user.Position == null ? "" : user.Position.ToString(),
+                Hired = user.Hired
             });
         }
         public DataTablesResult GetUsersUntyped(DataTablesParam dataTableParam)
@@ -45,10 +47,10 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         private static List<User> Users()
         {
+            var r = new Random();
             var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
             var positions = new List<PositionTypes?> { null, PositionTypes.Engineer, PositionTypes.Tester, PositionTypes.Manager };
-            
-            var users = new List<User>
+            return _users ?? (_users = new List<User>
                 (
                 Enumerable.Range(1, 100).Select(i =>
                                                 new User()
@@ -56,10 +58,11 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                     Id = i,
                                                     Email = "user" + i + "@" + domains[i%domains.Length],
                                                     Name = "User" + i,
-                                                    Position = positions[i%positions.Count]
+                                                    Position = positions[i%positions.Count],
+                                                    Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
                                                 })
-                );
-            return users;
+                ));
+            return _users;
         }
     }
 
@@ -70,6 +73,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Email { get; set; }
 
         public HomeController.PositionTypes? Position { get; set; }
+
+        public DateTimeOffset Hired { get; set; }
     }
 
     public class UserView
@@ -80,5 +85,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Email { get; set; }
 
         public string Position { get; set; }
+
+        public DateTimeOffset Hired { get; set; }
     }
 }

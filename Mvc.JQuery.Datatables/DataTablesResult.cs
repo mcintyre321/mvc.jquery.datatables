@@ -61,7 +61,30 @@ namespace Mvc.JQuery.Datatables
             this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
         }
 
+        static readonly List<PropertyTransformer> PropertyTransformers = new List<PropertyTransformer>()
+        {
+            Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToString("g")),
+            Guard<DateTime>(dateTime => dateTime.ToString("g")),
+            Guard<object>(o => (o ?? "").ToString())
+        };
+        public delegate object PropertyTransformer(Type type, object value);
+        public delegate object GuardedValueTransformer<TVal>(TVal value);
 
+        static PropertyTransformer Guard<TVal>(GuardedValueTransformer<TVal> transformer)
+        {
+            return (t, v) =>
+            {
+                if (typeof(TVal) != t)
+                {
+                    return null;
+                }
+                return transformer((TVal) v);
+            };
+        }
+        public static void RegisterFilter<TVal>(GuardedValueTransformer<TVal> filter)
+        {
+            PropertyTransformers.Add(Guard<TVal>(filter));
+        }
         private DataTablesData GetResults(IQueryable q, DataTablesParam param, Tuple<string, Type>[] searchColumns)
         {
 
@@ -80,8 +103,8 @@ namespace Mvc.JQuery.Datatables
             var properties = type.GetProperties();
 
             var toArrayQuery = from i in dataArray
-                               let values =
-                                   properties.Select(p => (p.GetGetMethod().Invoke(i, null) ?? "").ToString())
+                               let pairs = properties.Select(p => new {p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null))})
+                               let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
                                select values;
 
             var result = new DataTablesData
@@ -93,6 +116,16 @@ namespace Mvc.JQuery.Datatables
             };
 
             return result;
+        }
+
+        private object GetTransformedValue(Type propertyType, object value)
+        {
+            foreach (var transformer in PropertyTransformers)
+            {
+                var result = transformer(propertyType, value);
+                if (result != null) return result;
+            }
+            return (value as object ?? "").ToString();
         }
     }
 }

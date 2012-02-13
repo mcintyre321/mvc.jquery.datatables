@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables.DynamicLinq;
+using System.Linq.Dynamic;
 
 namespace Mvc.JQuery.Datatables
 {

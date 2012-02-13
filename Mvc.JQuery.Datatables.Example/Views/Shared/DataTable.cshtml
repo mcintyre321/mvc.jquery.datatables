@@ -1,18 +1,21 @@
 ﻿@using Mvc.JQuery.Datatables
 @model DataTableVm
-<table id="@Model.Id" class="display" >
+<table id="@Model.Id" class="display zebra-striped bordered-table condensed-table" >
     <thead>
         <tr>
             @foreach (var column in Model.Columns)
             {
+
                 <th>@column</th>
             }
         </tr>
         @if (Model.ColumnFilter)
         {
+
             <tr>
                 @foreach (var column in Model.Columns)
                 {
+
                     <th>@column</th>
                 }
             </tr>
@@ -42,9 +45,16 @@
                     "data": aoData,
                     "success": fnCallback
                 });
+            },
+            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+
+
+                $(nRow).insertAfter($("<tr><td colspan='" + aData.length + "'>hello<td></tr>"));
+              
             }
         });
-        @if(Model.ColumnFilter){
+        @if (Model.ColumnFilter)
+        {
             @:dt.columnFilter({ sPlaceHolder: "head:before" });
         }
     });

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dynamic">
+      <HintPath>..\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -56,12 +59,12 @@
     <Compile Include="DataTablesParam.cs" />
     <Compile Include="DataTablesResult.cs" />
     <Compile Include="DataTableVm.cs" />
-    <Compile Include="DynamicLinq\DynamicLinq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticReflectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Start\RegisterDatatablesModelBinder.cs.pp" />
+    <Content Include="Dynamic Expressions.html" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Views\Shared\DataTable.cshtml" />
     <None Include="packages.config">

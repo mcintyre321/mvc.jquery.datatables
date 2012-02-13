@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mvc.JQuery.Datatables.DynamicLinq;
+using System.Linq.Dynamic;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -52,16 +52,39 @@ namespace Mvc.JQuery.Datatables
             return data;
         }
 
+        public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType);
+
+        static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
+        {
+            Guard<int>((q, c) => string.Format("{1}.ToString().StartsWith(\"{0}\")", q, c)),
+            Guard<DateTimeOffset>((q, c) => string.Format("{1}.ToString().StartsWith(\"{0}\")", q, c)),
+            Guard<string>((q, c) => string.Format("{1}.ToString().Contains(\"{0}\")", q, c))
+        };
+        public delegate string GuardedFilter(string query, string columnName);
+        static ReturnedFilteredQueryForType Guard<T>(GuardedFilter filter)
+        {
+            return (q, c, t) =>
+            {
+                if (typeof (T) != t)
+                {
+                    return null;
+                }
+                return filter(q, c);
+            };
+        }
+        public static void RegisterFilter<T>(GuardedFilter filter)
+        {
+            Filters.Add(Guard<T>(filter));
+        }
+        
         private static string GetFilterClause(string query, Tuple<string, Type> column)
         {
-            if (column.Item2 == typeof (int))
+            foreach (var filter in Filters)
             {
-                return (column.Item1 + ".ToString().StartsWith(\"" + query + "\")");
+                var filteredQuery = filter(query, column.Item1, column.Item2);
+                if (filteredQuery != null) return filteredQuery;
             }
-            else
-            {
-                return (column.Item1 + ".ToString().Contains(\"" + query + "\")");
-            }
+            throw new NotImplementedException(string.Format("No dynamic filter registered for type {0}. Use Mvc.Jquery.DataTables.DataTablesFilter.RegisterFilter()"));
         }
     }
 }

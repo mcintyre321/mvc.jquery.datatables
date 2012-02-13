@@ -20,21 +20,24 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params string[] columns)
+        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, Type>[] columns)
         {
-            if (columns == null || columns.Length == 0) columns = typeof(TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => p.Name).ToArray();
+            if (columns == null || columns.Length == 0)
+            {
+                columns = typeof(TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray();
+            }
 
             var mi = exp.MethodInfo();
             var controllerName = typeof(TController).Name;
             controllerName = controllerName.Substring(0, controllerName.LastIndexOf("Controller"));
             var urlHelper = new UrlHelper(html.ViewContext.RequestContext);
             var ajaxUrl = urlHelper.Action(mi.Name, controllerName);
-            return DataTableVm(html, id, ajaxUrl, columns);
+            return new DataTableVm(id, ajaxUrl, columns);
         }
 
         public static DataTableVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableVm(id, ajaxUrl, columns);
+            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, typeof(string))));
         }
     }
 }

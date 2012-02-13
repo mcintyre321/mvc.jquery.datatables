@@ -44,8 +44,29 @@
                 });
             }
         });
-        @if(Model.ColumnFilter){
-            @:dt.columnFilter({ sPlaceHolder: "head:before" });
+        @if (Model.ColumnFilter)
+        {
+            <text>
+                dt.columnFilter({  
+                    sPlaceHolder: "head:before", 
+                    aoColumns: [@string.Join(",", Model.Columns.Select(c => Filter(c).ToHtmlString()))] 
+                });
+            </text>
         }
-    });
 </script>
+@helper Filter(Tuple<string, Type> column)
+{
+    if (column.Item2 == typeof(DateTimeOffset))
+    {
+        @<text>{type: "date-range"}</text>;
+    }else
+    {
+        @<text>{type: "text"}</text>;
+    }
+}
+@*                    {type: "number" },
+                    {type: "text", bRegex: true, bSmart: true},
+                    null,
+                    {type: "select", values: [ 'A', 'B', 'C' ] },
+                    {type: "number-range"},
+                    {type: "date-range"}*@

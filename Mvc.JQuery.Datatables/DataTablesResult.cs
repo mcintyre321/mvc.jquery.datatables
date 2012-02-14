@@ -63,8 +63,8 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<PropertyTransformer> PropertyTransformers = new List<PropertyTransformer>()
         {
-            Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToString("g")),
-            Guard<DateTime>(dateTime => dateTime.ToString("g")),
+            Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g")),
+            Guard<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g")),
             Guard<object>(o => (o ?? "").ToString())
         };
         public delegate object PropertyTransformer(Type type, object value);

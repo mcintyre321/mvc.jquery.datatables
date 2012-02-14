@@ -12,14 +12,15 @@ namespace Mvc.JQuery.Datatables
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
                 var parts = new List<string>();
+                var parameters = new List<object>();
                 for (var i = 0; i < dtParameters.iColumns; i++)
                 {
                     if (dtParameters.bSearchable[i])
                     {
-                        parts.Add(GetFilterClause(dtParameters.sSearch, columns[i]));
+                        parts.Add(GetFilterClause(dtParameters.sSearch, columns[i], parameters));
                     }
                 }
-                data = data.Where(string.Join(" or ", parts));
+                data = data.Where(string.Join(" or ", parts), parameters.ToArray());
             }
             for (int i = 0; i < dtParameters.sSearchColumns.Count; i++)
             {
@@ -28,7 +29,8 @@ namespace Mvc.JQuery.Datatables
                     var searchColumn = dtParameters.sSearchColumns[i];
                     if (!string.IsNullOrWhiteSpace(searchColumn))
                     {
-                        data = data.Where(GetFilterClause(dtParameters.sSearchColumns[i], columns[i]));
+                        var parameters = new List<object>();
+                        data = data.Where(GetFilterClause(dtParameters.sSearchColumns[i], columns[i], parameters), parameters.ToArray());
                     }
                 }
             }
@@ -52,7 +54,7 @@ namespace Mvc.JQuery.Datatables
             return data;
         }
 
-        public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType);
+        public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
 
         static string FilterMethod(string q)
         {
@@ -68,18 +70,38 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard<DateTimeOffset>((q, c) => string.Format("{1}.ToString(\"g\").{0}", FilterMethod(q), c)),
+            Guard<DateTimeOffset>(DateFilter),
         };
-        public delegate string GuardedFilter(string query, string columnName);
+
+        private static string DateFilter(string query, string columnname, List<object> parametersForLinqQuery)
+        {
+            if (query.Contains("~"))
+            {
+                var parts = query.Split('~');
+                DateTimeOffset start, end;
+                DateTimeOffset.TryParse(parts[0] ?? "", out start);
+                if (!DateTimeOffset.TryParse(parts[1] ?? "", out end)) end = DateTimeOffset.MaxValue;
+
+                parametersForLinqQuery.Add(start);
+                parametersForLinqQuery.Add(end);
+                return string.Format("{0}.Ticks >= @{1}.Ticks and {0}.Ticks <= @{2}.Ticks", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+            }
+            else
+            {
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query), columnname);
+            }
+        }
+
+        public delegate string GuardedFilter(string query, string columnName, List<object> parametersForLinqQuery);
         static ReturnedFilteredQueryForType Guard<T>(GuardedFilter filter)
         {
-            return (q, c, t) =>
+            return (q, c, t, p) =>
             {
                 if (typeof(T) != t)
                 {
                     return null;
                 }
-                return filter(q, c);
+                return filter(q, c, p);
             };
         }
         public static void RegisterFilter<T>(GuardedFilter filter)
@@ -87,11 +109,11 @@ namespace Mvc.JQuery.Datatables
             Filters.Add(Guard<T>(filter));
         }
 
-        private static string GetFilterClause(string query, Tuple<string, Type> column)
+        private static string GetFilterClause(string query, Tuple<string, Type> column, List<object> parametersForLinqQuery)
         {
             foreach (var filter in Filters)
             {
-                var filteredQuery = filter(query, column.Item1, column.Item2);
+                var filteredQuery = filter(query, column.Item1, column.Item2, parametersForLinqQuery);
                 if (filteredQuery != null)
                 {
                     return filteredQuery;

@@ -44,7 +44,8 @@
             "bProcessing": true,
             "bStateSave": true,
             "bServerSide": true,
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)",
+            "sDom": 'T<"clear">lfrtip',
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\": { \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }," : "")
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',

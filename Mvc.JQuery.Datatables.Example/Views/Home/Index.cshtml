@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "title";
 }
-@Html.DataTableIncludes()
+@Html.DataTableIncludes(jqueryUi:false)
 <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
 <script type="text/javascript">    $.SyntaxHighlighter.init();</script>
 
@@ -53,6 +53,7 @@ can also use
 @using Mvc.JQuery.Datatables.Example.Controllers
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    vm.TableTools = true;
     vm.ColumnFilter = true;
 }
 @Html.Partial("DataTable", vm)

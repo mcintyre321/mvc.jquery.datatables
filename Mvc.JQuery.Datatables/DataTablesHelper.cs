@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -10,13 +11,23 @@ namespace Mvc.JQuery.Datatables
 {
     public static class DataTablesHelper
     {
-        public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool css = true, bool filters = true)
-        {
-            const string cssHtml = @"<link type=""text/css"" href=""/Content/DataTables-1.9.0/media/css/demo_table.css"" rel=""stylesheet""/>";
 
-            const string jsHtml = @"<script src=""/Scripts/DataTables-1.9.0/media/js/jquery.dataTables.js"" type=""text/javascript""></script>";
-            const string filtersHtml = @"<script src=""/Scripts/jquery.dataTables.columnFilter.js"" type=""text/javascript""></script>";
-            return helper.Raw(jsHtml + (filters ? filtersHtml : "") + (css ? cssHtml : ""));
+        public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool jqueryUi = false, bool filters = true, bool tableTools = true)
+        {
+            StringBuilder output = new StringBuilder();
+            Action<string> addJs = s => output.AppendLine(@"<script src=""" + s + @""" type=""text/javascript""></script>");
+            Action<string> addCss = s => output.AppendLine(@"<link type=""text/css"" href=""" + s + @""" rel=""stylesheet""/>");
+
+            addCss("/Content/DataTables-1.9.0/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
+            addJs("/Scripts/DataTables-1.9.0/media/js/jquery.dataTables.js");
+            if (filters) addJs("/Scripts/jquery.dataTables.columnFilter.js");
+            if (tableTools)
+            {
+                addJs("/Scripts/DataTables-1.9.0/extras/TableTools/media/js/ZeroClipboard.js");
+                addJs("/Scripts/DataTables-1.9.0/extras/TableTools/media/js/TableTools.js");
+                addCss("/Content/DataTables-1.9.0/extras/TableTools/media/css/TableTools.css");
+            }
+            return helper.Raw(output.ToString());
 
         }
 

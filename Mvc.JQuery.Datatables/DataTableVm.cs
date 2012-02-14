@@ -19,5 +19,7 @@ namespace Mvc.JQuery.Datatables
         public IEnumerable<Tuple<string, Type>> Columns { get; private set; }
 
         public bool ColumnFilter { get; set; }
+
+        public bool TableTools { get; set; }
     }
 }

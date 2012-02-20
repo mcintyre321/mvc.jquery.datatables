@@ -11,7 +11,7 @@
         return output;
     };   
 }
-<table id="@Model.Id" class="display" >
+<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableVm.DefaultTableClass ?? "")" >
     <thead>
         <tr>
             @foreach (var column in Model.Columns)
@@ -45,6 +45,7 @@
             "bStateSave": true,
             "bServerSide": true,
             "sDom": 'T<"clear">lfrtip',
+            "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
             "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\": { \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }," : "")
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({

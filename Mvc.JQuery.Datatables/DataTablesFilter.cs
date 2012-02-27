@@ -123,7 +123,8 @@ namespace Mvc.JQuery.Datatables
                     return filteredQuery;
                 }
             }
-            return string.Format("{1}.ToString().{0}", FilterMethod(query), column.Item1);
+            var parts = query.Split('~').Select(q => string.Format("{1}.ToString().{0}", FilterMethod(q), column.Item1));
+            return "(" + string.Join(") OR (", parts) + ")";
         }
     }
 }

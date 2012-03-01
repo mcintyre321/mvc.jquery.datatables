@@ -69,6 +69,7 @@ namespace Mvc.JQuery.Datatables
             Guard<IHtmlString>(s => s.ToHtmlString()),
             Guard<object>(o => (o ?? "").ToString())
         };
+
         public delegate object PropertyTransformer(Type type, object value);
         public delegate object GuardedValueTransformer<TVal>(TVal value);
 

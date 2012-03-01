@@ -1,15 +1,7 @@
 ﻿@using Mvc.JQuery.Datatables
 @model DataTableVm
 @{
-    Func<Tuple<string, Type>, string> Filter = c =>
-    {
-        var output = "{type: 'text'}";
-        if (c.Item2 == typeof(DateTimeOffset))
-        {
-            output = "{type: 'date-range'}";
-        }
-        return output;
-    };   
+ 
 }
 <table id="@Model.Id" class="display @(Model.TableClass ?? DataTableVm.DefaultTableClass ?? "")" >
     <thead>
@@ -60,7 +52,7 @@
         if (@Model.ColumnFilter.ToString().ToLower()) {
             dt.columnFilter({
                 sPlaceHolder: "head:before",
-                aoColumns: [@Html.Raw(string.Join(",", Model.Columns.Select(Filter)))]
+                aoColumns: [@Html.Raw(string.Join(",", Model.Columns.Select(c => Model.GetFilterType(c))))]
             });
         }
     });

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables.DynamicLinq;
 
@@ -65,6 +66,7 @@ namespace Mvc.JQuery.Datatables
         {
             Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g")),
             Guard<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g")),
+            Guard<IHtmlString>(s => s.ToHtmlString()),
             Guard<object>(o => (o ?? "").ToString())
         };
         public delegate object PropertyTransformer(Type type, object value);
@@ -74,7 +76,7 @@ namespace Mvc.JQuery.Datatables
         {
             return (t, v) =>
             {
-                if (typeof(TVal) != t)
+                if (!typeof(TVal).IsAssignableFrom(t))
                 {
                     return null;
                 }

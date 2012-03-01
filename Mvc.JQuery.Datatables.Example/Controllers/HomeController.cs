@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
             return DataTablesResult.Create(users, dataTableParam, user => new UserView()
             {
                 Id = user.Id,
-                Name = user.Name,
+                Name = new MvcHtmlString("<b>" + user.Name +"</b>"),
                 Email = user.Email,
                 Position = user.Position == null ? "" : user.Position.ToString(),
                 Hired = user.Hired
@@ -80,7 +80,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
     public class UserView
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public MvcHtmlString Name { get; set; }
 
         public string Email { get; set; }
 

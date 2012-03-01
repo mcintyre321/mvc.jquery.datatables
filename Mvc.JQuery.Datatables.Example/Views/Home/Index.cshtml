@@ -55,6 +55,8 @@ can also use
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
     vm.TableTools = true;
     vm.ColumnFilter = true;
+    vm.FilterOn("Position").Select("Engineer", "Tester", "Manager")
+      .FilterOn("Id").NumberRange();
 }
 @Html.Partial("DataTable", vm)
 

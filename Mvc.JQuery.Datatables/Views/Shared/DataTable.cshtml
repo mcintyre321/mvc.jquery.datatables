@@ -52,7 +52,7 @@
         if (@Model.ColumnFilter.ToString().ToLower()) {
             dt.columnFilter({
                 sPlaceHolder: "head:before",
-                aoColumns: [@Html.Raw(string.Join(",", Model.Columns.Select(c => Model.GetFilterType(c))))]
+                aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
             });
         }
     });

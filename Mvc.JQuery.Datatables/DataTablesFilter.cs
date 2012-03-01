@@ -30,7 +30,8 @@ namespace Mvc.JQuery.Datatables
                     if (!string.IsNullOrWhiteSpace(searchColumn))
                     {
                         var parameters = new List<object>();
-                        data = data.Where(GetFilterClause(dtParameters.sSearchColumns[i], columns[i], parameters), parameters.ToArray());
+                        var filterClause = GetFilterClause(dtParameters.sSearchColumns[i], columns[i], parameters);
+                        data = data.Where(filterClause, parameters.ToArray());
                     }
                 }
             }
@@ -74,10 +75,50 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard<DateTimeOffset>(DateFilter),
+            Guard(Is<DateTime>, DateFilter),
+            Guard(IsNumericType, NumericFilter)
+
         };
 
-        private static string DateFilter(string query, string columnname, List<object> parametersForLinqQuery)
+        private static bool Is<T>(Type arg)
+        {
+            return arg is T;
+        }
+
+        private static string NumericFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        {
+            if (query.Contains("~"))
+            {
+                var parts = query.Split('~');
+                var clause = null as string;
+                try
+                {
+                    parametersForLinqQuery.Add(Convert.ChangeType(parts[0], columnType));
+                    clause = string.Format("{0} >= @{1}", columnname, parametersForLinqQuery.Count - 1);
+                }
+                catch (FormatException)
+                {
+                }
+
+                try
+                {
+                    parametersForLinqQuery.Add(Convert.ChangeType(parts[1], columnType));
+                    if (clause != null) clause += " and ";
+                    clause += string.Format("{0} <= @{1}", columnname, parametersForLinqQuery.Count - 1);
+                }
+                catch (FormatException)
+                {
+                }
+                return clause ?? "true" ;
+
+            }
+            else
+            {
+                return string.Format("{1}.ToString().{0}", FilterMethod(query), columnname);
+            }
+        }
+
+        private static string DateFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
         {
             if (query.Contains("~"))
             {
@@ -96,21 +137,23 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public delegate string GuardedFilter(string query, string columnName, List<object> parametersForLinqQuery);
-        static ReturnedFilteredQueryForType Guard<T>(GuardedFilter filter)
+        public delegate string GuardedFilter(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+
+        static ReturnedFilteredQueryForType Guard(Func<Type, bool> guard, GuardedFilter filter)
         {
             return (q, c, t, p) =>
             {
-                if (typeof(T) != t)
+                if (!guard(t))
                 {
                     return null;
                 }
-                return filter(q, c, p);
+                return filter(q, c, t, p);
             };
         }
+
         public static void RegisterFilter<T>(GuardedFilter filter)
         {
-            Filters.Add(Guard<T>(filter));
+            Filters.Add(Guard(Is<T>, filter));
         }
 
         private static string GetFilterClause(string query, Tuple<string, Type> column, List<object> parametersForLinqQuery)
@@ -126,5 +169,38 @@ namespace Mvc.JQuery.Datatables
             var parts = query.Split('~').Select(q => string.Format("{1}.ToString().{0}", FilterMethod(q), column.Item1));
             return "(" + string.Join(") OR (", parts) + ")";
         }
+
+        public static bool IsNumericType(Type type)
+        {
+            if (type == null || type.IsEnum)
+            {
+                return false;
+            }
+
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Byte:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.SByte:
+                case TypeCode.Single:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                    return true;
+                case TypeCode.Object:
+                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        return IsNumericType(Nullable.GetUnderlyingType(type));
+                    }
+                    return false;
+            }
+            return false;
+
+        }
+
     }
 }

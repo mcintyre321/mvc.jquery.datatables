@@ -35,6 +35,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Name = new MvcHtmlString("<b>" + user.Name +"</b>"),
                 Email = user.Email,
                 Position = user.Position == null ? "" : user.Position.ToString(),
+                Number = user.Number,
                 Hired = user.Hired
             });
         }
@@ -49,6 +50,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         {
             var r = new Random();
             var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
+
             var positions = new List<PositionTypes?> { null, PositionTypes.Engineer, PositionTypes.Tester, PositionTypes.Manager };
             return _users ?? (_users = new List<User>
                 (
@@ -59,6 +61,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                     Email = "user" + i + "@" + domains[i%domains.Length],
                                                     Name = "User" + i,
                                                     Position = positions[i%positions.Count],
+                                                    Number = (Numbers) r.Next(4),
                                                     Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
                                                 })
                 ));
@@ -66,6 +69,14 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         }
     }
 
+    public enum Numbers
+    {
+        Zero,
+        One,
+        Two,
+        Three,
+        Four
+    }
     public class User
     {
         public int Id { get; set; }
@@ -75,6 +86,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public HomeController.PositionTypes? Position { get; set; }
 
         public DateTimeOffset Hired { get; set; }
+
+        public Numbers Number { get; set; }
     }
 
     public class UserView
@@ -85,7 +98,10 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Email { get; set; }
 
         public string Position { get; set; }
-
         public DateTimeOffset Hired { get; set; }
+
+        public Numbers Number { get; set; }
     }
+
+     
 }

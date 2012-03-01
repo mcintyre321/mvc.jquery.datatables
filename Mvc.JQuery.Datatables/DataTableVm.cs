@@ -61,15 +61,60 @@ namespace Mvc.JQuery.Datatables
 
         private static List<Type> DateTypes = new List<Type> { typeof(DateTime), typeof(DateTime?), typeof(DateTimeOffset), typeof(DateTimeOffset?) };
 
-        public DataTableVm NoFilterOn(string name)
+        public class _FilterOn<TTarget>
         {
-            this.FilterTypeRules.Insert(0, (c, t) => c == name ? "null" : null);
-            return this;
+            private readonly TTarget _target;
+            private readonly FilterRuleList _list;
+            private readonly Func<string, Type, bool> _predicate;
+
+            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate)
+            {
+                _target = target;
+                _list = list;
+                _predicate = predicate;
+            }
+
+            public TTarget Select(params string[] options)
+            {
+                AddRule("{type: 'select', values: ['" + string.Join("','", options) + "']}");
+                return _target;
+            }
+            public TTarget NumberRange()
+            {
+                AddRule("{type: 'number-range'}");
+                return _target;
+            }
+
+            public TTarget DateRange()
+            {
+                AddRule("{type: 'date-range'}");
+                return _target;
+            }
+
+            public TTarget Number()
+            {
+                AddRule("{type: 'number'}");
+                return _target;
+            }
+
+            public TTarget None()
+            {
+                AddRule("null");
+                return _target;
+            }
+
+            private void AddRule(string result)
+            {
+                _list.Insert(0, (c, t) => _predicate(c, t) ? result : null);
+            }
         }
-        public DataTableVm NoFilterOn<T>()
+        public _FilterOn<DataTableVm> FilterOn<T>()
         {
-            this.FilterTypeRules.Insert(0, (c, t) => t == typeof(T) ? "null" : null);
-            return this;
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T));
+        }
+        public _FilterOn<DataTableVm> FilterOn(string columnName)
+        {
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName);
         }
 
     }

@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-overrides.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
@@ -151,6 +153,8 @@
     <Content Include="Content\DataTables-1.9.0\media\images\sort_both.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\Aristo\images\bg_fallback.png" />
     <Content Include="Content\themes\Aristo\images\icon_sprite.png" />
     <Content Include="Content\themes\Aristo\images\progress_bar.gif" />
@@ -216,14 +220,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap-alerts.js" />
-    <Content Include="Scripts\bootstrap-buttons.js" />
-    <Content Include="Scripts\bootstrap-dropdown.js" />
-    <Content Include="Scripts\bootstrap-modal.js" />
-    <Content Include="Scripts\bootstrap-popover.js" />
-    <Content Include="Scripts\bootstrap-scrollspy.js" />
-    <Content Include="Scripts\bootstrap-tabs.js" />
-    <Content Include="Scripts\bootstrap-twipsy.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\shBrushJScript.js" />

@@ -26,22 +26,16 @@ namespace Mvc.JQuery.Datatables
 
         public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
         {
-            try
-            {
-                queryable = ((IEnumerable)queryable).AsQueryable();
-                var s = "Create";
+            queryable = ((IEnumerable) queryable).AsQueryable();
+            var s = "Create";
 
-                var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
-                var queryableType = queryable.GetType().GetGenericArguments()[0];
-                var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-                return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Was the object passed in a Something<T>?", ex);
-            }
+            var openCreateMethod =
+                typeof (DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
+            var queryableType = queryable.GetType().GetGenericArguments()[0];
+            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+            return (DataTablesResult) closedCreateMethod.Invoke(null, new[] {queryable, dataTableParam});
         }
-         
+
     }
     public class DataTablesResult<T> : DataTablesResult
     {

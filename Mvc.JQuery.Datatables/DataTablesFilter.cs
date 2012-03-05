@@ -75,7 +75,7 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard(Is<DateTime>, DateFilter),
+            Guard(IsDateType, DateFilter),
             Guard(IsNumericType, NumericFilter)
 
         };
@@ -114,7 +114,7 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("{1}.ToString().{0}", FilterMethod(query), columnname);
+                return string.Format("({1} as object ?? \"\").ToString().{0}", FilterMethod(query), columnname);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Mvc.JQuery.Datatables
                     return filteredQuery;
                 }
             }
-            var parts = query.Split('~').Select(q => string.Format("{1}.ToString().{0}", FilterMethod(q), column.Item1));
+            var parts = query.Split('~').Select(q => string.Format("({1} == null ? \"\" : {1}).ToString().{0}", FilterMethod(q), column.Item1));
             return "(" + string.Join(") OR (", parts) + ")";
         }
 
@@ -200,6 +200,10 @@ namespace Mvc.JQuery.Datatables
             }
             return false;
 
+        }
+        public static bool IsDateType(Type type)
+        {
+            return type == typeof(DateTime) || type == typeof(DateTimeOffset) || type == typeof(DateTime?) || type == typeof(DateTimeOffset?);
         }
 
     }

@@ -59,7 +59,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                 {
                                                     Id = i,
                                                     Email = "user" + i + "@" + domains[i%domains.Length],
-                                                    Name = "User" + i,
+                                                    Name = r.Next(6) == 3 ? null : "User" + i,
                                                     Position = positions[i%positions.Count],
                                                     Number = (Numbers) r.Next(4),
                                                     Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())

@@ -1,17 +1,9 @@
 ﻿@using Mvc.JQuery.Datatables
 @model DataTableVm
 @{
-    Func<Tuple<string, Type>, string> Filter = c =>
-    {
-        var output = "{type: 'text'}";
-        if (c.Item2 == typeof(DateTimeOffset))
-        {
-            output = "{type: 'date-range'}";
-        }
-        return output;
-    };   
+ 
 }
-<table id="@Model.Id" class="display" >
+<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableVm.DefaultTableClass ?? "")" >
     <thead>
         <tr>
             @foreach (var column in Model.Columns)
@@ -44,7 +36,10 @@
             "bProcessing": true,
             "bStateSave": true,
             "bServerSide": true,
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)",
+            "sDom": 'T<"clear">lfrtip',
+            "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\": { \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }," : "")
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',
@@ -58,14 +53,8 @@
         if (@Model.ColumnFilter.ToString().ToLower()) {
             dt.columnFilter({
                 sPlaceHolder: "head:before",
-                aoColumns: [@Html.Raw(string.Join(",", Model.Columns.Select(Filter)))]
+                aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
             });
         }
     });
 </script>
-@*                    {type: "number" },
-                    {type: "text", bRegex: true, bSmart: true},
-                    null,
-                    {type: "select", values: [ 'A', 'B', 'C' ] },
-                    {type: "number-range"},
-                    {type: "date-range"}*@

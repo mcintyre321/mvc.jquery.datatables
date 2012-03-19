@@ -114,7 +114,7 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("({1} as object ?? \"\").ToString().{0}", FilterMethod(query), columnname);
+                return string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(query), columnname);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Mvc.JQuery.Datatables
                     return filteredQuery;
                 }
             }
-            var parts = query.Split('~').Select(q => string.Format("({1} == null ? \"\" : {1}).ToString().{0}", FilterMethod(q), column.Item1));
+            var parts = query.Split('~').Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(q), column.Item1));
             return "(" + string.Join(") OR (", parts) + ")";
         }
 

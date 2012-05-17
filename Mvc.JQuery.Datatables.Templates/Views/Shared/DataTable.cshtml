@@ -36,10 +36,11 @@
             "bProcessing": true,
             "bStateSave": true,
             "bServerSide": true,
-            "sDom": 'T<"clear">lfrtip',
+            "bFilter": @Model.ShowSearch.ToString().ToLower(),
+            @Html.Raw(Model.TableTools ? "\"sDom\": 'T<\"clear\">lfrtip'," : "")
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\": { \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }," : "")
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", "oTableTools": @Html.Raw(Model.TableTools ? "{ \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }" : "null"),
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',
@@ -50,11 +51,14 @@
                 });
             }
         });
-        if (@Model.ColumnFilter.ToString().ToLower()) {
+        @if (Model.ColumnFilter)
+        {
+<text>
             dt.columnFilter({
                 sPlaceHolder: "head:before",
                 aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
             });
+</text>
         }
     });
 </script>

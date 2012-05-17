@@ -21,7 +21,10 @@ namespace Mvc.JQuery.Datatables
             this.Columns = columns;
             FilterTypeRules = new FilterRuleList();
             FilterTypeRules.AddRange(StaticFilterTypeRules);
+            this.ShowSearch = true;
         }
+
+        public bool ShowSearch { get; set; }
 
         public string Id { get; private set; }
 

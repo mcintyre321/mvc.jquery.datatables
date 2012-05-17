@@ -1,0 +1,5 @@
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Templates\bin\AutoTest.Net\_tmpIntermediateAT\ResolveAssemblyReference.cache
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Templates\bin\AutoTest.Net\_tmpIntermediateAT\Mvc.JQuery.Datatables.Templates.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Templates\bin\AutoTest.Net\_tmpIntermediateAT\Mvc.JQuery.Datatables.Templates.pdb
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Templates\bin\AutoTest.Net\Mvc.JQuery.Datatables.Templates.dll
+D:\projects\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.Templates\bin\AutoTest.Net\Mvc.JQuery.Datatables.Templates.pdb

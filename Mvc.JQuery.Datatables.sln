@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables", "Mv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Example", "Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj", "{476D3266-8699-4E89-A528-646C1235EEB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Templates", "Mvc.JQuery.Datatables.Templates\Mvc.JQuery.Datatables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{476D3266-8699-4E89-A528-646C1235EEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{476D3266-8699-4E89-A528-646C1235EEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{476D3266-8699-4E89-A528-646C1235EEB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,10 +37,10 @@
             "bStateSave": true,
             "bServerSide": true,
             "bFilter": @Model.ShowSearch.ToString().ToLower(),
-            @Html.Raw(Model.TableTools ? "\"sDom\": 'T<\"clear\">lfrtip'," : "")
+            "sDom": '@Html.Raw(Model.Dom)',
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", "oTableTools": @Html.Raw(Model.TableTools ? "{ \"sSwfPath\": \"/content/DataTables-1.9.0/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }" : "null"),
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables-1.9.1/extras/TableTools/media/swf/copy_cvs_xls_pdf.swf\" }," : "")
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',

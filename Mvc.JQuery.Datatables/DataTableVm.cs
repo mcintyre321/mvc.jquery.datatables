@@ -22,6 +22,8 @@ namespace Mvc.JQuery.Datatables
             FilterTypeRules = new FilterRuleList();
             FilterTypeRules.AddRange(StaticFilterTypeRules);
             this.ShowSearch = true;
+            this.ShowPageSizes = true;
+            this.TableTools = true;
         }
 
         public bool ShowSearch { get; set; }
@@ -42,6 +44,20 @@ namespace Mvc.JQuery.Datatables
         {
             get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item2))); }
         }
+
+        public string Dom
+        {
+            get { 
+                var sdom = "";
+                if (TableTools) sdom += "T<\"clear\">";
+                if (ShowPageSizes) sdom += "l";
+                if (ShowSearch) sdom += "f";
+                sdom += "tipr";
+                return sdom;
+            }
+        }
+
+        public bool ShowPageSizes { get; set; }
 
 
         public string GetFilterType(string columnName, Type type)

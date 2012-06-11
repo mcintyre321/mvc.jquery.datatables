@@ -36,7 +36,34 @@ namespace Mvc.JQuery.Datatables
             return (DataTablesResult) closedCreateMethod.Invoke(null, new[] {queryable, dataTableParam});
         }
 
+		/// <summary>
+		/// Creates a DataTables result from a pre-filtered collection of items.
+		/// </summary>
+		/// <typeparam name="T">Type of items to return</typeparam>
+		/// <param name="q">Enumerable collection of pre-filtered items</param>
+		/// <param name="dataTableParam">Request parameters</param>
+		/// <param name="totalRecords">Total number of records before filtering</param>
+		/// <param name="totalDisplayRecords">Total number of records after filtering</param>
+		/// <returns>DataTablesResult</returns>
+		public static DataTablesResult<T> CreatePreFiltered<T>(IEnumerable<T> q, DataTablesParam dataTableParam, int totalRecords = 0, int totalDisplayRecords = 0) {
+			// reset filters
+			dataTableParam.sSearch = String.Empty;
+			dataTableParam.iSortingCols = 0;
+			dataTableParam.iDisplayStart = 0;
+			dataTableParam.iDisplayLength = -1;
+
+			var dtr = CreateResultUsingEnumerable(q.AsQueryable(), dataTableParam);
+			var dtd = dtr.Data as DataTablesData;
+
+			if (totalRecords > 0)
+				dtd.iTotalRecords = totalRecords;
+			if (totalDisplayRecords > 0)
+				dtd.iTotalDisplayRecords = totalDisplayRecords;
+
+			return dtr;
+		}
     }
+
     public class DataTablesResult<T> : DataTablesResult
     {
         

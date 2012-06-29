@@ -1,6 +1,7 @@
 bin/debug*.dll
 bin/release*.dll
 obj
+bin/
 deploy
 deploy/*
 _ReSharper.*
@@ -16,8 +17,3 @@ LPRun.5.1.ReSharper.user
 LPRun.5.1.ReSharper.user
 LPRun.suo
 LPRun.5.1.ReSharper.user
-/Mvc.JQuery.Datatables/bin
-/Mvc.JQuery.Datatables.Example/bin
-/Mvc.JQuery.Datatables/bin
-/Mvc.JQuery.Datatables.Example/bin
-/Mvc.JQuery.Datatables/bin

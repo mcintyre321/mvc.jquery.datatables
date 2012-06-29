@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Mvc.JQuery.Datatables.Templates")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Install this project to customise the cshtml templates, or if you don't want to use the EmbeddedResourceVirtualPathProvider ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("Mvc.JQuery.Datatables.Templates")]

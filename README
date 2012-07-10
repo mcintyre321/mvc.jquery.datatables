@@ -1,0 +1,5 @@
+ASP MVC Helpers for working with the amazing Jquery DataTables plugin. See http://mvcjquerydatatables.apphb.com/ for an example
+
+http://nuget.org/packages/Mvc.JQuery.Datatables
+
+The code here is based on code from http://code.google.com/p/datatables-asp-mvc/

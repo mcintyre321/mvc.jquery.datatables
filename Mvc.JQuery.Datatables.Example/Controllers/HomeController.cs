@@ -65,7 +65,6 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                     Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
                                                 })
                 ));
-            return _users;
         }
     }
 

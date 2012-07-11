@@ -49,7 +49,7 @@ namespace Mvc.JQuery.Datatables
         {
 
             _transform = transform;
-            var properties = typeof(T).GetProperties();
+            var properties = typeof(TRes).GetProperties();
 
             var content = GetResults(q, dataTableParam, properties.Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray());
             this.Data = content;
@@ -82,20 +82,20 @@ namespace Mvc.JQuery.Datatables
         {
             PropertyTransformers.Add(Guard<TVal>(filter));
         }
-        private DataTablesData GetResults(IQueryable q, DataTablesParam param, Tuple<string, Type>[] searchColumns)
+        private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, Type>[] searchColumns)
         {
 
-            int totalRecords = q.Count();
+            int totalRecords = data.Count();
 
-            var data = q;
 
             int totalRecordsDisplay;
 
             DataTablesFilter filters = new DataTablesFilter();
 
 
-            data = filters.FilterPagingSortingSearch(param, data, out totalRecordsDisplay, searchColumns);
-            var dataArray = data.Cast<T>().ToArray().AsQueryable().Select(_transform).Cast<object>();
+            var dataArray = data.Cast<T>().ToArray().AsQueryable().Select(_transform).Cast<TRes>().AsQueryable();
+            dataArray = filters.FilterPagingSortingSearch(param, dataArray, out totalRecordsDisplay, searchColumns).Cast<TRes>();
+            
             var type = typeof(TRes);
             var properties = type.GetProperties();
 

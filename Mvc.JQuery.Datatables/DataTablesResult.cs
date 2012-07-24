@@ -93,7 +93,7 @@ namespace Mvc.JQuery.Datatables
             var filters = new DataTablesFilter();
 
 
-            var dataArray = data.Cast<T>().Select(_transform).AsQueryable();
+            var dataArray = data.Select(_transform).AsQueryable();
             dataArray = filters.FilterPagingSortingSearch(param, dataArray, out totalRecordsDisplay, searchColumns).Cast<TRes>();
             
             var type = typeof(TRes);

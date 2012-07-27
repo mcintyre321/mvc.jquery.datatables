@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using System.Web.WebPages;
-using RazorGenerator.Mvc;
+
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof($rootnamespace$.App_Start.RegisterDatatablesModelBinder), "Start")]
 

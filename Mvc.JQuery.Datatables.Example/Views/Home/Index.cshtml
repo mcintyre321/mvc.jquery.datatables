@@ -13,9 +13,9 @@ Nuget install-package Mvc.JQuery.Datatables
     In the controller:
 </p>
 <pre class="highlight">
-public IDataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
+public DataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
 {
-    var users = new List&lt;User>
+    var users = new List&lt;User&gt;
     (
         Enumerable.Range(1, 100).Select(i => new User(){Id = i, Email = "user" + i + "@@gmail.com", Name = "User" + i})
     ).AsQueryable();

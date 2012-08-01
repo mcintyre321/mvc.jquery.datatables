@@ -15,17 +15,17 @@ namespace Mvc.JQuery.Datatables
         public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool jqueryUi = false, bool filters = true, bool tableTools = true)
         {
             StringBuilder output = new StringBuilder();
-            Action<string> addJs = s => output.AppendLine(@"<script src=""" + s + @""" type=""text/javascript""></script>");
-            Action<string> addCss = s => output.AppendLine(@"<link type=""text/css"" href=""" + s + @""" rel=""stylesheet""/>");
+            Action<string> addJs = s => output.AppendLine(@"<script src=""" + UrlHelper.GenerateContentUrl(s, helper.ViewContext.HttpContext) + @""" type=""text/javascript""></script>");
+            Action<string> addCss = s => output.AppendLine(@"<link type=""text/css"" href=""" + UrlHelper.GenerateContentUrl(s, helper.ViewContext.HttpContext) + @""" rel=""stylesheet""/>");
 
-            addCss("/Content/DataTables-1.9.2/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
-            addJs("/Scripts/DataTables-1.9.2/media/js/jquery.dataTables.js");
-            if (filters) addJs("/Scripts/jquery.dataTables.columnFilter.js");
+            addCss("~/Content/DataTables-1.9.2/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
+            addJs("~/Scripts/DataTables-1.9.2/media/js/jquery.dataTables.js");
+            if (filters) addJs("~/Scripts/jquery.dataTables.columnFilter.js");
             if (tableTools)
             {
-                addJs("/Scripts/DataTables-1.9.2/extras/TableTools/media/js/ZeroClipboard.js");
-                addJs("/Scripts/DataTables-1.9.2/extras/TableTools/media/js/TableTools.js");
-                addCss("/Content/DataTables-1.9.2/extras/TableTools/media/css/TableTools.css");
+                addJs("~/Scripts/DataTables-1.9.2/extras/TableTools/media/js/ZeroClipboard.js");
+                addJs("~/Scripts/DataTables-1.9.2/extras/TableTools/media/js/TableTools.js");
+                addCss("~/Content/DataTables-1.9.2/extras/TableTools/media/css/TableTools.css");
             }
             return helper.Raw(output.ToString());
 

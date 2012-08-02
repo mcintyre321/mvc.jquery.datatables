@@ -41,6 +41,7 @@
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
             "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables-1.9.1/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
+            "aoColumnDefs": @Html.Raw(Model.ColumnDefs),
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',
@@ -51,6 +52,7 @@
                 });
             }
         });
+
         @if (Model.ColumnFilter)
         {
 <text>

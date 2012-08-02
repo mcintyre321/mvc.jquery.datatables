@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables", "Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj", "{389ADE94-7C32-4885-812E-68A2A74C82D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Example", "Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj", "{476D3266-8699-4E89-A528-646C1235EEB1}"

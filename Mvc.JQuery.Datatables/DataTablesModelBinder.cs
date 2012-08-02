@@ -29,6 +29,9 @@ namespace Mvc.JQuery.Datatables
                 obj.bEscapeRegexColumns.Add(Convert.ToBoolean(request["bEscapeRegex_" + i]));
                 obj.iSortCol.Add(Convert.ToInt32(request["iSortCol_" + i]));
                 obj.sSortDir.Add(request["sSortDir_" + i]);
+                obj.sName.Add(request["sName_" + i]);
+                obj.sTitle.Add(request["sTitle_" + i]);
+                obj.bVisible.Add(Convert.ToBoolean(request["bVisible_" + i]));
             }
             return obj;            
         }

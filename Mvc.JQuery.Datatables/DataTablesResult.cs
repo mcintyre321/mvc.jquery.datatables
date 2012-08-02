@@ -49,9 +49,9 @@ namespace Mvc.JQuery.Datatables
         {
 
             _transform = transform;
-            var properties = typeof(TRes).GetProperties();
 
-            var content = GetResults(q, dataTableParam, properties.Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray());
+            var columns = DataTablesHelper.BuildColumns<TRes>();
+            var content = GetResults(q, dataTableParam, columns);
             this.Data = content;
             this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
         }
@@ -82,7 +82,7 @@ namespace Mvc.JQuery.Datatables
         {
             PropertyTransformers.Add(Guard<TVal>(filter));
         }
-        private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, Type>[] searchColumns)
+        private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, DataTablesColumn>[] searchColumns)
         {
 
             int totalRecords = data.Count();

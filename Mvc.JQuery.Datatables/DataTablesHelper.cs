@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -31,11 +33,11 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, Type>[] columns)
+        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, DataTablesColumn>[] columns)
         {
             if (columns == null || columns.Length == 0)
             {
-                columns = typeof(TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray();
+                columns = BuildColumns<TResult>();
             }
 
             var mi = exp.MethodInfo();
@@ -46,9 +48,38 @@ namespace Mvc.JQuery.Datatables
             return new DataTableVm(id, ajaxUrl, columns);
         }
 
+        public static Tuple<string, DataTablesColumn>[] BuildColumns<TResult>()
+        {
+            var props =
+                typeof (TResult).GetProperties()
+                    .Where(p => p.GetGetMethod() != null)
+                    .Select(p => p);
+            var propCount = props.Count();
+            var columns = new Tuple<string, DataTablesColumn>[propCount];
+
+            for (int i = 0; i < propCount; i++)
+            {
+                var prop = props.ElementAt(i);
+                var col = new DataTablesColumn {Type = prop.PropertyType, Name = prop.Name, Visible = true};
+
+                var displayNameAttribute = prop.GetCustomAttributes(typeof (DisplayNameAttribute), false);
+                col.Title = displayNameAttribute.Length > 0
+                                ? ((DisplayNameAttribute) displayNameAttribute[0]).DisplayName
+                                : prop.Name;
+
+                var scaffoldColumnAttribute = prop.GetCustomAttributes(typeof (ScaffoldColumnAttribute), false);
+                if (scaffoldColumnAttribute.Length > 0)
+                    col.Visible = ((ScaffoldColumnAttribute) scaffoldColumnAttribute[0]).Scaffold;
+
+                columns[i] = Tuple.Create(prop.Name, col);
+            }
+
+            return columns;
+        }
+
         public static DataTableVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, typeof(string))));
+            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, new DataTablesColumn { Type = typeof(string), Name = c, Title = c, Visible = true})));
         }
     }
 }

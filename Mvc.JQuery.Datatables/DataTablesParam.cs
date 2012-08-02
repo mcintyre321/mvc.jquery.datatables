@@ -21,6 +21,9 @@ namespace Mvc.JQuery.Datatables
         public List<int> iSortCol { get; set; }
         public List<string> sSortDir { get; set; }
         public List<bool> bEscapeRegexColumns { get; set; }
+        public List<string> sName { get; set; }
+        public List<string> sTitle { get; set; }
+        public List<bool> bVisible { get; set; }
 
         public DataTablesParam()
         {
@@ -30,6 +33,9 @@ namespace Mvc.JQuery.Datatables
             iSortCol = new List<int>();
             sSortDir = new List<string>();
             bEscapeRegexColumns = new List<bool>();
+            sName = new List<string>();
+            sTitle = new List<string>();
+            bVisible = new List<bool>();
         }
     }
     //public enum DataType

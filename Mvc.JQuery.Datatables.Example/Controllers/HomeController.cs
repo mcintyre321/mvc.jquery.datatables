@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -91,7 +93,9 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
     public class UserView
     {
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
+        [DisplayName("UserName")]
         public MvcHtmlString Name { get; set; }
 
         public string Email { get; set; }

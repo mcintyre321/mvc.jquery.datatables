@@ -14,7 +14,7 @@ namespace Mvc.JQuery.Datatables
         public static string DefaultTableClass { get; set; }
         public string TableClass { get; set; }
 
-        public DataTableVm(string id, string ajaxUrl, IEnumerable<Tuple<string, Type>> columns)
+        public DataTableVm(string id, string ajaxUrl, IEnumerable<Tuple<string, DataTablesColumn>> columns)
         {
             AjaxUrl = ajaxUrl;
             this.Id = id;
@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables
 
         public string AjaxUrl { get; private set; }
 
-        public IEnumerable<Tuple<string, Type>> Columns { get; private set; }
+        public IEnumerable<Tuple<string, DataTablesColumn>> Columns { get; private set; }
 
         public bool ColumnFilter { get; set; }
 
@@ -42,7 +42,25 @@ namespace Mvc.JQuery.Datatables
 
         public string ColumnFiltersString
         {
-            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item2))); }
+            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item2.Type))); }
+        }
+
+        public string ColumnDefs
+        {
+            get
+            {
+                string s = "[";
+                for (int i = 0; i < Columns.Count(); i++ )
+                {
+                    var col = Columns.ElementAt(i);
+                    s += string.Format("{{ \"sName\": \"{0}\", \"sTitle\": \"{1}\", \"bVisible\": {2}, \"aTargets\": [{3}]}}", col.Item1, col.Item2.Title, col.Item2.Visible.ToString().ToLowerInvariant(), i);
+                    if (i < Columns.Count() - 1)
+                        s += ", ";
+                }
+
+                s += "]";
+                return s;
+            }
         }
 
         public string Dom

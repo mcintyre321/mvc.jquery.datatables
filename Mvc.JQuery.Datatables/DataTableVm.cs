@@ -116,6 +116,12 @@ namespace Mvc.JQuery.Datatables
                 return _target;
             }
 
+            public TTarget CheckBoxes(params string[] options)
+            {
+                AddRule("{type: 'checkbox', values: ['" + string.Join("','", options) + "']}");
+                return _target;
+            }
+
             public TTarget None()
             {
                 AddRule("null");
@@ -137,6 +143,7 @@ namespace Mvc.JQuery.Datatables
         }
 
     }
+
     public class FilterRuleList : List<Func<string, Type, string>>
     {
        

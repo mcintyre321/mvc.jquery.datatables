@@ -53,8 +53,10 @@ can also use
 @using Mvc.JQuery.Datatables.Example.Controllers
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    vm.ColumnFilter = true;
     vm.FilterOn("Position").Select("Engineer", "Tester", "Manager")
-      .FilterOn("Id").NumberRange();
+      .FilterOn("Id").NumberRange()
+      .FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
 }
 @Html.Partial("DataTable", vm)
 

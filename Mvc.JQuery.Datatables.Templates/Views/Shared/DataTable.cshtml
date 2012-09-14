@@ -40,7 +40,7 @@
             "sDom": '@Html.Raw(Model.Dom)',
             "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables-1.9.1/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
+            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',

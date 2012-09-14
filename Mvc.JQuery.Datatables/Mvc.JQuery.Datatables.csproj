@@ -160,6 +160,41 @@
       <Link>Content\jquery.dataTables.columnFilter.js</Link>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\back_disabled.png">
+      <Link>Content\DataTables\media\img\back_disabled.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\back_enabled.png">
+      <Link>Content\DataTables\media\img\back_enabled.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\back_enabled_hover.png">
+      <Link>Content\DataTables\media\img\back_enabled_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\forward_disabled.png">
+      <Link>Content\DataTables\media\img\forward_disabled.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\forward_enabled.png">
+      <Link>Content\DataTables\media\img\forward_enabled.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\forward_enabled_hover.png">
+      <Link>Content\DataTables\media\img\forward_enabled_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\sort_asc.png">
+      <Link>Content\DataTables\media\img\sort_asc.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\sort_asc_disabled.png">
+      <Link>Content\DataTables\media\img\sort_asc_disabled.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\sort_both.png">
+      <Link>Content\DataTables\media\img\sort_both.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\sort_desc.png">
+      <Link>Content\DataTables\media\img\sort_desc.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\images\sort_desc_disabled.png">
+      <Link>Content\DataTables\media\img\sort_desc_disabled.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

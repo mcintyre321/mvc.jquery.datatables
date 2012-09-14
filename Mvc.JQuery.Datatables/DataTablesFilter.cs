@@ -166,7 +166,7 @@ namespace Mvc.JQuery.Datatables
                     return filteredQuery;
                 }
             }
-            var parts = query.Split('~').Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(q), column.Item1));
+            var parts = query.Split('~').SelectMany(s => s.Split('|')).Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(q), column.Item1));
             return "(" + string.Join(") OR (", parts) + ")";
         }
 

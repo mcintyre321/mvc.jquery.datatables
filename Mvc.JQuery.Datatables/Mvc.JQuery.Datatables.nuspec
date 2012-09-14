@@ -13,6 +13,6 @@
 		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
 	<files>
-		<file src="\App_Start\*.pp" target="content\App_Start" />
+		<file src=".\App_Start\*.pp" target="content\App_Start" />
 	</files>
 </package>

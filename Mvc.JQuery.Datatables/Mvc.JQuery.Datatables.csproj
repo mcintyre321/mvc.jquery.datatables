@@ -68,63 +68,97 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\js\AutoFill.min.js.gz" />
-    <None Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\js\ColReorder.min.js.gz" />
-    <None Include="Scripts\DataTables-1.9.1\extras\ColVis\media\js\ColVis.min.js.gz" />
-    <None Include="Scripts\DataTables-1.9.1\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
-    <None Include="Scripts\DataTables-1.9.1\extras\Scroller\media\js\Scroller.min.js.gz" />
-    <None Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\TableTools.min.js.gz" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Scripts\jquery.dataTables.columnFilter.js">
-      <Link>Scripts\jquery.dataTables.columnFilter.js</Link>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\css\jquery.dataTables.css">
+      <Link>Content\DataTables\media\css\jquery.dataTables.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\css\jquery.dataTables_themeroller.css">
+      <Link>Content\DataTables\media\css\jquery.dataTables_themeroller.css</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\js\AutoFill.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\js\AutoFill.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\js\ColReorder.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\js\ColReorder.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\js\ColVis.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\js\ColVis.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\media\js\FixedColumns.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\media\js\FixedColumns.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\js\Scroller.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\js\Scroller.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\TableTools.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\TableTools.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\ZeroClipboard.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.js" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\css\TableTools.css">
+      <Link>Content\DataTables\extras\TableTools\media\css\TableTools.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\css\TableTools_JUI.css">
+      <Link>Content\DataTables\extras\TableTools\media\css\TableTools_JUI.css</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\background.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\background.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\collection.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\collection.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\collection_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\collection_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\copy.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\copy.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\copy_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\copy_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\csv.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\csv.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\csv_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\csv_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\pdf.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\pdf.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\pdf_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\pdf_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\print.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\print.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\print_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\print_hover.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\xls.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\xls.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\images\xls_hover.png">
+      <Link>Content\DataTables\extras\TableTools\media\images\xls_hover.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\js\TableTools.js">
+      <Link>Content\DataTables\extras\TableTools\media\js\TableTools.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\js\TableTools.min.js">
+      <Link>Content\DataTables\extras\TableTools\media\js\TableTools.min.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\js\ZeroClipboard.js">
+      <Link>Content\DataTables\extras\TableTools\media\js\ZeroClipboard.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\swf\copy_csv_xls.swf">
+      <Link>Content\DataTables\extras\TableTools\media\swf\copy_csv_xls.swf</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\extras\TableTools\media\swf\copy_csv_xls_pdf.swf">
+      <Link>Content\DataTables\extras\TableTools\media\swf\copy_csv_xls_pdf.swf</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\js\jquery.dataTables.js">
+      <Link>Content\DataTables\media\js\jquery.dataTables.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\DataTables\media\js\jquery.dataTables.min.js">
+      <Link>Content\DataTables\media\js\jquery.dataTables.min.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery.dataTables.columnFilter.js">
+      <Link>Content\jquery.dataTables.columnFilter.js</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

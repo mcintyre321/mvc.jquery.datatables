@@ -18,14 +18,14 @@ namespace Mvc.JQuery.Datatables
             Action<string> addJs = s => output.AppendLine(@"<script src=""" + s + @""" type=""text/javascript""></script>");
             Action<string> addCss = s => output.AppendLine(@"<link type=""text/css"" href=""" + s + @""" rel=""stylesheet""/>");
 
-            addCss("/Content/DataTables-1.9.2/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
-            addJs("/Scripts/DataTables-1.9.2/media/js/jquery.dataTables.js");
-            if (filters) addJs("/Scripts/jquery.dataTables.columnFilter.js");
+            addCss("/Content/DataTables/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
+            addJs("/Content/DataTables/media/js/jquery.dataTables.js");
+            if (filters) addJs("/Content/jquery.dataTables.columnFilter.js");
             if (tableTools)
             {
-                addJs("/Scripts/DataTables-1.9.2/extras/TableTools/media/js/ZeroClipboard.js");
-                addJs("/Scripts/DataTables-1.9.2/extras/TableTools/media/js/TableTools.js");
-                addCss("/Content/DataTables-1.9.2/extras/TableTools/media/css/TableTools.css");
+                addJs("/Content/DataTables/extras/TableTools/media/js/ZeroClipboard.js");
+                addJs("/Content/DataTables/extras/TableTools/media/js/TableTools.js");
+                addCss("/Content/DataTables/extras/TableTools/media/css/TableTools.css");
             }
             return helper.Raw(output.ToString());
 

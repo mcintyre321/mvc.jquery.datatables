@@ -14,7 +14,7 @@ namespace Mvc.JQuery.Datatables
         public static string DefaultTableClass { get; set; }
         public string TableClass { get; set; }
 
-        public DataTableVm(string id, string ajaxUrl, IEnumerable<Tuple<string, Type>> columns)
+        public DataTableVm(string id, string ajaxUrl, IEnumerable<Tuple<string, string, Type>> columns)
         {
             AjaxUrl = ajaxUrl;
             this.Id = id;
@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables
 
         public string AjaxUrl { get; private set; }
 
-        public IEnumerable<Tuple<string, Type>> Columns { get; private set; }
+        public IEnumerable<Tuple<string, string, Type>> Columns { get; private set; }
 
         public bool ColumnFilter { get; set; }
 
@@ -42,7 +42,7 @@ namespace Mvc.JQuery.Datatables
 
         public string ColumnFiltersString
         {
-            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item2))); }
+            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item3))); }
         }
 
         public string Dom

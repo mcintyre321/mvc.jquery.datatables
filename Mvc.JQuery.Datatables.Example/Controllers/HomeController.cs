@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -39,6 +40,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Hired = user.Hired
             });
         }
+
         public DataTablesResult GetUsersUntyped(DataTablesParam dataTableParam)
         {
             var users = Users();
@@ -79,6 +81,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
     public class User
     {
         public int Id { get; set; }
+        
         public string Name { get; set; }
         public string Email { get; set; }
 
@@ -92,6 +95,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
     public class UserView
     {
         public int Id { get; set; }
+
+        [DisplayName("Full Name")]
         public MvcHtmlString Name { get; set; }
 
         public string Email { get; set; }

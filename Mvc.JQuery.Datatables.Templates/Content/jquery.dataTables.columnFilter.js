@@ -418,6 +418,8 @@
             //r+= '<div align="center" style="margin-top: 5px; "> <button id="'+buttonId+'Reset" class="checkbox_filter" > reset </button> </div>'; //reset button and its div
             r += divRowDef;
 
+            var storedValues = oTable.fnSettings().aoPreSearchCols[i].sSearch;
+            var previousValues = storedValues ? storedValues.split("|") : [];
             for (j = 0; j < iLen; j++) {
 
                 //if last check close div
@@ -425,8 +427,9 @@
                     r += divClose + divRowDef;
                 }
 
+                var checked = $.inArray(aData[j], previousValues) > -1;
                 //check button
-                r += '<input class="search_init checkbox_filter" type="checkbox" id= "' + aData[j] + '" name= "' + localLabel + '" value="' + aData[j] + '" >' + aData[j] + '<br/>';
+                r += '<input class="search_init checkbox_filter" type="checkbox" id= "' + aData[j] + '" name= "' + localLabel + '" value="' + aData[j] + '" ' + (checked ? 'checked="checked"' : '') + '>' + aData[j] + '<br/>';
 
                 var checkbox = $(r);
                 th.html(checkbox);

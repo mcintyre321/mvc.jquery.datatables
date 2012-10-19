@@ -33,23 +33,22 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, string, Type>[] columns)
+        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, IEnumerable<ColDef> columns = null)
         {
-            if (columns == null || columns.Length == 0)
+            if (columns == null || !columns.Any())
             {
                 var propInfos = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).ToList();
-                var columnList = new List<Tuple<string, string, Type>>();
+                var columnList = new List<ColDef>();
                 foreach (var propertyInfo in propInfos)
                 {
-                    var displayNamettribute = (DisplayNameAttribute)propertyInfo.GetCustomAttributes(typeof (DisplayNameAttribute), false).FirstOrDefault();
-                    if(displayNamettribute != null)
+                    var displayNameAttribute = (DisplayNameAttribute) propertyInfo.GetCustomAttributes(typeof (DisplayNameAttribute), false).FirstOrDefault();
+                    var displayName = displayNameAttribute == null ? propertyInfo.Name : displayNameAttribute.DisplayName;
+                    columnList.Add(new ColDef()
                     {
-                        columnList.Add(Tuple.Create(propertyInfo.Name, displayNamettribute.DisplayName, propertyInfo.PropertyType));
-                    }
-                    else
-                    {
-                        columnList.Add(Tuple.Create(propertyInfo.Name, propertyInfo.Name, propertyInfo.PropertyType));
-                    }
+                        Name = propertyInfo.Name,
+                        DisplayName = displayName,
+                        Type = propertyInfo.PropertyType
+                    });
                 }
                 columns = columnList.ToArray();
             }
@@ -64,7 +63,7 @@ namespace Mvc.JQuery.Datatables
 
         public static DataTableVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, (string)null, typeof(string))));
+            return new DataTableVm(id, ajaxUrl, columns.Select(c => ColDef.Create(c, (string)null, typeof(string))));
         }
     }
 }

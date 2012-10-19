@@ -4,6 +4,17 @@ using System.Linq;
 
 namespace Mvc.JQuery.Datatables
 {
+    public class ColDef
+    {
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public Type Type { get; set; }
+
+        public static ColDef Create(string name, string p1, Type propertyType)
+        {
+            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType};
+        }
+    }
     public class DataTableVm
     {
         static DataTableVm()
@@ -14,7 +25,7 @@ namespace Mvc.JQuery.Datatables
         public static string DefaultTableClass { get; set; }
         public string TableClass { get; set; }
 
-        public DataTableVm(string id, string ajaxUrl, IEnumerable<Tuple<string, string, Type>> columns)
+        public DataTableVm(string id, string ajaxUrl, IEnumerable<ColDef> columns)
         {
             AjaxUrl = ajaxUrl;
             this.Id = id;
@@ -32,7 +43,7 @@ namespace Mvc.JQuery.Datatables
 
         public string AjaxUrl { get; private set; }
 
-        public IEnumerable<Tuple<string, string, Type>> Columns { get; private set; }
+        public IEnumerable<ColDef> Columns { get; private set; }
 
         public bool ColumnFilter { get; set; }
 
@@ -42,7 +53,7 @@ namespace Mvc.JQuery.Datatables
 
         public string ColumnFiltersString
         {
-            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Item1, c.Item3))); }
+            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Name, c.Type))); }
         }
 
         public string Dom

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -31,11 +33,25 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, Type>[] columns)
+        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, params Tuple<string, string, Type>[] columns)
         {
             if (columns == null || columns.Length == 0)
             {
-                columns = typeof(TResult).GetProperties().Where(p => p.GetGetMethod() != null).Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray();
+                var propInfos = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).ToList();
+                var columnList = new List<Tuple<string, string, Type>>();
+                foreach (var propertyInfo in propInfos)
+                {
+                    var displayNamettribute = (DisplayNameAttribute)propertyInfo.GetCustomAttributes(typeof (DisplayNameAttribute), false).FirstOrDefault();
+                    if(displayNamettribute != null)
+                    {
+                        columnList.Add(Tuple.Create(propertyInfo.Name, displayNamettribute.DisplayName, propertyInfo.PropertyType));
+                    }
+                    else
+                    {
+                        columnList.Add(Tuple.Create(propertyInfo.Name, propertyInfo.Name, propertyInfo.PropertyType));
+                    }
+                }
+                columns = columnList.ToArray();
             }
 
             var mi = exp.MethodInfo();
@@ -48,7 +64,7 @@ namespace Mvc.JQuery.Datatables
 
         public static DataTableVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, typeof(string))));
+            return new DataTableVm(id, ajaxUrl, columns.Select(c => Tuple.Create(c, (string)null, typeof(string))));
         }
     }
 }

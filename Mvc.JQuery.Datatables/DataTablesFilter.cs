@@ -49,7 +49,9 @@ namespace Mvc.JQuery.Datatables
 
             totalRecordsDisplay = data.Count();
 
-            data = data.OrderBy(sortString);
+			if (!String.IsNullOrEmpty(sortString))
+				data = data.OrderBy(sortString);
+
             data = data.Skip(dtParameters.iDisplayStart);
             if (dtParameters.iDisplayLength > -1)
             {

@@ -85,16 +85,13 @@ namespace Mvc.JQuery.Datatables
         private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, string, Type>[] searchColumns)
         {
 
-            int totalRecords = data.Count();
-
-
-            int totalRecordsDisplay;
+            int totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
 
             var filters = new DataTablesFilter();
 
 
             var dataArray = data.Select(_transform).AsQueryable();
-            dataArray = filters.FilterPagingSortingSearch(param, dataArray, out totalRecordsDisplay, searchColumns).Cast<TRes>();
+            dataArray = filters.FilterPagingSortingSearch(param, dataArray, searchColumns).Cast<TRes>();
             
             var type = typeof(TRes);
             var properties = type.GetProperties();
@@ -104,12 +101,13 @@ namespace Mvc.JQuery.Datatables
                                let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
                                select values;
 
+            IEnumerable<object>[] aaData = toArrayQuery.ToArray();
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,
-                iTotalDisplayRecords = totalRecordsDisplay,
+                iTotalDisplayRecords = aaData.Length,
                 sEcho = param.sEcho,
-                aaData = toArrayQuery.ToArray()
+                aaData = aaData
             };
 
             return result;

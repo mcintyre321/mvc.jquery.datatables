@@ -7,7 +7,7 @@ namespace Mvc.JQuery.Datatables
 {
     public class DataTablesFilter
     {
-        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, out int totalRecordsDisplay, Tuple<string, string, Type>[] columns)
+        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, Tuple<string, string, Type>[] columns)
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
@@ -46,8 +46,6 @@ namespace Mvc.JQuery.Datatables
                     sortString += ", ";
                 sortString += columnName + " " + sortDir;
             }
-
-            totalRecordsDisplay = data.Count();
 
             data = data.OrderBy(sortString);
             data = data.Skip(dtParameters.iDisplayStart);

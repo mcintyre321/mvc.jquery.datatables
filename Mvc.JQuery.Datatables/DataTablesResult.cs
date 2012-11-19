@@ -41,6 +41,9 @@ namespace Mvc.JQuery.Datatables
     {
         
     }
+
+
+
     public class DataTablesResult<T, TRes> : DataTablesResult<TRes>
     {
         private readonly Func<T, TRes> _transform;
@@ -90,24 +93,29 @@ namespace Mvc.JQuery.Datatables
             var filters = new DataTablesFilter();
 
 
-            var dataArray = data.Select(_transform).AsQueryable();
-            dataArray = filters.FilterPagingSortingSearch(param, dataArray, searchColumns).Cast<TRes>();
-            
+            var filteredData = data.Select(_transform).AsQueryable();
+            filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns).Cast<TRes>();
+
+            var page = filteredData.Skip(param.iDisplayStart);
+            if (param.iDisplayLength > -1)
+            {
+                page = page.Take(param.iDisplayLength);
+            }
+
             var type = typeof(TRes);
             var properties = type.GetProperties();
 
-            var toArrayQuery = from i in dataArray
+            var transformedPage = from i in page
                                let pairs = properties.Select(p => new {p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null))})
                                let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
                                select values;
 
-            IEnumerable<object>[] aaData = toArrayQuery.ToArray();
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,
-                iTotalDisplayRecords = aaData.Length,
+                iTotalDisplayRecords = filteredData.Count(),
                 sEcho = param.sEcho,
-                aaData = aaData
+                aaData = transformedPage.ToArray()
             };
 
             return result;

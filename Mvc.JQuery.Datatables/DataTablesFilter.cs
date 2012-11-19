@@ -48,11 +48,7 @@ namespace Mvc.JQuery.Datatables
             }
 
             data = data.OrderBy(sortString);
-            data = data.Skip(dtParameters.iDisplayStart);
-            if (dtParameters.iDisplayLength > -1)
-            {
-                data = data.Take(dtParameters.iDisplayLength);
-            }
+           
 
             return data;
         }

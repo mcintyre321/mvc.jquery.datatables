@@ -87,6 +87,7 @@ namespace Mvc.JQuery.Datatables
         {
             (c, t) => (DateTypes.Contains(t)) ? "{type: 'date-range'}" : null,
             (c, t) => t == typeof(bool) ? "{type: 'checkbox', values : ['True', 'False']}" : null,
+            (c, t) => t.IsEnum ?  ("{type: 'checkbox', values : ['" + string.Join("','", Enum.GetNames(t)) + "']}") : null,
             (c, t) => "{type: 'text'}", //by default, text filter on everything
         };
 

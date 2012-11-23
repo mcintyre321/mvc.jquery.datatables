@@ -37,7 +37,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Email = user.Email,
                 Position = user.Position == null ? "" : user.Position.ToString(),
                 Number = user.Number,
-                Hired = user.Hired
+                Hired = user.Hired,
+                IsAdmin = user.IsAdmin
             });
         }
 
@@ -52,7 +53,6 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         {
             var r = new Random();
             var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
-
             var positions = new List<PositionTypes?> { null, PositionTypes.Engineer, PositionTypes.Tester, PositionTypes.Manager };
             return _users ?? (_users = new List<User>
                 (
@@ -63,6 +63,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                     Email = "user" + i + "@" + domains[i%domains.Length],
                                                     Name = r.Next(6) == 3 ? null : "User" + i,
                                                     Position = positions[i%positions.Count],
+                                                    IsAdmin = i % 11 == 0,
                                                     Number = (Numbers) r.Next(4),
                                                     Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
                                                 })
@@ -90,6 +91,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public DateTimeOffset Hired { get; set; }
 
         public Numbers Number { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 
     public class UserView
@@ -100,7 +103,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public MvcHtmlString Name { get; set; }
 
         public string Email { get; set; }
-
+        public bool IsAdmin { get; set; }
         public string Position { get; set; }
         public DateTimeOffset Hired { get; set; }
 

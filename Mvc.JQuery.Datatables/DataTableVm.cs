@@ -86,6 +86,7 @@ namespace Mvc.JQuery.Datatables
         public static FilterRuleList StaticFilterTypeRules = new FilterRuleList()
         {
             (c, t) => (DateTypes.Contains(t)) ? "{type: 'date-range'}" : null,
+            (c, t) => t == typeof(bool) ? "{type: 'checkbox', values : ['True', 'False']}" : null,
             (c, t) => "{type: 'text'}", //by default, text filter on everything
         };
 

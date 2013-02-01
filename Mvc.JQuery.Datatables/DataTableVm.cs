@@ -108,7 +108,8 @@ namespace Mvc.JQuery.Datatables
 
             public TTarget Select(params string[] options)
             {
-                AddRule("{type: 'select', values: ['" + string.Join("','", options) + "']}");
+                var escapedOptions = options.Select(o => o.Replace("'", "''"));
+                AddRule("{type: 'select', values: ['" + string.Join("','", escapedOptions) + "']}");
                 return _target;
             }
             public TTarget NumberRange()
@@ -131,7 +132,8 @@ namespace Mvc.JQuery.Datatables
 
             public TTarget CheckBoxes(params string[] options)
             {
-                AddRule("{type: 'checkbox', values: ['" + string.Join("','", options) + "']}");
+                var escapedOptions = options.Select(o => o.Replace("'", "''"));
+                AddRule("{type: 'checkbox', values: ['" + string.Join("','", escapedOptions) + "']}");
                 return _target;
             }
 

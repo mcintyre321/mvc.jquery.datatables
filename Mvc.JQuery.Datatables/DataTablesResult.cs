@@ -1,10 +1,11 @@
+using Mvc.JQuery.Datatables.DynamicLinq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables.DynamicLinq;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -14,52 +15,37 @@ namespace Mvc.JQuery.Datatables
         {
             return new DataTablesResult<T, TRes>(q, dataTableParam, transform);
         }
+
         public static DataTablesResult<T> Create<T>(IQueryable<T> q, DataTablesParam dataTableParam)
         {
             return new DataTablesResult<T, T>(q, dataTableParam, t => t);
+        }
+
+        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
+        {
+            queryable = ((IEnumerable)queryable).AsQueryable();
+            var s = "Create";
+
+            var openCreateMethod =
+                typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
+            var queryableType = queryable.GetType().GetGenericArguments()[0];
+            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+            return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
         }
 
         public static DataTablesResult<T> CreateResultUsingEnumerable<T>(IEnumerable<T> q, DataTablesParam dataTableParam)
         {
             return new DataTablesResult<T, T>(q.AsQueryable(), dataTableParam, t => t);
         }
-
-        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
-        {
-            queryable = ((IEnumerable) queryable).AsQueryable();
-            var s = "Create";
-
-            var openCreateMethod =
-                typeof (DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
-            var queryableType = queryable.GetType().GetGenericArguments()[0];
-            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-            return (DataTablesResult) closedCreateMethod.Invoke(null, new[] {queryable, dataTableParam});
-        }
-
     }
+
     public class DataTablesResult<T> : DataTablesResult
     {
-        
     }
-
-
 
     public class DataTablesResult<T, TRes> : DataTablesResult<TRes>
     {
-        private readonly Func<T, TRes> _transform;
-
-        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
-        {
-
-            _transform = transform;
-            var properties = typeof(TRes).GetProperties();
-
-            var content = GetResults(q, dataTableParam, properties.Select(p => Tuple.Create(p.Name, (string)null, p.PropertyType)).ToArray());
-            this.Data = content;
-            this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
-        }
-
-        static readonly List<PropertyTransformer> PropertyTransformers = new List<PropertyTransformer>()
+        private static readonly List<PropertyTransformer> PropertyTransformers = new List<PropertyTransformer>()
         {
             Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g")),
             Guard<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g")),
@@ -67,10 +53,30 @@ namespace Mvc.JQuery.Datatables
             Guard<object>(o => (o ?? "").ToString())
         };
 
-        public delegate object PropertyTransformer(Type type, object value);
+        private readonly Func<T, TRes> _transform;
+
+        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
+        {
+            _transform = transform;
+
+            //var properties = typeof(TRes).GetProperties();
+            var properties = TypeExtensions.GetSortedProperties<TRes>();
+
+            var content = GetResults(q, dataTableParam, properties.Select(p => Tuple.Create(p.Name, (string)null, p.PropertyType)).ToArray());
+            this.Data = content;
+            this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
+        }
+
         public delegate object GuardedValueTransformer<TVal>(TVal value);
 
-        static PropertyTransformer Guard<TVal>(GuardedValueTransformer<TVal> transformer)
+        public delegate object PropertyTransformer(Type type, object value);
+
+        public static void RegisterFilter<TVal>(GuardedValueTransformer<TVal> filter)
+        {
+            PropertyTransformers.Add(Guard<TVal>(filter));
+        }
+
+        private static PropertyTransformer Guard<TVal>(GuardedValueTransformer<TVal> transformer)
         {
             return (t, v) =>
             {
@@ -78,20 +84,15 @@ namespace Mvc.JQuery.Datatables
                 {
                     return null;
                 }
-                return transformer((TVal) v);
+                return transformer((TVal)v);
             };
         }
-        public static void RegisterFilter<TVal>(GuardedValueTransformer<TVal> filter)
-        {
-            PropertyTransformers.Add(Guard<TVal>(filter));
-        }
+
         private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, string, Type>[] searchColumns)
         {
-
             int totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
 
             var filters = new DataTablesFilter();
-
 
             var filteredData = data.Select(_transform).AsQueryable();
             filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns).Cast<TRes>();
@@ -102,13 +103,15 @@ namespace Mvc.JQuery.Datatables
                 page = page.Take(param.iDisplayLength);
             }
 
-            var type = typeof(TRes);
-            var properties = type.GetProperties();
+            //var type = typeof(TRes);
+            //var propertiesOriginal = type.GetProperties();
+
+            var properties = TypeExtensions.GetSortedProperties<TRes>();
 
             var transformedPage = from i in page
-                               let pairs = properties.Select(p => new {p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null))})
-                               let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
-                               select values;
+                                  let pairs = properties.Select(p => new { p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null)) })
+                                  let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
+                                  select values;
 
             var result = new DataTablesData
             {

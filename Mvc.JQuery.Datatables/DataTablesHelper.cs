@@ -13,7 +13,6 @@ namespace Mvc.JQuery.Datatables
 {
     public static class DataTablesHelper
     {
-
         public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool jqueryUi = false, bool filters = true, bool tableTools = true)
         {
             StringBuilder output = new StringBuilder();
@@ -30,18 +29,18 @@ namespace Mvc.JQuery.Datatables
                 addCss("/Content/DataTables/extras/TableTools/media/css/TableTools.css");
             }
             return helper.Raw(output.ToString());
-
         }
 
         public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, IEnumerable<ColDef> columns = null)
         {
             if (columns == null || !columns.Any())
             {
-                var propInfos = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).ToList();
+                //var propInfos = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).ToList();
+                var propInfos = TypeExtensions.GetSortedProperties<TResult>();
                 var columnList = new List<ColDef>();
                 foreach (var propertyInfo in propInfos)
                 {
-                    var displayNameAttribute = (DisplayNameAttribute) propertyInfo.GetCustomAttributes(typeof (DisplayNameAttribute), false).FirstOrDefault();
+                    var displayNameAttribute = (DisplayNameAttribute)propertyInfo.GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault();
                     var displayName = displayNameAttribute == null ? propertyInfo.Name : displayNameAttribute.DisplayName;
                     columnList.Add(new ColDef()
                     {

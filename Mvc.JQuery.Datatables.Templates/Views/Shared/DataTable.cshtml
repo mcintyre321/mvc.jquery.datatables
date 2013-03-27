@@ -30,35 +30,41 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    $(document).ready(function() {
-        var $table = $('#@Model.Id');
-        var dt = $table.dataTable({
-            "bProcessing": true,
-            "bStateSave": true,
-            "bServerSide": true,
-            "bFilter": @Model.ShowSearch.ToString().ToLower(),
-            "sDom": '@Html.Raw(Model.Dom)',
-            "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-            "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
-            "fnServerData": function(sSource, aoData, fnCallback) {
-                $.ajax({
-                    "dataType": 'json',
-                    "type": "POST",
-                    "url": sSource,
-                    "data": aoData,
-                    "success": fnCallback
+    (function setDataTable() {
+        if(!window.jQuery) {
+            setTimeout(setDataTable, 0);
+            return;
+        }
+        $(document).ready(function() {
+            var $table = $('#@Model.Id');
+            var dt = $table.dataTable({
+                "bProcessing": true,
+                "bStateSave": true,
+                "bServerSide": true,
+                "bFilter": @Model.ShowSearch.ToString().ToLower(),
+                "sDom": '@Html.Raw(Model.Dom)',
+                "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
+                "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
+                "fnServerData": function(sSource, aoData, fnCallback) {
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback
+                    });
+                }
+            });
+            @if (Model.ColumnFilter)
+            {
+    <text>
+                dt.columnFilter({
+                    sPlaceHolder: "head:before",
+                    aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
                 });
+    </text>
             }
         });
-        @if (Model.ColumnFilter)
-        {
-<text>
-            dt.columnFilter({
-                sPlaceHolder: "head:before",
-                aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
-            });
-</text>
-        }
-    });
+    })();
 </script>

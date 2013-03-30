@@ -55,6 +55,7 @@
                         "success": fnCallback
                     });
                 }
+                @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
             });
             @if (Model.ColumnFilter)
             {

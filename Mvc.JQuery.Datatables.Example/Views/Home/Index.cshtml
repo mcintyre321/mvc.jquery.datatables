@@ -53,6 +53,8 @@ can also use
 @using Mvc.JQuery.Datatables.Example.Controllers
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    //vm.JsOptions.Add("iDisplayLength", 25);
+    //vm.JsOptions.Add("aLengthMenu", new object[] { new[] {5, 10, 25, 250, -1} , new object[] { 5, 10, 25, 250, "All"} });
     vm.ColumnFilter = true;
     vm.FilterOn("Position").Select("Engineer", "Tester", "Manager")
         .FilterOn("Id").NumberRange();

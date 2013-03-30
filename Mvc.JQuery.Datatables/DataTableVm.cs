@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -17,6 +18,8 @@ namespace Mvc.JQuery.Datatables
     }
     public class DataTableVm
     {
+        IDictionary<string, object> m_JsOptions = new Dictionary<string, object>();
+
         static DataTableVm()
         {
             DefaultTableClass = "table table-bordered table-striped";
@@ -44,6 +47,16 @@ namespace Mvc.JQuery.Datatables
         public string AjaxUrl { get; private set; }
 
         public IEnumerable<ColDef> Columns { get; private set; }
+
+        public IDictionary<string, object> JsOptions { get { return m_JsOptions; } }
+
+        public string JsOptionsString
+        {
+            get
+            {
+                return (new JavaScriptSerializer()).Serialize((object)JsOptions).TrimStart('{').TrimEnd('}');
+            }
+        }
 
         public bool ColumnFilter { get; set; }
 

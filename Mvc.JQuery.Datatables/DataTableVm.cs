@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 
 namespace Mvc.JQuery.Datatables
@@ -54,7 +55,9 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return (new JavaScriptSerializer()).Serialize((object)JsOptions).TrimStart('{').TrimEnd('}');
+                // Doing this way to ensure Dictionary will be converted to Json in correct format
+                var optionsDict = new Dictionary<string, object>(JsOptions);
+                return (new JavaScriptSerializer()).Serialize((object)optionsDict).TrimStart('{').TrimEnd('}');
             }
         }
 
@@ -111,12 +114,14 @@ namespace Mvc.JQuery.Datatables
             private readonly TTarget _target;
             private readonly FilterRuleList _list;
             private readonly Func<string, Type, bool> _predicate;
+            private readonly IDictionary<string, object> _jsOptions;
 
-            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate)
+            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate, IDictionary<string, object> jsOptions)
             {
                 _target = target;
                 _list = list;
                 _predicate = predicate;
+                _jsOptions = jsOptions;
             }
 
             public TTarget Select(params string[] options)
@@ -158,18 +163,42 @@ namespace Mvc.JQuery.Datatables
 
             private void AddRule(string result)
             {
+                if (this._jsOptions != null && this._jsOptions.Count > 0)
+                {
+                    var _jsOptionsAsJson = (new JavaScriptSerializer()).Serialize((object)this._jsOptions).TrimStart('{').TrimEnd('}');
+                    result = result.TrimEnd('}') + ", " + _jsOptionsAsJson + "}";
+                }
                 _list.Insert(0, (c, t) => _predicate(c, t) ? result : null);
             }
         }
         public _FilterOn<DataTableVm> FilterOn<T>()
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T));
+            return FilterOn<T>(null); 
+        }
+        public _FilterOn<DataTableVm> FilterOn<T>(object jsOptions)
+        {
+            // Doing this way because RouteValueDictionary converts to Json in wrong format
+            IDictionary<string, object> optionsDict = new Dictionary<string, object>(new RouteValueDictionary(jsOptions));
+            return FilterOn<T>(optionsDict); 
+        }
+        public _FilterOn<DataTableVm> FilterOn<T>(IDictionary<string, object> jsOptions)
+        {
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
         }
         public _FilterOn<DataTableVm> FilterOn(string columnName)
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName);
+            return FilterOn(columnName, null);
         }
-
+        public _FilterOn<DataTableVm> FilterOn(string columnName, object jsOptions)
+        {
+            // Doing this way because RouteValueDictionary converts to Json in wrong format
+            IDictionary<string, object> optionsDict = new Dictionary<string, object>(new RouteValueDictionary(jsOptions));
+            return FilterOn(columnName, optionsDict); 
+        }
+        public _FilterOn<DataTableVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
+        {
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName, jsOptions);
+        }
     }
 
     public class FilterRuleList : List<Func<string, Type, string>>

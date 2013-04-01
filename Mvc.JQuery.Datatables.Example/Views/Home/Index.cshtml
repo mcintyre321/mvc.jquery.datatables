@@ -48,6 +48,10 @@ can also use
 
 <h1>Voila</h1>
 
+<div style="padding: 5px; border: 1px solid grey">
+    Custom placement for Position filter:
+    <div id="custom-filter-placeholder-position"></div>
+</div>
 
 @using Mvc.JQuery.Datatables
 @using Mvc.JQuery.Datatables.Example.Controllers
@@ -56,11 +60,13 @@ can also use
     //vm.JsOptions.Add("iDisplayLength", 25);
     //vm.JsOptions.Add("aLengthMenu", new object[] { new[] {5, 10, 25, 250, -1} , new object[] { 5, 10, 25, 250, "All"} });
     vm.ColumnFilter = true;
-    vm.FilterOn("Position").Select("Engineer", "Tester", "Manager")
+    vm.FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
         .FilterOn("Id").NumberRange();
       //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
 }
 @Html.Partial("DataTable", vm)
+
+
 
 
 

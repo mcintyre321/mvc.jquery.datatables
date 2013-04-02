@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 
 namespace Mvc.JQuery.Datatables
@@ -54,7 +55,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return (new JavaScriptSerializer()).Serialize((object)JsOptions).TrimStart('{').TrimEnd('}');
+                return convertDictionaryToJsonBody(JsOptions);
             }
         }
 
@@ -111,12 +112,14 @@ namespace Mvc.JQuery.Datatables
             private readonly TTarget _target;
             private readonly FilterRuleList _list;
             private readonly Func<string, Type, bool> _predicate;
+            private readonly IDictionary<string, object> _jsOptions;
 
-            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate)
+            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate, IDictionary<string, object> jsOptions)
             {
                 _target = target;
                 _list = list;
                 _predicate = predicate;
+                _jsOptions = jsOptions;
             }
 
             public TTarget Select(params string[] options)
@@ -150,6 +153,12 @@ namespace Mvc.JQuery.Datatables
                 return _target;
             }
 
+            public TTarget Text()
+            {
+                AddRule("{type: 'text'}");
+                return _target;
+            }
+
             public TTarget None()
             {
                 AddRule("null");
@@ -158,18 +167,53 @@ namespace Mvc.JQuery.Datatables
 
             private void AddRule(string result)
             {
+                if (result != "null" && this._jsOptions != null && this._jsOptions.Count > 0)
+                {
+                    var _jsOptionsAsJson = DataTableVm.convertDictionaryToJsonBody(this._jsOptions);
+                    result = result.TrimEnd('}') + ", " + _jsOptionsAsJson + "}";
+                }
                 _list.Insert(0, (c, t) => _predicate(c, t) ? result : null);
             }
         }
         public _FilterOn<DataTableVm> FilterOn<T>()
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T));
+            return FilterOn<T>(null); 
+        }
+        public _FilterOn<DataTableVm> FilterOn<T>(object jsOptions)
+        {
+            IDictionary<string, object> optionsDict = DataTableVm.convertObjectToDictionary(jsOptions);
+            return FilterOn<T>(optionsDict); 
+        }
+        public _FilterOn<DataTableVm> FilterOn<T>(IDictionary<string, object> jsOptions)
+        {
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
         }
         public _FilterOn<DataTableVm> FilterOn(string columnName)
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName);
+            return FilterOn(columnName, null);
+        }
+        public _FilterOn<DataTableVm> FilterOn(string columnName, object jsOptions)
+        {
+            IDictionary<string, object> optionsDict = DataTableVm.convertObjectToDictionary(jsOptions);
+            return FilterOn(columnName, optionsDict); 
+        }
+        public _FilterOn<DataTableVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
+        {
+            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName, jsOptions);
         }
 
+        private static string convertDictionaryToJsonBody(IDictionary<string, object> dict)
+        {
+            // Converting to System.Collections.Generic.Dictionary<> to ensure Dictionary will be converted to Json in correct format
+            var dictSystem = new Dictionary<string, object>(dict);
+            return (new JavaScriptSerializer()).Serialize((object)dictSystem).TrimStart('{').TrimEnd('}');
+        }
+
+        private static IDictionary<string, object> convertObjectToDictionary(object obj)
+        {
+            // Doing this way because RouteValueDictionary converts to Json in wrong format
+            return new Dictionary<string, object>(new RouteValueDictionary(obj));
+        }
     }
 
     public class FilterRuleList : List<Func<string, Type, string>>

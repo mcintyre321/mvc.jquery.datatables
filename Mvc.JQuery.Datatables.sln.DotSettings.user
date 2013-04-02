@@ -1,5 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Boolean x:Key="/Default/CodeStyle/LiveTemplatesUseVar/PreferVar/@EntryValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/Environment/SearchAndNavigation/MergeOccurences/@EntryValue">False</s:Boolean>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/NUnitProvider/UseAddins/@EntryValue">Never</s:String>
-	<s:Boolean x:Key="/Default/Housekeeping/SolutionSettingsUpgraded/IsUpgraded/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/Housekeeping/SolutionSettingsUpgraded/IsUpgraded/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=98F4BC003F814C2BA87B6120AD0009E9/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=98F4BC003F814C2BA87B6120AD0009E9/Name/@EntryValue">ThingsAreCalledCorrectly</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=98F4BC003F814C2BA87B6120AD0009E9/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="nUnit" Id="Mvc.JQuery.DataTables.Tests.EF.EntityFramework" type="NUnitTestFixtureElement" Project="53671C41-666D-4269-A12A-BA6C2F209E7A" /&gt;&lt;UnitTestElement Provider="nUnit" Id="Mvc.JQuery.DataTables.Tests.EF.EntityFramework.I" ParentId="Mvc.JQuery.DataTables.Tests.EF.EntityFramework" type="NUnitTestElement" TypeName="Mvc.JQuery.DataTables.Tests.EF.EntityFramework" MethodName="I" Project="53671C41-666D-4269-A12A-BA6C2F209E7A" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String></wpf:ResourceDictionary>

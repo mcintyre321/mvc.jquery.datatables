@@ -7,7 +7,7 @@ namespace Mvc.JQuery.Datatables
 {
     public class DataTablesFilter
     {
-        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, Tuple<string, string, Type>[] columns)
+        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, ColInfo[] columns)
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
@@ -40,96 +40,33 @@ namespace Mvc.JQuery.Datatables
             {
 
                 int columnNumber = dtParameters.iSortCol[i];
-                string columnName = columns[columnNumber].Item1;
+                string columnName = columns[columnNumber].Name;
                 string sortDir = dtParameters.sSortDir[i];
                 if (i != 0)
                     sortString += ", ";
                 sortString += columnName + " " + sortDir;
             }
-
+            if (string.IsNullOrWhiteSpace(sortString))
+            {
+                sortString = columns[0].Name;
+            }
             data = data.OrderBy(sortString);
-           
+
 
             return data;
         }
 
         public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
 
-        static string FilterMethod(string q)
-        {
-            if (q.StartsWith("^"))
-            {
-                return "ToLower().StartsWith(\"" + q.ToLower().Substring(1).Replace("\"", "\"\"") + "\")";
-            }
-            else
-            {
-                return "ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\")";
-            }
-        }
+
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard(IsDateType, DateFilter),
-            Guard(IsNumericType, NumericFilter)
-
+            Guard(IsDateType, TypeFilters.DateFilter),
+            Guard(IsNumericType, TypeFilters.NumericFilter),
+            Guard(arg => arg == typeof (string), TypeFilters.StringFilter),
         };
 
-        private static bool Is<T>(Type arg)
-        {
-            return arg is T;
-        }
-
-        private static string NumericFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
-        {
-            if (query.Contains("~"))
-            {
-                var parts = query.Split('~');
-                var clause = null as string;
-                try
-                {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[0], columnType));
-                    clause = string.Format("{0} >= @{1}", columnname, parametersForLinqQuery.Count - 1);
-                }
-                catch (FormatException)
-                {
-                }
-
-                try
-                {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[1], columnType));
-                    if (clause != null) clause += " and ";
-                    clause += string.Format("{0} <= @{1}", columnname, parametersForLinqQuery.Count - 1);
-                }
-                catch (FormatException)
-                {
-                }
-                return clause ?? "true" ;
-
-            }
-            else
-            {
-                return string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(query), columnname);
-            }
-        }
-
-        private static string DateFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
-        {
-            if (query.Contains("~"))
-            {
-                var parts = query.Split('~');
-                DateTimeOffset start, end;
-                DateTimeOffset.TryParse(parts[0] ?? "", out start);
-                if (!DateTimeOffset.TryParse(parts[1] ?? "", out end)) end = DateTimeOffset.MaxValue;
-
-                parametersForLinqQuery.Add(start);
-                parametersForLinqQuery.Add(end);
-                return string.Format("{0}.Ticks >= @{1}.Ticks and {0}.Ticks <= @{2}.Ticks", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
-            }
-            else
-            {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query), columnname);
-            }
-        }
 
         public delegate string GuardedFilter(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
 
@@ -147,20 +84,21 @@ namespace Mvc.JQuery.Datatables
 
         public static void RegisterFilter<T>(GuardedFilter filter)
         {
-            Filters.Add(Guard(Is<T>, filter));
+            Filters.Add(Guard(arg => arg is T, filter));
         }
 
-        private static string GetFilterClause(string query, Tuple<string, string, Type> column, List<object> parametersForLinqQuery)
+        private static string GetFilterClause(string query, ColInfo column, List<object> parametersForLinqQuery)
         {
             foreach (var filter in Filters)
             {
-                var filteredQuery = filter(query, column.Item1, column.Item3, parametersForLinqQuery);
+                var filteredQuery = filter(query, column.Name, column.Type, parametersForLinqQuery);
                 if (filteredQuery != null)
                 {
                     return filteredQuery;
                 }
             }
-            var parts = query.Split('~').SelectMany(s => s.Split('|')).Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(q), column.Item1));
+            var parts = query.Split('~').SelectMany(s => s.Split('|'))
+                .Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", TypeFilters.FilterMethod(q), column.Name));
             return "(" + string.Join(") OR (", parts) + ")";
         }
 

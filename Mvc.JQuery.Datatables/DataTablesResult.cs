@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Mvc.JQuery.Datatables.DynamicLinq;
 using System;
 using System.Collections;
@@ -11,7 +12,7 @@ namespace Mvc.JQuery.Datatables
 {
     public class DataTablesResult : JsonResult
     {
-        public static DataTablesResult<TRes> Create<T, TRes>(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
+        public static DataTablesResult<TRes> Create<T, TRes>(IQueryable<T> q, DataTablesParam dataTableParam, Expression<Func<T, TRes>> transform)
         {
             return new DataTablesResult<T, TRes>(q, dataTableParam, transform);
         }
@@ -53,16 +54,15 @@ namespace Mvc.JQuery.Datatables
             Guard<object>(o => (o ?? "").ToString())
         };
 
-        private readonly Func<T, TRes> _transform;
+        private readonly Expression<Func<T, TRes>> _transform;
 
-        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Func<T, TRes> transform)
+        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Expression<Func<T, TRes>> transform)
         {
             _transform = transform;
 
             //var properties = typeof(TRes).GetProperties();
-            var properties = TypeExtensions.GetSortedProperties<TRes>();
-
-            var content = GetResults(q, dataTableParam, properties.Select(p => Tuple.Create(p.Name, (string)null, p.PropertyType)).ToArray());
+             
+            var content = GetResults(q, dataTableParam);
             this.Data = content;
             this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
         }
@@ -88,13 +88,16 @@ namespace Mvc.JQuery.Datatables
             };
         }
 
-        private DataTablesData GetResults(IQueryable<T> data, DataTablesParam param, Tuple<string, string, Type>[] searchColumns)
+        DataTablesData GetResults(IQueryable<T> data, DataTablesParam param)
         {
             int totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
 
             var filters = new DataTablesFilter();
 
             var filteredData = data.Select(_transform).AsQueryable();
+
+            var searchColumns = TypeExtensions.GetSortedProperties<TRes>().Select(p => new ColInfo(p.Name, p.PropertyType)).ToArray();
+            
             filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns).Cast<TRes>();
 
             var page = filteredData.Skip(param.iDisplayStart);
@@ -108,7 +111,7 @@ namespace Mvc.JQuery.Datatables
 
             var properties = TypeExtensions.GetSortedProperties<TRes>();
 
-            var transformedPage = from i in page
+            var transformedPage = from i in page.ToArray()
                                   let pairs = properties.Select(p => new { p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null)) })
                                   let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
                                   select values;
@@ -132,6 +135,19 @@ namespace Mvc.JQuery.Datatables
                 if (result != null) return result;
             }
             return (value as object ?? "").ToString();
+        }
+    }
+
+    public class ColInfo
+    {
+        public string Name { get; set; }
+        public Type Type { get; set; }
+
+        public ColInfo(string name, Type propertyType)
+        {
+            Name = name;
+            Type = propertyType;
+
         }
     }
 }

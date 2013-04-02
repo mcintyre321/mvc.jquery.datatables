@@ -17,6 +17,16 @@ public static class TypeExtensions
 
     public static IEnumerable<PropertyInfo> GetSortedProperties<T>()
     {
-        return TypeExtensions.GetSortedProperties(typeof(T));
+        return typeof(T).GetSortedProperties();
+    }
+    public static IEnumerable<PropertyInfo> GetProperties(this Type t)
+    {
+        return from pi in t.GetProperties()
+               select pi;
+    }
+
+    public static IEnumerable<PropertyInfo> GetProperties<T>()
+    {
+        return typeof(T).GetSortedProperties();
     }
 }

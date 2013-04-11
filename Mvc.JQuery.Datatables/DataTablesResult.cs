@@ -51,6 +51,13 @@ namespace Mvc.JQuery.Datatables
             Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g")),
             Guard<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g")),
             Guard<IHtmlString>(s => s.ToHtmlString()),
+            Guard<IEnumerable<string>>(s => s.ToArray()),
+            Guard<IEnumerable<int>>(s => s.ToArray()),
+            Guard<IEnumerable<long>>(s => s.ToArray()),
+            Guard<IEnumerable<decimal>>(s => s.ToArray()),
+            Guard<IEnumerable<bool>>(s => s.ToArray()),
+            Guard<IEnumerable<double>>(s => s.ToArray()),
+            Guard<IEnumerable<object>>(s => s.Select(o => GetTransformedValue(o.GetType(), o)).ToArray()),
             Guard<object>(o => (o ?? "").ToString())
         };
 
@@ -127,7 +134,7 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
 
-        private object GetTransformedValue(Type propertyType, object value)
+        private static object GetTransformedValue(Type propertyType, object value)
         {
             foreach (var transformer in PropertyTransformers)
             {

@@ -52,10 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\EntityFramework.cs" />
+    <Compile Include="DummyPocos\SomeModel.cs" />
+    <Compile Include="DummyPocos\SomeView.cs" />
+    <Compile Include="Fixtures\EntityFramework.cs" />
+    <Compile Include="Fixtures\EntityFrameworkCe.cs" />
+    <Compile Include="Fixtures\Linq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EF\SomeModel.cs" />
-    <Compile Include="EF\SomeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

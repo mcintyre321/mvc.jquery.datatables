@@ -5,7 +5,7 @@ namespace Mvc.JQuery.DataTables.Tests
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Category { get; set; }
-        public double Scale { get; set; }
+        public int Cat { get; set; }
+        public double ViewScale { get; set; }
     }
 }

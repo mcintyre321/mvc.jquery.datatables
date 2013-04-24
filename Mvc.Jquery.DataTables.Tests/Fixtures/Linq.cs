@@ -12,18 +12,16 @@ namespace Mvc.JQuery.DataTables.Tests
     [TestFixture]
     public class Linq
     {
-        protected const int SomeModelPropertyCount = 4;
-        protected const int SomeViewPropertyCount = 4;
+        internal const int SomeModelPropertyCount = 4;
+        internal const int SomeViewPropertyCount = 4;
         private const int TotalRecords = 100;
         private const int DisplayLength = 5; 
 
         protected IQueryable<SomeModel> SomeModelQueryable { get; set; }
-        private Func<DataTablesParam, DataTablesData> _executeParams;
 
         public Linq()
         {
             var dataSet = new List<SomeModel>(TotalRecords);
-            var startDate = new DateTime(2013, 2, 1);
             for (var i = 1; i < TotalRecords; i++)
             {
                 dataSet.Add(new SomeModel()
@@ -37,93 +35,56 @@ namespace Mvc.JQuery.DataTables.Tests
             SomeModelQueryable = dataSet.AsQueryable();
         }
         
-        private Exception ExecuteParamsFail = null;
-        [TestFixtureSetUp]
-        public void SetExecuteParamsMethod()
-        {
-            var dataTablesParam = EmptyParam();
-            dataTablesParam.sSearch = "Name 10";
-            try
-            {
-                ExecuteParamsReturningViewModel(dataTablesParam);
-                _executeParams = ExecuteParamsReturningViewModel;
-            }
-            catch (Exception e1)
-            {
-                try
-                {
-                    ExecuteParamsReturningModel(dataTablesParam);
-                    _executeParams = ExecuteParamsReturningModel;
-                    ExecuteParamsFail = e1;
-                }
-                catch (Exception e2)
-                {
-                    _executeParams = null;
-                    ExecuteParamsFail = e2;
-                }
-            }
-        }
-        [Test(Description = "DataTablesResult.Create working?")]
-        public void CanCreateDataTablesResult()
-        {
-            Assert.That(ExecuteParamsFail == null,
-                string.Format("failed {0}{1}{2}",
-                    (_executeParams == null)?"all create atttempts - other tests to fail on ignore":"transform argument mapping to view model. Will use (model=>model) for all tests",
-                    Environment.NewLine,
-                    ExecuteParamsFail
-                ));
-        }
         [Test(Description = "Simple Ordering")]
-        public void SimpleOrdering()
+        public void SimpleOrder()
         {
-            if (_executeParams == null) { Assert.Ignore("Unable to create new DataTableResult"); }
-            //arrange
             var dataTablesParam = EmptyParam();
             dataTablesParam.sSortDir[0] = "asc";
             dataTablesParam.iSortingCols = 1;
-            Assert.AreEqual(_executeParams(dataTablesParam).RecordIds(), Enumerable.Range(1, DisplayLength).ToArray());
+            var result = DataTablesResult.Create(SomeModelQueryable, //DataContext.Models,
+                dataTablesParam,
+                model => model);
+            var data = (DataTablesData)result.Data;
+            Assert.AreEqual(data.RecordIds(), Enumerable.Range(1, DisplayLength).ToArray());
+        }
+        [Test(Description = "Simple Ordering with transform to view model")]
+        public void SimpleOrderAndTransform()
+        {
+            var dataTablesParam = EmptyParam();
+            dataTablesParam.sSortDir[0] = "asc";
+            dataTablesParam.iSortingCols = 1;
+            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), Enumerable.Range(1, DisplayLength).ToArray());
         }
 
         [Test(Description = "Single Record Text Search")]
         public void SingleRecordSearch()
         {
-            if (_executeParams == null) { Assert.Ignore("Unable to create new DataTableResult"); }
-            //arrange
             var dataTablesParam = EmptyParam();
             //dataTablesParam.sSortDir[0] = "asc";
             dataTablesParam.sSearch = "Name 10";
 
-            Assert.AreEqual(_executeParams(dataTablesParam).RecordIds(), new int[] { 10 });
+            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), new int[] { 10 });
         }
         [Test(Description = "Combination of Sort, Filter & Paginate")]
         public void SortFilterPage()
         {
-            if (_executeParams == null) { Assert.Ignore("Unable to create new DataTableResult"); }
             var dataTablesParam = EmptyParam();
             dataTablesParam.iSortingCols = 1;
             dataTablesParam.iSortCol[0] = 2;
             dataTablesParam.sSearchColumns[3] = "25~35";
             dataTablesParam.iDisplayStart = 6;
-            var result = _executeParams(dataTablesParam).RecordIds();
-            Assert.AreEqual(_executeParams(dataTablesParam).RecordIds(), new int[] { 17,21,25,77,81 });
+            var result = ExecuteParams(dataTablesParam).RecordIds();
+            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), new int[] { 17,21,25,77,81 });
         }
-        private DataTablesData ExecuteParamsReturningModel(DataTablesParam dataTablesParam)
-        {
-
-            var result = DataTablesResult.Create(SomeModelQueryable, //DataContext.Models,
-                dataTablesParam,
-                model => model);
-            return (DataTablesData)result.Data;
-        }
-        private DataTablesData ExecuteParamsReturningViewModel(DataTablesParam dataTablesParam)
+        private DataTablesData ExecuteParams(DataTablesParam dataTablesParam)
         {
             var result = DataTablesResult.Create(SomeModelQueryable,
                 dataTablesParam,
                 model => new SomeView
                 {
                     Name = model.DisplayName,
-                    Category = model.Category,
-                    Scale = model.Scale,
+                    Cat = model.Category,
+                    ViewScale = model.Scale,
                     Id = model.Id
                 });
             return (DataTablesData)result.Data;
@@ -134,20 +95,27 @@ namespace Mvc.JQuery.DataTables.Tests
             return new DataTablesParam
             {
                 bEscapeRegex = false,
-                bEscapeRegexColumns = Populate<bool>(false, columns),
-                bSearchable = Populate<bool>(true, columns), 
-                bSortable = Populate<bool>(true, columns),
+                bEscapeRegexColumns = LinqTestStaticMethods.Populate<bool>(false, columns),
+                bSearchable = LinqTestStaticMethods.Populate<bool>(true, columns),
+                bSortable = LinqTestStaticMethods.Populate<bool>(true, columns),
                 iColumns = columns,
                 iDisplayLength = DisplayLength,
                 iSortingCols=1,
-                iSortCol = Populate<int>(0, columns),
+                iSortCol = LinqTestStaticMethods.Populate<int>(0, columns),
                 sEcho = 1,
-                sSearchColumns = Populate<string>("", columns),
-                sSortDir = Populate<string>(null, columns),
+                sSearchColumns = LinqTestStaticMethods.Populate<string>("", columns),
+                sSortDir = LinqTestStaticMethods.Populate<string>(null, columns),
                 sSearch = ""
             };
         }
-        protected static List<Tlist> Populate<Tlist>(Tlist value, int capacity = SomeModelPropertyCount)
+    }
+    public static class LinqTestStaticMethods
+    {
+        public static int[] RecordIds(this DataTablesData data)
+        {
+            return Array.ConvertAll<object, int>(data.aaData, d => int.Parse((string)((IEnumerable<object>)d).First()));
+        }
+        public static List<Tlist> Populate<Tlist>(Tlist value, int capacity = Linq.SomeModelPropertyCount)
         {
             var returnVal = new Tlist[capacity];
             if (!EqualityComparer<Tlist>.Default.Equals(value, default(Tlist)))
@@ -158,14 +126,6 @@ namespace Mvc.JQuery.DataTables.Tests
                 }
             }
             return new List<Tlist>(returnVal);
-        }
-
-    }
-    public static class LinqTestStaticMethods
-    {
-        internal static int[] RecordIds(this DataTablesData data)
-        {
-            return Array.ConvertAll<object, int>(data.aaData, d => int.Parse((string)((IEnumerable<object>)d).First()));
         }
     }
 }

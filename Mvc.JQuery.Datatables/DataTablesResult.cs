@@ -101,11 +101,11 @@ namespace Mvc.JQuery.Datatables
 
             var filters = new DataTablesFilter();
 
-            var filteredData = data.Select(_transform).AsQueryable();
+            var filteredData = (IQueryable) data.Select(_transform).AsQueryable();
 
             var searchColumns = TypeExtensions.GetSortedProperties<TRes>().Select(p => new ColInfo(p.Name, p.PropertyType)).ToArray();
             
-            filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns).Cast<TRes>();
+            filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns);
 
             var page = filteredData.Skip(param.iDisplayStart);
             if (param.iDisplayLength > -1)
@@ -118,7 +118,7 @@ namespace Mvc.JQuery.Datatables
 
             var properties = TypeExtensions.GetSortedProperties<TRes>();
 
-            var transformedPage = from i in page.ToArray()
+            var transformedPage = from i in ((IQueryable<object>)page).ToArray()
                                   let pairs = properties.Select(p => new { p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null)) })
                                   let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
                                   select values;

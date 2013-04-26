@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -45,7 +46,15 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", FilterMethod(query), columnname);
+                try
+                {
+                    parametersForLinqQuery.Add(Convert.ChangeType(query, columnType));
+                    return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
+                }
+                catch (FormatException)
+                {
+                }
+                return "false";
             }
         }
 

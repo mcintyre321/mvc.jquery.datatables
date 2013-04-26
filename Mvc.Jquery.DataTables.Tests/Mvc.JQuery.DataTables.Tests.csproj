@@ -58,6 +58,10 @@
     <Compile Include="Fixtures\EntityFrameworkCe.cs" />
     <Compile Include="Fixtures\Linq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EF\EntityFramework.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EF\SomeModel.cs" />
+    <Compile Include="EF\SomeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

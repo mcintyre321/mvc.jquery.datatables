@@ -81,13 +81,12 @@ namespace Mvc.JQuery.Datatables
         {
             if (q.StartsWith("^"))
             {
-                return columnname + ".ToLower().StartsWith(\"" + q.ToLower().Replace("\"", "\"\"") + "\")";
+                return "(!string.IsNullOrEmpty(" + columnname + ") && " + columnname + ".ToLower().StartsWith(\"" + q.ToLower().Replace("\"", "\"\"") + "\"))";
             }
             else
             {
-                return columnname + ".ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\")";
+                return "(!string.IsNullOrEmpty(" + columnname + ") && " + columnname + ".ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\"))";
             }
         }
-
     }
 }

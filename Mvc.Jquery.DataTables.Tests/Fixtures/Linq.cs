@@ -4,8 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace Mvc.JQuery.DataTables.Tests
 {
@@ -15,7 +13,7 @@ namespace Mvc.JQuery.DataTables.Tests
         internal const int SomeModelPropertyCount = 4;
         internal const int SomeViewPropertyCount = 4;
         private const int TotalRecords = 100;
-        private const int DisplayLength = 5; 
+        internal const int DisplayLength = 5;
 
         protected IQueryable<SomeModel> SomeModelQueryable { get; set; }
 
@@ -34,49 +32,19 @@ namespace Mvc.JQuery.DataTables.Tests
             }
             SomeModelQueryable = dataSet.AsQueryable();
         }
-        
-        [Test(Description = "Simple Ordering")]
-        public void SimpleOrder()
+
+        [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
+        public virtual int[] ExecuteParams(DataTablesParam dataTablesParam)
         {
-            var dataTablesParam = EmptyParam();
-            dataTablesParam.sSortDir[0] = "asc";
-            dataTablesParam.iSortingCols = 1;
-            var result = DataTablesResult.Create(SomeModelQueryable, //DataContext.Models,
+            var result = DataTablesResult.Create(SomeModelQueryable,
                 dataTablesParam,
                 model => model);
             var data = (DataTablesData)result.Data;
-            Assert.AreEqual(data.RecordIds(), Enumerable.Range(1, DisplayLength).ToArray());
-        }
-        [Test(Description = "Simple Ordering with transform to view model")]
-        public void SimpleOrderAndTransform()
-        {
-            var dataTablesParam = EmptyParam();
-            dataTablesParam.sSortDir[0] = "asc";
-            dataTablesParam.iSortingCols = 1;
-            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), Enumerable.Range(1, DisplayLength).ToArray());
+            return data.RecordIds();
         }
 
-        [Test(Description = "Single Record Text Search")]
-        public void SingleRecordSearch()
-        {
-            var dataTablesParam = EmptyParam();
-            //dataTablesParam.sSortDir[0] = "asc";
-            dataTablesParam.sSearch = "Name 10";
-
-            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), new int[] { 10 });
-        }
-        [Test(Description = "Combination of Sort, Filter & Paginate")]
-        public void SortFilterPage()
-        {
-            var dataTablesParam = EmptyParam();
-            dataTablesParam.iSortingCols = 1;
-            dataTablesParam.iSortCol[0] = 2;
-            dataTablesParam.sSearchColumns[3] = "25~35";
-            dataTablesParam.iDisplayStart = 6;
-            var result = ExecuteParams(dataTablesParam).RecordIds();
-            Assert.AreEqual(ExecuteParams(dataTablesParam).RecordIds(), new int[] { 17,21,25,77,81 });
-        }
-        private DataTablesData ExecuteParams(DataTablesParam dataTablesParam)
+        [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
+        public virtual int[] ExecuteParamsAndTransform(DataTablesParam dataTablesParam)
         {
             var result = DataTablesResult.Create(SomeModelQueryable,
                 dataTablesParam,
@@ -87,10 +55,44 @@ namespace Mvc.JQuery.DataTables.Tests
                     ViewScale = model.Scale,
                     Id = model.Id
                 });
-            return (DataTablesData)result.Data;
+            var data = (DataTablesData)result.Data;
+            return data.RecordIds();
+        }
+    }
+    public static class MyFactoryClass
+    {
+        public static IEnumerable TestCases
+        {
+            get
+            {
+                var dataTablesParam = EmptyParam();
+                dataTablesParam.sSortDir[0] = "asc";
+                dataTablesParam.iSortingCols = 1;
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(Enumerable.Range(1, Linq.DisplayLength).ToArray())
+                    .SetName("SimpleOrder")
+                    .SetDescription("Simple Ordering");
+
+                dataTablesParam = EmptyParam();
+                dataTablesParam.sSearch = "Name 10";
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(new int[] { 10 })
+                    .SetName("SingleRecordSearch")
+                    .SetDescription("Single Record Text Search");
+
+                dataTablesParam = EmptyParam();
+                dataTablesParam.iSortingCols = 1;
+                dataTablesParam.iSortCol[0] = 2;
+                dataTablesParam.sSearchColumns[3] = "25~35";
+                dataTablesParam.iDisplayStart = 6;
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(new int[] { 17, 21, 25, 77, 81 })
+                    .SetName("SortFilterPage")
+                    .SetDescription("Combination of Sort, Filter & Paginate");
+            }
         }
 
-        protected static DataTablesParam EmptyParam(int columns = SomeModelPropertyCount)
+        public static DataTablesParam EmptyParam(int columns = Linq.SomeModelPropertyCount)
         {
             return new DataTablesParam
             {
@@ -99,8 +101,8 @@ namespace Mvc.JQuery.DataTables.Tests
                 bSearchable = LinqTestStaticMethods.Populate<bool>(true, columns),
                 bSortable = LinqTestStaticMethods.Populate<bool>(true, columns),
                 iColumns = columns,
-                iDisplayLength = DisplayLength,
-                iSortingCols=1,
+                iDisplayLength = Linq.DisplayLength,
+                iSortingCols = 1,
                 iSortCol = LinqTestStaticMethods.Populate<int>(0, columns),
                 sEcho = 1,
                 sSearchColumns = LinqTestStaticMethods.Populate<string>("", columns),
@@ -109,6 +111,7 @@ namespace Mvc.JQuery.DataTables.Tests
             };
         }
     }
+
     public static class LinqTestStaticMethods
     {
         public static int[] RecordIds(this DataTablesData data)

@@ -58,6 +58,7 @@ namespace Mvc.JQuery.Datatables
             Guard<IEnumerable<bool>>(s => s.ToArray()),
             Guard<IEnumerable<double>>(s => s.ToArray()),
             Guard<IEnumerable<object>>(s => s.Select(o => GetTransformedValue(o.GetType(), o)).ToArray()),
+            Guard<bool>(s => s),
             Guard<object>(o => (o ?? "").ToString())
         };
 

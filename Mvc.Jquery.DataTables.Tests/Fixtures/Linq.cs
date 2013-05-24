@@ -62,6 +62,14 @@ namespace Mvc.JQuery.DataTables.Tests
             var data = (DataTablesData)result.Data;
             return data.RecordIds();
         }
+        [Test(Description="No exception thrown when passed a partially formed date string")]
+        public void PartDateStrDoesntThrow()
+        {
+            var dataTablesParam = MyFactoryClass.DefaultParam();
+            dataTablesParam.iSortCol[0] = 4;
+            dataTablesParam.sSearchColumns[4] =  "2/~";
+            ExecuteParamsAndTransform(dataTablesParam); // this is effectively an Assert.DoesNotThrow
+        }
     }
     public static class MyFactoryClass
     {

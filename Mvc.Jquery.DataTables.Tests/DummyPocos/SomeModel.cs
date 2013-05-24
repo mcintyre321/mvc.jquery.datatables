@@ -10,5 +10,6 @@ namespace Mvc.JQuery.DataTables.Tests
         public string DisplayName { get; set; }
         public int Category { get; set; }
         public double Scale { get; set; }
+        public DateTime Time { get; set; }
     }
 }

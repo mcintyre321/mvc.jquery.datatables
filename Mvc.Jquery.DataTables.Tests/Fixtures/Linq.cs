@@ -10,16 +10,18 @@ namespace Mvc.JQuery.DataTables.Tests
     [TestFixture]
     public class Linq
     {
-        internal const int SomeModelPropertyCount = 4;
-        internal const int SomeViewPropertyCount = 4;
-        private const int TotalRecords = 100;
+        internal const int SomeModelPropertyCount = 5;
+        internal const int SomeViewPropertyCount = 5;
+        internal const int TotalRecords = 100;
         internal const int DisplayLength = 5;
+        internal static DateTime StartTime = new DateTime(2013, 3, 2, 12, 15, 22);
 
         protected IQueryable<SomeModel> SomeModelQueryable { get; set; }
 
         public Linq()
         {
             var dataSet = new List<SomeModel>(TotalRecords);
+            var start = StartTime;
             for (var i = 1; i < TotalRecords; i++)
             {
                 dataSet.Add(new SomeModel()
@@ -27,7 +29,8 @@ namespace Mvc.JQuery.DataTables.Tests
                     Id = i,
                     DisplayName = "Name " + i,
                     Category = i % 4,
-                    Scale = Math.Abs(50 - i)
+                    Scale = Math.Abs(50 - i),
+                    Time = start.AddDays(i)
                 });
             }
             SomeModelQueryable = dataSet.AsQueryable();
@@ -53,7 +56,8 @@ namespace Mvc.JQuery.DataTables.Tests
                     Name = model.DisplayName,
                     Cat = model.Category,
                     ViewScale = model.Scale,
-                    Id = model.Id
+                    Id = model.Id,
+                    Time = model.Time
                 });
             var data = (DataTablesData)result.Data;
             return data.RecordIds();
@@ -65,23 +69,20 @@ namespace Mvc.JQuery.DataTables.Tests
         {
             get
             {
-                var dataTablesParam = EmptyParam();
-                dataTablesParam.sSortDir[0] = "asc";
-                dataTablesParam.iSortingCols = 1;
+                var dataTablesParam = DefaultParam();
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(Enumerable.Range(1, Linq.DisplayLength).ToArray())
                     .SetName("SimpleOrder")
                     .SetDescription("Simple Ordering");
 
-                dataTablesParam = EmptyParam();
+                dataTablesParam = DefaultParam();
                 dataTablesParam.sSearch = "Name 10";
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(new int[] { 10 })
                     .SetName("SingleRecordSearch")
                     .SetDescription("Single Record Text Search");
 
-                dataTablesParam = EmptyParam();
-                dataTablesParam.iSortingCols = 1;
+                dataTablesParam = DefaultParam();
                 dataTablesParam.iSortCol[0] = 2;
                 dataTablesParam.sSearchColumns[3] = "25~35";
                 dataTablesParam.iDisplayStart = 6;
@@ -89,12 +90,29 @@ namespace Mvc.JQuery.DataTables.Tests
                     .Returns(new int[] { 17, 21, 25, 77, 81 })
                     .SetName("SortFilterPage")
                     .SetDescription("Combination of Sort, Filter & Paginate");
+
+                dataTablesParam = DefaultParam();
+                dataTablesParam.sSortDir[0] = "desc";
+                dataTablesParam.iSortCol[0] = 4;
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(Enumerable.Range(1, Linq.DisplayLength).Select(r => Linq.TotalRecords - r).ToArray())
+                    .SetName("OrderDateTime")
+                    .SetDescription("Order <DateTime>");
+
+                dataTablesParam = DefaultParam();
+                dataTablesParam.iSortCol[0] = 4;
+                dataTablesParam.sSearchColumns[4] =  Linq.StartTime.AddDays(5).ToShortDateString() + "~";
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(Enumerable.Range(5, Linq.DisplayLength).ToArray())
+                    .SetName("SearchDateTimeRange")
+                    .SetDescription("Search for range of <DateTime>");
             }
         }
 
-        public static DataTablesParam EmptyParam(int columns = Linq.SomeModelPropertyCount)
+        public static DataTablesParam DefaultParam(int columns = Linq.SomeModelPropertyCount)
         {
-            return new DataTablesParam
+            //info can be found at http://datatables.net/usage/server-side
+            var dataTablesParam = new DataTablesParam
             {
                 bEscapeRegex = false,
                 bEscapeRegexColumns = LinqTestStaticMethods.Populate<bool>(false, columns),
@@ -104,11 +122,14 @@ namespace Mvc.JQuery.DataTables.Tests
                 iDisplayLength = Linq.DisplayLength,
                 iSortingCols = 1,
                 iSortCol = LinqTestStaticMethods.Populate<int>(0, columns),
-                sEcho = 1,
+                sEcho = 2,
                 sSearchColumns = LinqTestStaticMethods.Populate<string>("", columns),
                 sSortDir = LinqTestStaticMethods.Populate<string>(null, columns),
-                sSearch = ""
+                sSearch = "",
+                iDisplayStart = 0
             };
+            dataTablesParam.sSortDir[0] = "asc";
+            return dataTablesParam;
         }
     }
 

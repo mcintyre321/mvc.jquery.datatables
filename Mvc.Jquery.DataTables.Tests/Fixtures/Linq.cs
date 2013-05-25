@@ -10,8 +10,6 @@ namespace Mvc.JQuery.DataTables.Tests
     [TestFixture]
     public class Linq
     {
-        internal const int SomeModelPropertyCount = 5;
-        internal const int SomeViewPropertyCount = 5;
         internal const int TotalRecords = 100;
         internal const int DisplayLength = 5;
         internal static DateTime StartTime = new DateTime(2013, 3, 2, 12, 15, 22);
@@ -65,10 +63,11 @@ namespace Mvc.JQuery.DataTables.Tests
         [Test(Description="No exception thrown when passed a partially formed date string")]
         public void PartDateStrDoesntThrow()
         {
-            var dataTablesParam = MyFactoryClass.DefaultParam();
+            var dataTablesParam = MyFactoryClass.DefaultParam(LinqTestStaticMethods.SomeModelPropertyCount());
             dataTablesParam.iSortCol[0] = 4;
             dataTablesParam.sSearchColumns[4] =  "2/~";
-            ExecuteParamsAndTransform(dataTablesParam); // this is effectively an Assert.DoesNotThrow
+            // this is effectively an Assert.DoesNotThrow:
+            ExecuteParamsAndTransform(dataTablesParam); 
         }
     }
     public static class MyFactoryClass
@@ -77,20 +76,30 @@ namespace Mvc.JQuery.DataTables.Tests
         {
             get
             {
-                var dataTablesParam = DefaultParam();
+                var columns = LinqTestStaticMethods.SomeModelPropertyCount();
+
+                var dataTablesParam = DefaultParam(columns);
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(Enumerable.Range(1, Linq.DisplayLength).ToArray())
                     .SetName("SimpleOrder")
                     .SetDescription("Simple Ordering");
 
-                dataTablesParam = DefaultParam();
+                dataTablesParam = DefaultParam(columns);
+                dataTablesParam.sSearch = "Name 10";
+                LinqTestStaticMethods.ExcludeDateColumns(dataTablesParam);
+                yield return new TestCaseData(dataTablesParam)
+                    .Returns(new int[] { 10 })
+                    .SetName("SingleRecordSearchNoDate")
+                    .SetDescription("Single Record Text Search Excluding Date");
+
+                dataTablesParam = DefaultParam(columns);
                 dataTablesParam.sSearch = "Name 10";
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(new int[] { 10 })
-                    .SetName("SingleRecordSearch")
-                    .SetDescription("Single Record Text Search");
+                    .SetName("SingleRecordSearchInclDate")
+                    .SetDescription("Single Record Text Search Incl Date");
 
-                dataTablesParam = DefaultParam();
+                dataTablesParam = DefaultParam(columns);
                 dataTablesParam.iSortCol[0] = 2;
                 dataTablesParam.sSearchColumns[3] = "25~35";
                 dataTablesParam.iDisplayStart = 6;
@@ -99,7 +108,7 @@ namespace Mvc.JQuery.DataTables.Tests
                     .SetName("SortFilterPage")
                     .SetDescription("Combination of Sort, Filter & Paginate");
 
-                dataTablesParam = DefaultParam();
+                dataTablesParam = DefaultParam(columns);
                 dataTablesParam.sSortDir[0] = "desc";
                 dataTablesParam.iSortCol[0] = 4;
                 yield return new TestCaseData(dataTablesParam)
@@ -107,7 +116,7 @@ namespace Mvc.JQuery.DataTables.Tests
                     .SetName("OrderDateTime")
                     .SetDescription("Order <DateTime>");
 
-                dataTablesParam = DefaultParam();
+                dataTablesParam = DefaultParam(columns);
                 dataTablesParam.iSortCol[0] = 4;
                 dataTablesParam.sSearchColumns[4] =  Linq.StartTime.AddDays(5).ToShortDateString() + "~";
                 yield return new TestCaseData(dataTablesParam)
@@ -117,7 +126,7 @@ namespace Mvc.JQuery.DataTables.Tests
             }
         }
 
-        public static DataTablesParam DefaultParam(int columns = Linq.SomeModelPropertyCount)
+        public static DataTablesParam DefaultParam(int columns)
         {
             //info can be found at http://datatables.net/usage/server-side
             var dataTablesParam = new DataTablesParam
@@ -143,11 +152,16 @@ namespace Mvc.JQuery.DataTables.Tests
 
     public static class LinqTestStaticMethods
     {
+        public static int SomeModelPropertyCount()
+        {
+            return typeof(SomeModel).GetProperties().Count();
+        }
+
         public static int[] RecordIds(this DataTablesData data)
         {
             return Array.ConvertAll<object, int>(data.aaData, d => int.Parse((string)((IEnumerable<object>)d).First()));
         }
-        public static List<Tlist> Populate<Tlist>(Tlist value, int capacity = Linq.SomeModelPropertyCount)
+        public static List<Tlist> Populate<Tlist>(Tlist value, int capacity = 0)
         {
             var returnVal = new Tlist[capacity];
             if (!EqualityComparer<Tlist>.Default.Equals(value, default(Tlist)))
@@ -158,6 +172,23 @@ namespace Mvc.JQuery.DataTables.Tests
                 }
             }
             return new List<Tlist>(returnVal);
+        }
+        public static void ExcludeDateColumns(DataTablesParam dataTablesParam)
+        {
+            var props = typeof(SomeModel).GetProperties();
+            if (dataTablesParam.bSearchable.Count != props.Length || dataTablesParam.bSortable.Count != props.Length)
+            {
+                throw new ArgumentException("dataTablesParam must have the same number of columns as the number of properties in <SomeModel>");
+            }
+            for (int i = 0; i < props.Length; i++)
+            {
+                var type = Nullable.GetUnderlyingType(props[i].PropertyType) ?? props[i].PropertyType;
+                if (type == typeof(DateTime))
+                {
+                    dataTablesParam.bSearchable[i] = false;
+                    dataTablesParam.bSortable[i] = false;
+                }
+            }
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                                                     Position = positions[i%positions.Count],
                                                     IsAdmin = i % 11 == 0,
                                                     Number = (Numbers) r.Next(4),
-                                                    Hired = DateTimeOffset.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
+                                                    Hired = DateTime.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble())
                                                 })
                 ));
         }
@@ -88,7 +88,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         public HomeController.PositionTypes? Position { get; set; }
 
-        public DateTimeOffset Hired { get; set; }
+        public DateTime  Hired { get; set; }
 
         public Numbers Number { get; set; }
 
@@ -105,7 +105,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
         public string Position { get; set; }
-        public DateTimeOffset Hired { get; set; }
+        public DateTime  Hired { get; set; }
 
         public Numbers Number { get; set; }
     }

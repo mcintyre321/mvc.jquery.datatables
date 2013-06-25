@@ -58,7 +58,7 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public static string DateFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        public static string DateTimeOffsetFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
         {
             if (query.Contains("~"))
             {
@@ -69,7 +69,25 @@ namespace Mvc.JQuery.Datatables
 
                 parametersForLinqQuery.Add(start);
                 parametersForLinqQuery.Add(end);
-                return string.Format("{0}.Ticks >= @{1}.Ticks and {0}.Ticks <= @{2}.Ticks", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+                return string.Format("{0} >= @{1} and {0} <= @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+            }
+            else
+            {
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query), columnname);
+            }
+        }
+        public static string DateTimeFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        {
+            if (query.Contains("~"))
+            {
+                var parts = query.Split('~');
+                DateTime start, end;
+                DateTime.TryParse(parts[0] ?? "", out start);
+                if (!DateTime.TryParse(parts[1] ?? "", out end)) end = DateTime.MaxValue;
+
+                parametersForLinqQuery.Add(start);
+                parametersForLinqQuery.Add(end);
+                return string.Format("{0} >= @{1} and {0} <= @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
             }
             else
             {

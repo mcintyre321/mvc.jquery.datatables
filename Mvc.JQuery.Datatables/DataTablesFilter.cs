@@ -62,7 +62,9 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            Guard(IsDateType, TypeFilters.DateFilter),
+            
+            Guard(IsDateTimeType, TypeFilters.DateTimeFilter),
+            Guard(IsDateTimeOffsetType, TypeFilters.DateTimeOffsetFilter),
             Guard(IsNumericType, TypeFilters.NumericFilter),
             Guard(arg => arg == typeof (string), TypeFilters.StringFilter),
         };
@@ -133,9 +135,13 @@ namespace Mvc.JQuery.Datatables
             return false;
 
         }
-        public static bool IsDateType(Type type)
+        public static bool IsDateTimeType(Type type)
         {
-            return type == typeof(DateTime) || type == typeof(DateTimeOffset) || type == typeof(DateTime?) || type == typeof(DateTimeOffset?);
+            return type == typeof(DateTime) || type == typeof(DateTime?) ;
+        }
+        public static bool IsDateTimeOffsetType(Type type)
+        {
+            return  type == typeof(DateTimeOffset) ||   type == typeof(DateTimeOffset?);
         }
 
     }

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Mvc.JQuery.DataTables.Tests
 {
-    public class Tests
+    public class FilterTests
     {
         private DataTablesParam dataTablesParam;
         private IQueryable<SomeModel> queryable;
@@ -46,10 +46,10 @@ namespace Mvc.JQuery.DataTables.Tests
         [TestCase("^False$", typeof(bool), false)] //exact query, isnt match
         [TestCase("True", typeof(bool), true)] //exact query, is match
         [TestCase("False", typeof(bool), false)] //exact query, isnt match
-        [TestCase("^1$", typeof(int), true)] //exact query, is match
-        [TestCase("^2$", typeof(int), false)] //exact query, isnt match
-        [TestCase("1", typeof(int), true)] //query, is match
-        [TestCase("2", typeof(int), false)] //query, isnt match
+        [TestCase("^123$", typeof(int), true)] //exact query, is match
+        [TestCase("^456$", typeof(int), false)] //exact query, isnt match
+        [TestCase("123", typeof(int), true)] //query, is match
+        [TestCase("456", typeof(int), false)] //query, isnt match
         public void SearchQueryTests(string searchString, Type colType, bool returnsResult)
         {
             var col = columns.First(c => c.Item2.Type == colType).Item1;

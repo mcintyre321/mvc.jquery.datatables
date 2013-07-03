@@ -56,7 +56,7 @@
     <Compile Include="DummyPocos\SomeView.cs" />
     <Compile Include="Fixtures\EntityFramework.cs" />
     <Compile Include="Fixtures\Linq.cs" />
-    <Compile Include="NumericFilterTests.cs" />
+    <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

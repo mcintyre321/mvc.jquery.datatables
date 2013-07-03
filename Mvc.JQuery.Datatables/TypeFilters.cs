@@ -70,7 +70,7 @@ namespace Mvc.JQuery.Datatables
                 try
                 {
                     parametersForLinqQuery.Add(Convert.ChangeType(query, columnType));
-                    return string.Format("{0}.Equals(@{1})", columnname, parametersForLinqQuery.Count - 1);
+                    return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
                 {

@@ -59,23 +59,25 @@ namespace Mvc.JQuery.Datatables
             return data;
         }
 
-        public delegate string ReturnedFilteredQueryForType(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+        public delegate string ReturnedFilteredQueryForType(
+            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
 
 
-
-        static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
+        private static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
             Guard(IsBoolType, TypeFilters.BoolFilter),
             Guard(IsDateTimeType, TypeFilters.DateTimeFilter),
             Guard(IsDateTimeOffsetType, TypeFilters.DateTimeOffsetFilter),
             Guard(IsNumericType, TypeFilters.NumericFilter),
+            Guard(IsEnumType, TypeFilters.EnumFilter),
             Guard(arg => arg == typeof (string), TypeFilters.StringFilter),
         };
 
 
-        public delegate string GuardedFilter(string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+        public delegate string GuardedFilter(
+            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
 
-        static ReturnedFilteredQueryForType Guard(Func<Type, bool> guard, GuardedFilter filter)
+        private static ReturnedFilteredQueryForType Guard(Func<Type, bool> guard, GuardedFilter filter)
         {
             return (q, c, t, p) =>
             {
@@ -94,18 +96,19 @@ namespace Mvc.JQuery.Datatables
 
         private static string GetFilterClause(string query, ColInfo column, List<object> parametersForLinqQuery)
         {
-            foreach (var filter in Filters)
+            Func<string, string> filterClause = (queryPart) =>
+                                                Filters.Select(
+                                                    f => f(queryPart, column.Name, column.Type, parametersForLinqQuery))
+                                                       .First(filterPart => filterPart != null);
+
+            var queryParts = query.Split('|').Select(filterClause).Where(fc => fc != "").ToArray();
+            if (queryParts.Any())
             {
-                var filteredQuery = filter(query, column.Name, column.Type, parametersForLinqQuery);
-                if (filteredQuery != null)
-                {
-                    return filteredQuery;
-                }
+                return "(" + string.Join(") OR (", queryParts) + ")";
             }
-            var parts = query.Split('~').SelectMany(s => s.Split('|'))
-                .Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", TypeFilters.FilterMethod(q, parametersForLinqQuery, column.Type), column.Name));
-            return "(" + string.Join(") OR (", parts) + ")";
+            return null;
         }
+
 
         public static bool IsNumericType(Type type)
         {
@@ -138,6 +141,11 @@ namespace Mvc.JQuery.Datatables
             return false;
 
         }
+        public static bool IsEnumType(Type type)
+        {
+            return type.IsEnum;
+        }
+
         public static bool IsBoolType(Type type)
         {
             return type == typeof(bool) || type == typeof(bool?);
@@ -148,7 +156,7 @@ namespace Mvc.JQuery.Datatables
         }
         public static bool IsDateTimeOffsetType(Type type)
         {
-            return  type == typeof(DateTimeOffset) ||   type == typeof(DateTimeOffset?);
+            return type == typeof(DateTimeOffset) || type == typeof(DateTimeOffset?);
         }
 
     }

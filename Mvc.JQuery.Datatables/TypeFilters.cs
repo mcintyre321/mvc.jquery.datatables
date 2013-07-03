@@ -6,11 +6,16 @@ namespace Mvc.JQuery.Datatables
 {
     static class TypeFilters
     {
+        private static readonly Func<string, Type, object> ParseValue = 
+            (input, t) => t.IsEnum ? Enum.Parse(t, input) : Convert.ChangeType(input, t);
+        
         internal static string FilterMethod(string q, List<object> parametersForLinqQuery, Type type)
         {
-            Func<string, string, string> makeClause = ( method, query) =>
+
+
+            Func<string, string, string> makeClause = (method, query) =>
             {
-                parametersForLinqQuery.Add(Convert.ChangeType(query, type));
+                parametersForLinqQuery.Add(ParseValue(query, type));
                 var indexOfParameter = parametersForLinqQuery.Count - 1;
                 return string.Format("{0}(@{1})", method, indexOfParameter);
             };
@@ -18,7 +23,7 @@ namespace Mvc.JQuery.Datatables
             {
                 if (q.EndsWith("$"))
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(q.Substring(1, q.Length -2), type));
+                    parametersForLinqQuery.Add(ParseValue(q.Substring(1, q.Length - 2), type));
                     var indexOfParameter = parametersForLinqQuery.Count - 1;
                     return string.Format("Equals((object)@{0})", indexOfParameter);
                 }
@@ -157,6 +162,15 @@ namespace Mvc.JQuery.Datatables
                         "({0} != null && {0} != \"\" && ({0} ==  {1} || {0}.StartsWith({1}) || {0}.Contains({1})))",
                         columnname, parameterArg);
             }
+        }
+
+        public static string EnumFilter(string q, string columnname, Type type, List<object> parametersForLinqQuery)
+        {
+            
+            if (q.StartsWith("^")) q = q.Substring(1);
+            if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
+            parametersForLinqQuery.Add(ParseValue(q, type));
+            return columnname + " == @" + (parametersForLinqQuery.Count - 1);
         }
     }
 }

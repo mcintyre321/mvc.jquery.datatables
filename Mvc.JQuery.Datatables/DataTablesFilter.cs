@@ -31,7 +31,10 @@ namespace Mvc.JQuery.Datatables
                     {
                         var parameters = new List<object>();
                         var filterClause = GetFilterClause(dtParameters.sSearchColumns[i], columns[i], parameters);
-                        data = data.Where(filterClause, parameters.ToArray());
+                        if (string.IsNullOrWhiteSpace(filterClause) == false)
+                        {
+                            data = data.Where(filterClause, parameters.ToArray());
+                        }
                     }
                 }
             }
@@ -62,7 +65,7 @@ namespace Mvc.JQuery.Datatables
 
         static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
         {
-            
+            Guard(IsBoolType, TypeFilters.BoolFilter),
             Guard(IsDateTimeType, TypeFilters.DateTimeFilter),
             Guard(IsDateTimeOffsetType, TypeFilters.DateTimeOffsetFilter),
             Guard(IsNumericType, TypeFilters.NumericFilter),
@@ -100,7 +103,7 @@ namespace Mvc.JQuery.Datatables
                 }
             }
             var parts = query.Split('~').SelectMany(s => s.Split('|'))
-                .Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", TypeFilters.FilterMethod(q), column.Name));
+                .Select(q => string.Format("({1} == null ? \"\" : {1}.ToString()).{0}", TypeFilters.FilterMethod(q, parametersForLinqQuery, column.Type), column.Name));
             return "(" + string.Join(") OR (", parts) + ")";
         }
 
@@ -135,9 +138,13 @@ namespace Mvc.JQuery.Datatables
             return false;
 
         }
+        public static bool IsBoolType(Type type)
+        {
+            return type == typeof(bool) || type == typeof(bool?);
+        }
         public static bool IsDateTimeType(Type type)
         {
-            return type == typeof(DateTime) || type == typeof(DateTime?) ;
+            return type == typeof(DateTime) || type == typeof(DateTime?);
         }
         public static bool IsDateTimeOffsetType(Type type)
         {

@@ -6,19 +6,40 @@ namespace Mvc.JQuery.Datatables
 {
     static class TypeFilters
     {
-        internal static string FilterMethod(string q)
+        internal static string FilterMethod(string q, List<object> parametersForLinqQuery, Type type)
         {
+            Func<string, string, string> makeClause = ( method, query) =>
+            {
+                parametersForLinqQuery.Add(Convert.ChangeType(query, type));
+                var indexOfParameter = parametersForLinqQuery.Count - 1;
+                return string.Format("{0}(@{1})", method, indexOfParameter);
+            };
             if (q.StartsWith("^"))
             {
-                return "ToLower().StartsWith(\"" + q.ToLower().Substring(1).Replace("\"", "\"\"") + "\")";
+                if (q.EndsWith("$"))
+                {
+                    parametersForLinqQuery.Add(Convert.ChangeType(q.Substring(1, q.Length -2), type));
+                    var indexOfParameter = parametersForLinqQuery.Count - 1;
+                    return string.Format("Equals((object)@{0})", indexOfParameter);
+                }
+                return makeClause("StartsWith", q.Substring(1));
             }
             else
             {
-                return "ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\")";
+                if (q.EndsWith("$"))
+                {
+                    return makeClause("EndsWith", q.Substring(0, q.Length - 1));
+                }
+                return makeClause("Contains", q);
             }
         }
         public static string NumericFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
         {
+            if (query.StartsWith("^")) query = query.TrimStart('^');
+            if (query.EndsWith("$")) query = query.TrimEnd('$');
+
+            if (query == "~") return string.Empty;
+
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
@@ -49,7 +70,7 @@ namespace Mvc.JQuery.Datatables
                 try
                 {
                     parametersForLinqQuery.Add(Convert.ChangeType(query, columnType));
-                    return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
+                    return string.Format("{0}.Equals(@{1})", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
                 {
@@ -60,6 +81,8 @@ namespace Mvc.JQuery.Datatables
 
         public static string DateTimeOffsetFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
         {
+            if (query == "~") return string.Empty;
+
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
@@ -73,11 +96,12 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, columnType), columnname);
             }
         }
         public static string DateTimeFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
         {
+            if (query == "~") return string.Empty;
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
@@ -91,19 +115,47 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, columnType), columnname);
             }
+        }
+        public static string BoolFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        {
+            if (query != null)
+                query = query.TrimStart('^').TrimEnd('$');
+            if (string.IsNullOrWhiteSpace(query)) return columnname + " == null";
+            if (query.ToLower() == "true") return columnname + " == true";
+            return columnname + " == false";
+
         }
 
         public static string StringFilter(string q, string columnname, Type columntype, List<object> parametersforlinqquery)
         {
+            if (q == ".*") return "";
             if (q.StartsWith("^"))
             {
-                return "(!string.IsNullOrEmpty(" + columnname + ") && " + columnname + ".ToLower().StartsWith(\"" + q.ToLower().Replace("\"", "\"\"") + "\"))";
+                if (q.EndsWith("$"))
+                {
+                    parametersforlinqquery.Add(q.Substring(1, q.Length - 2));
+                    var parameterArg = "@" + (parametersforlinqquery.Count - 1);
+                    return string.Format("{0} ==  {1}", columnname, parameterArg);
+
+                }
+                else
+                {
+                    parametersforlinqquery.Add(q.Substring(1));
+                    var parameterArg = "@" + (parametersforlinqquery.Count - 1);
+                    return string.Format("({0} != null && {0} != \"\" && ({0} ==  {1} || {0}.StartsWith({1})))", columnname, parameterArg);
+                }
             }
             else
             {
-                return "(!string.IsNullOrEmpty(" + columnname + ") && " + columnname + ".ToLower().Contains(\"" + q.ToLower().Replace("\"", "\"\"") + "\"))";
+                parametersforlinqquery.Add(q);
+                var parameterArg = "@" + (parametersforlinqquery.Count - 1);
+                //return string.Format("{0} ==  {1}", columnname, parameterArg);
+                return
+                    string.Format(
+                        "({0} != null && {0} != \"\" && ({0} ==  {1} || {0}.StartsWith({1}) || {0}.Contains({1})))",
+                        columnname, parameterArg);
             }
         }
     }

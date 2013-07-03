@@ -314,12 +314,12 @@
                 if (typeof (aData[j]) != 'object') {
                     var selected = '';
                     if (escape(aData[j]) == currentFilter) selected = 'selected '
-                    r += '<option ' + selected + ' value="' + escape(aData[j]) + '">' + aData[j] + '</option>';
+                    r += '<option ' + selected + ' value="' + escape("^" + aData[j] + "$") + '">' + aData[j] + '</option>';
                 }
                 else {
                     var selected = '';
                     if (escape(aData[j].value) == currentFilter) selected = 'selected '
-                    r += '<option ' + selected + 'value="' + escape(aData[j].value) + '">' + aData[j].label + '</option>';
+                    r += '<option ' + selected + 'value="' + escape(aData[j].value + "$") + '">' + aData[j].label + '</option>';
                 }
             }
 
@@ -429,7 +429,7 @@
 
                 var checked = $.inArray(aData[j], previousValues) > -1;
                 //check button
-                r += '<input class="search_init checkbox_filter" type="checkbox" id= "' + aData[j] + '" name= "' + localLabel + '" value="' + aData[j] + '" ' + (checked ? 'checked="checked"' : '') + '>' + aData[j] + '<br/>';
+                r += '<input class="search_init checkbox_filter" type="checkbox" id= "' + aData[j] + '" name= "' + localLabel + '" value="' + ("^" + aData[j] + "$") + '" ' + (checked ? 'checked="checked"' : '') + '>' + aData[j] + '<br/>';
 
                 var checkbox = $(r);
                 th.html(checkbox);

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Mvc.JQuery.Datatables.Templates")]
 [assembly: AssemblyDescription("Install this project to customise the cshtml templates, or if you don't want to use the EmbeddedResourceVirtualPathProvider ")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Harry McIntyre")]
 [assembly: AssemblyProduct("Mvc.JQuery.Datatables.Templates")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
+[assembly: AssemblyCopyright("Harry McIntyre")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

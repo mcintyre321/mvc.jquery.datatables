@@ -17,7 +17,14 @@ namespace Mvc.JQuery.Datatables
                 {
                     if (dtParameters.bSearchable[i])
                     {
-                        parts.Add(GetFilterClause(dtParameters.sSearch, columns[i], parameters));
+                        try
+                        {
+                            parts.Add(GetFilterClause(dtParameters.sSearch, columns[i], parameters));
+                        }
+                        catch (Exception)
+                        {
+                            //if the clause doesn't work, skip it!
+                        }
                     }
                 }
                 data = data.Where(string.Join(" or ", parts), parameters.ToArray());

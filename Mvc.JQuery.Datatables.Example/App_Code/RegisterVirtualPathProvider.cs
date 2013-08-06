@@ -8,7 +8,7 @@ namespace Mvc.JQuery.Datatables.Example.App_Code
         {
             System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp()
             {
-				{typeof(Mvc.JQuery.Datatables.DataTableVm).Assembly, @"..\Mvc.JQuery.Datatables"} 
+				{typeof(Mvc.JQuery.Datatables.DataTableConfigVm).Assembly, @"..\Mvc.JQuery.Datatables"} 
             });
         }
     }

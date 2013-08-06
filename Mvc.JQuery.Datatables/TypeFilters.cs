@@ -80,7 +80,7 @@ namespace Mvc.JQuery.Datatables
                 catch (FormatException)
                 {
                 }
-                return "false";
+                return null;
             }
         }
 
@@ -127,9 +127,17 @@ namespace Mvc.JQuery.Datatables
         {
             if (query != null)
                 query = query.TrimStart('^').TrimEnd('$');
-            if (string.IsNullOrWhiteSpace(query)) return columnname + " == null";
-            if (query.ToLower() == "true") return columnname + " == true";
-            return columnname + " == false";
+            var lowerCaseQuery = query.ToLowerInvariant();
+            if (lowerCaseQuery == "false" || lowerCaseQuery == "true")
+            {
+                if (query.ToLower() == "true") return columnname + " == true";
+                return columnname + " == false";
+            }
+            if (columnType == typeof (bool?))
+            {
+                if (lowerCaseQuery == "null") return columnname + " == null";
+            }
+            return null;
 
         }
 

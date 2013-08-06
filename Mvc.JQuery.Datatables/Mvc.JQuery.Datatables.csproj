@@ -59,7 +59,7 @@
     <Compile Include="DataTablesModelBinder.cs" />
     <Compile Include="DataTablesParam.cs" />
     <Compile Include="DataTablesResult.cs" />
-    <Compile Include="DataTableVm.cs" />
+    <Compile Include="DataTableConfigVm.cs" />
     <Compile Include="DynamicLinq\DynamicLinq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticReflectionHelper.cs" />

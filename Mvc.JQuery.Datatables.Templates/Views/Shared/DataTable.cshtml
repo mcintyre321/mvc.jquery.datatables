@@ -1,9 +1,9 @@
 ﻿@using Mvc.JQuery.Datatables
-@model DataTableVm
+@model DataTableConfigVm
 @{
  
 }
-<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableVm.DefaultTableClass ?? "")" >
+<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
     <thead>
         <tr>
             @foreach (var column in Model.Columns)

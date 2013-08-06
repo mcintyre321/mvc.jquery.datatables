@@ -17,11 +17,11 @@ namespace Mvc.JQuery.Datatables
             return new ColDef() {Name = name, DisplayName = p1, Type = propertyType};
         }
     }
-    public class DataTableVm
+    public class DataTableConfigVm
     {
         IDictionary<string, object> m_JsOptions = new Dictionary<string, object>();
 
-        static DataTableVm()
+        static DataTableConfigVm()
         {
             DefaultTableClass = "table table-bordered table-striped";
         }
@@ -29,7 +29,7 @@ namespace Mvc.JQuery.Datatables
         public static string DefaultTableClass { get; set; }
         public string TableClass { get; set; }
 
-        public DataTableVm(string id, string ajaxUrl, IEnumerable<ColDef> columns)
+        public DataTableConfigVm(string id, string ajaxUrl, IEnumerable<ColDef> columns)
         {
             AjaxUrl = ajaxUrl;
             this.Id = id;
@@ -101,6 +101,7 @@ namespace Mvc.JQuery.Datatables
         {
             (c, t) => (DateTypes.Contains(t)) ? "{type: 'date-range'}" : null,
             (c, t) => t == typeof(bool) ? "{type: 'checkbox', values : ['True', 'False']}" : null,
+            (c, t) => t == typeof(bool?) ? "{type: 'checkbox', values : ['True', 'False', 'null']}" : null,
             (c, t) => t.IsEnum ?  ("{type: 'checkbox', values : ['" + string.Join("','", Enum.GetNames(t)) + "']}") : null,
             (c, t) => "{type: 'text'}", //by default, text filter on everything
         };
@@ -169,37 +170,37 @@ namespace Mvc.JQuery.Datatables
             {
                 if (result != "null" && this._jsOptions != null && this._jsOptions.Count > 0)
                 {
-                    var _jsOptionsAsJson = DataTableVm.convertDictionaryToJsonBody(this._jsOptions);
+                    var _jsOptionsAsJson = DataTableConfigVm.convertDictionaryToJsonBody(this._jsOptions);
                     result = result.TrimEnd('}') + ", " + _jsOptionsAsJson + "}";
                 }
                 _list.Insert(0, (c, t) => _predicate(c, t) ? result : null);
             }
         }
-        public _FilterOn<DataTableVm> FilterOn<T>()
+        public _FilterOn<DataTableConfigVm> FilterOn<T>()
         {
             return FilterOn<T>(null); 
         }
-        public _FilterOn<DataTableVm> FilterOn<T>(object jsOptions)
+        public _FilterOn<DataTableConfigVm> FilterOn<T>(object jsOptions)
         {
-            IDictionary<string, object> optionsDict = DataTableVm.convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> optionsDict = DataTableConfigVm.convertObjectToDictionary(jsOptions);
             return FilterOn<T>(optionsDict); 
         }
-        public _FilterOn<DataTableVm> FilterOn<T>(IDictionary<string, object> jsOptions)
+        public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> jsOptions)
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
+            return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
         }
-        public _FilterOn<DataTableVm> FilterOn(string columnName)
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName)
         {
             return FilterOn(columnName, null);
         }
-        public _FilterOn<DataTableVm> FilterOn(string columnName, object jsOptions)
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, object jsOptions)
         {
-            IDictionary<string, object> optionsDict = DataTableVm.convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> optionsDict = DataTableConfigVm.convertObjectToDictionary(jsOptions);
             return FilterOn(columnName, optionsDict); 
         }
-        public _FilterOn<DataTableVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
         {
-            return new _FilterOn<DataTableVm>(this, this.FilterTypeRules, (c, t) => c == columnName, jsOptions);
+            return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => c == columnName, jsOptions);
         }
 
         private static string convertDictionaryToJsonBody(IDictionary<string, object> dict)

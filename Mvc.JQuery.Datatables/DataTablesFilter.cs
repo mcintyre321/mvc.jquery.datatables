@@ -27,7 +27,8 @@ namespace Mvc.JQuery.Datatables
                         }
                     }
                 }
-                data = data.Where(string.Join(" or ", parts), parameters.ToArray());
+                var values = parts.Where(p => p != null);
+                data = data.Where(string.Join(" or ", values), parameters.ToArray());
             }
             for (int i = 0; i < dtParameters.sSearchColumns.Count; i++)
             {
@@ -106,7 +107,7 @@ namespace Mvc.JQuery.Datatables
             Func<string, string> filterClause = (queryPart) =>
                                                 Filters.Select(
                                                     f => f(queryPart, column.Name, column.Type, parametersForLinqQuery))
-                                                       .First(filterPart => filterPart != null);
+                                                       .FirstOrDefault(filterPart => filterPart != null) ?? "";
 
             var queryParts = query.Split('|').Select(filterClause).Where(fc => fc != "").ToArray();
             if (queryParts.Any())

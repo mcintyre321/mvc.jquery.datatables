@@ -31,7 +31,7 @@ namespace Mvc.JQuery.Datatables
             return helper.Raw(output.ToString());
         }
 
-        public static DataTableVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, IEnumerable<ColDef> columns = null)
+        public static DataTableConfigVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, IEnumerable<ColDef> columns = null)
         {
             if (columns == null || !columns.Any())
             {
@@ -57,12 +57,12 @@ namespace Mvc.JQuery.Datatables
             controllerName = controllerName.Substring(0, controllerName.LastIndexOf("Controller"));
             var urlHelper = new UrlHelper(html.ViewContext.RequestContext);
             var ajaxUrl = urlHelper.Action(mi.Name, controllerName);
-            return new DataTableVm(id, ajaxUrl, columns);
+            return new DataTableConfigVm(id, ajaxUrl, columns);
         }
 
-        public static DataTableVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
+        public static DataTableConfigVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableVm(id, ajaxUrl, columns.Select(c => ColDef.Create(c, (string)null, typeof(string))));
+            return new DataTableConfigVm(id, ajaxUrl, columns.Select(c => ColDef.Create(c, (string)null, typeof(string))));
         }
     }
 }

@@ -10,11 +10,13 @@ namespace Mvc.JQuery.Datatables
     {
         public string Name { get; set; }
         public string DisplayName { get; set; }
+        public bool Visible { get; set; }
+        public bool Sortable { get; set; }
         public Type Type { get; set; }
 
-        public static ColDef Create(string name, string p1, Type propertyType)
+        public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true)
         {
-            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType};
+            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType, Visible = visible, Sortable = sortable};
         }
     }
     public class DataTableConfigVm
@@ -56,6 +58,14 @@ namespace Mvc.JQuery.Datatables
             get
             {
                 return convertDictionaryToJsonBody(JsOptions);
+            }
+        }
+
+        public string ColumnDefsString
+        {
+            get
+            {
+                return convertColumnDefsToJson(Columns);
             }
         }
 
@@ -208,6 +218,24 @@ namespace Mvc.JQuery.Datatables
             // Converting to System.Collections.Generic.Dictionary<> to ensure Dictionary will be converted to Json in correct format
             var dictSystem = new Dictionary<string, object>(dict);
             return (new JavaScriptSerializer()).Serialize((object)dictSystem).TrimStart('{').TrimEnd('}');
+        }
+
+        private static string convertColumnDefsToJson(IEnumerable<ColDef> columns)
+        {
+            var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
+            var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where( x => x > -1).ToArray();
+
+            var defs = new List<dynamic>();
+
+            if (nonSortableColumns.Any())
+                defs.Add(new { bSortable = false, aTargets = nonSortableColumns }); 
+            if (nonVisibleColumns.Any())  
+                defs.Add(new { bVisible = false, aTargets = nonVisibleColumns }); 
+
+            if (defs.Count > 0) 
+                return new JavaScriptSerializer().Serialize(defs);
+
+            return "[]";
         }
 
         private static IDictionary<string, object> convertObjectToDictionary(object obj)

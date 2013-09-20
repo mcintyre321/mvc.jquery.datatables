@@ -42,10 +42,19 @@ namespace Mvc.JQuery.Datatables
                 {
                     var displayNameAttribute = (DisplayNameAttribute)propertyInfo.GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault();
                     var displayName = displayNameAttribute == null ? propertyInfo.Name : displayNameAttribute.DisplayName;
+
+                    var sortableAttribute = (DataTablesSortableAttribute)propertyInfo.GetCustomAttributes(typeof(DataTablesSortableAttribute), false).FirstOrDefault();
+                    var sortable = sortableAttribute == null ? true : sortableAttribute.Sortable;
+
+                    var visibleAttribute = (DataTablesVisibleAttribute)propertyInfo.GetCustomAttributes(typeof(DataTablesVisibleAttribute), false).FirstOrDefault();
+                    var visible = visibleAttribute == null ? true : visibleAttribute.Visible;
+
                     columnList.Add(new ColDef()
                     {
                         Name = propertyInfo.Name,
                         DisplayName = displayName,
+                        Sortable = sortable,
+                        Visible = visible,
                         Type = propertyInfo.PropertyType
                     });
                 }

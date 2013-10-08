@@ -36,26 +36,18 @@ namespace Mvc.JQuery.Datatables
             if (columns == null || !columns.Any())
             {
                 //var propInfos = typeof (TResult).GetProperties().Where(p => p.GetGetMethod() != null).ToList();
-                var propInfos = TypeExtensions.GetSortedProperties<TResult>();
+                var propInfos = DataTablesTypeInfo<TResult>.Properties;
                 var columnList = new List<ColDef>();
-                foreach (var propertyInfo in propInfos)
+                foreach (var pi in propInfos)
                 {
-                    var displayNameAttribute = (DisplayNameAttribute)propertyInfo.GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault();
-                    var displayName = displayNameAttribute == null ? propertyInfo.Name : displayNameAttribute.DisplayName;
-
-                    var sortableAttribute = (DataTablesSortableAttribute)propertyInfo.GetCustomAttributes(typeof(DataTablesSortableAttribute), false).FirstOrDefault();
-                    var sortable = sortableAttribute == null ? true : sortableAttribute.Sortable;
-
-                    var visibleAttribute = (DataTablesVisibleAttribute)propertyInfo.GetCustomAttributes(typeof(DataTablesVisibleAttribute), false).FirstOrDefault();
-                    var visible = visibleAttribute == null ? true : visibleAttribute.Visible;
-
                     columnList.Add(new ColDef()
                     {
-                        Name = propertyInfo.Name,
-                        DisplayName = displayName,
-                        Sortable = sortable,
-                        Visible = visible,
-                        Type = propertyInfo.PropertyType
+                        Name = pi.Item1.Name,
+                        DisplayName = pi.Item2.DisplayName ?? pi.Item1.Name,
+                        Sortable = pi.Item2.Sortable,
+                        Visible = pi.Item2.Visible,
+                        Searchable = pi.Item2.Searchable,
+                        Type = pi.Item1.PropertyType
                     });
                 }
                 columns = columnList.ToArray();

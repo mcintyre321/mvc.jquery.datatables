@@ -7,7 +7,7 @@ namespace Mvc.JQuery.Datatables
 {
     public class DataTablesFilter
     {
-        public IQueryable FilterPagingSortingSearch(DataTablesParam dtParameters, IQueryable data, ColInfo[] columns)
+        public IQueryable<T> FilterPagingSortingSearch<T>(DataTablesParam dtParameters, IQueryable<T> data, ColInfo[] columns)
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {

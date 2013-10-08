@@ -170,14 +170,23 @@
         }
 
         function fnCreateRangeInput(oTable) {
+            var currentFilter = oTable.fnSettings().aoPreSearchCols[i].sSearch;
+            var fromDatePre = '';
+            var toDatePre = '';
+            if (currentFilter != '' && currentFilter != 'undefined') {
+                var arrDates = currentFilter.split("~");
+                fromDatePre = arrDates[0];
+                toDatePre = arrDates[1];
+            }
+
 
             th.html(_fnRangeLabelPart(0));
             var sFromId = oTable.attr("id") + '_range_from_' + i;
-            var from = $('<input type="text" class="number_range_filter" id="' + sFromId + '" rel="' + i + '"/>');
+            var from = $('<input type="text" class="number_range_filter" id="' + sFromId + '" value="' + fromDatePre + '" rel="' + i + '"/>');
             th.append(from);
             th.append(_fnRangeLabelPart(1));
             var sToId = oTable.attr("id") + '_range_to_' + i;
-            var to = $('<input type="text" class="number_range_filter" id="' + sToId + '" rel="' + i + '"/>');
+            var to = $('<input type="text" class="number_range_filter" id="' + sToId + '" value="' + toDatePre + '" rel="' + i + '"/>');
             th.append(to);
             th.append(_fnRangeLabelPart(2));
             th.wrapInner('<span class="filterColumn filter_number_range" />');
@@ -235,14 +244,23 @@
 
 
         function fnCreateDateRangeInput(oTable) {
+            var currentFilter = oTable.fnSettings().aoPreSearchCols[i].sSearch;
+            var fromDatePre = '';
+            var toDatePre = '';
+            if (currentFilter != '' && currentFilter != 'undefined') {
+                var arrDates = currentFilter.split("~");
+                fromDatePre = arrDates[0];
+                toDatePre = arrDates[1];
+            }
+
             th.html(_fnRangeLabelPart(0));
             var sFromId = oTable.attr("id") + '_range_from_' + i;
-            var from = $('<input type="text" class="date_range_filter" id="' + sFromId + '" rel="' + i + '"/>');
+            var from = $('<input type="text" class="date_range_filter" id="' + sFromId + '" value="' + fromDatePre + '" rel="' + i + '"/>');
             from.datepicker();
             th.append(from);
             th.append(_fnRangeLabelPart(1));
             var sToId = oTable.attr("id") + '_range_to_' + i;
-            var to = $('<input type="text" class="date_range_filter" id="' + sToId + '" rel="' + i + '"/>');
+            var to = $('<input type="text" class="date_range_filter" id="' + sToId + '" value="' + toDatePre + '" rel="' + i + '"/>');
             th.append(to);
             th.append(_fnRangeLabelPart(2));
             th.wrapInner('<span class="filterColumn filter_date_range" />');
@@ -313,12 +331,12 @@
             for (j = 0; j < iLen; j++) {
                 if (typeof (aData[j]) != 'object') {
                     var selected = '';
-                    if (escape(aData[j]) == currentFilter) selected = 'selected '
+                    if (("^" + escape(aData[j]) + "$") == currentFilter) selected = 'selected '
                     r += '<option ' + selected + ' value="' + escape("^" + aData[j] + "$") + '">' + aData[j] + '</option>';
                 }
                 else {
                     var selected = '';
-                    if (escape(aData[j].value) == currentFilter) selected = 'selected '
+                    if (("^" + escape(aData[j]) + "$") == currentFilter) selected = 'selected '
                     r += '<option ' + selected + 'value="' + escape(aData[j].value + "$") + '">' + aData[j].label + '</option>';
                 }
             }
@@ -419,6 +437,7 @@
             r += divRowDef;
 
             var storedValues = oTable.fnSettings().aoPreSearchCols[i].sSearch;
+            
             var previousValues = storedValues ? storedValues.split("|") : [];
             for (j = 0; j < iLen; j++) {
 
@@ -427,7 +446,7 @@
                     r += divClose + divRowDef;
                 }
 
-                var checked = $.inArray(aData[j], previousValues) > -1;
+                var checked = $.inArray("^" + aData[j] + "$", previousValues) > -1;
                 //check button
                 r += '<input class="search_init checkbox_filter" type="checkbox" id= "' + aData[j] + '" name= "' + localLabel + '" value="' + ("^" + aData[j] + "$") + '" ' + (checked ? 'checked="checked"' : '') + '>' + aData[j] + '<br/>';
 
@@ -664,8 +683,11 @@
                         var index = aiCustomSearch_Indexes[j];
 
                         for (k = 0; k < aoData.length; k++) {
-                            if (aoData[k].name == "sSearch_" + index)
+                            if (aoData[k].name == "sSearch_" + index) {
                                 aoData[k].value = afnSearch_[j]();
+                                // Added this line to force the value in
+                                oTable.fnSettings().aoPreSearchCols[index].sSearch = aoData[k].value;
+                            }
                         }
                     }
                     aoData.push({ "name": "sRangeSeparator", "value": properties.sRangeSeparator });

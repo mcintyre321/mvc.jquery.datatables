@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatatablesAtrtributes.cs" />
     <Compile Include="DataTablesData.cs" />
     <Compile Include="DataTablesFilter.cs" />
     <Compile Include="DataTablesHelper.cs" />
@@ -64,7 +63,8 @@
     <Compile Include="DynamicLinq\DynamicLinq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticReflectionHelper.cs" />
-    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="StringTransformers.cs" />
+    <Compile Include="DataTablesTypeInfo.cs" />
     <Compile Include="TypeFilters.cs" />
   </ItemGroup>
   <ItemGroup>

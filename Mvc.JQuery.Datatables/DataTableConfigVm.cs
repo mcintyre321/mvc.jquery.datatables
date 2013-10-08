@@ -13,6 +13,7 @@ namespace Mvc.JQuery.Datatables
         public bool Visible { get; set; }
         public bool Sortable { get; set; }
         public Type Type { get; set; }
+        public bool Searchable { get; set; }
 
         public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true)
         {
@@ -69,7 +70,20 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public bool ColumnFilter { get; set; }
+        public bool ColumnFilter
+        {
+            get { return _columnFilter; }
+            set { 
+                _columnFilter = value; 
+                if (value)
+                {
+                    foreach (var column in Columns.Where(c => c.Searchable == false))
+                    {
+                        this.FilterOn(column.Name).None();
+                    }
+                }
+            }
+        }
 
         public bool TableTools { get; set; }
 
@@ -106,6 +120,7 @@ namespace Mvc.JQuery.Datatables
         }
 
         public FilterRuleList FilterTypeRules;
+        private bool _columnFilter;
 
         public static FilterRuleList StaticFilterTypeRules = new FilterRuleList()
         {
@@ -223,14 +238,17 @@ namespace Mvc.JQuery.Datatables
         private static string convertColumnDefsToJson(IEnumerable<ColDef> columns)
         {
             var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
-            var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where( x => x > -1).ToArray();
+            var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
+            var nonSearchableColumns = columns.Select((x, idx) => x.Searchable ? -1 : idx).Where(x => x > -1).ToArray();
 
             var defs = new List<dynamic>();
 
             if (nonSortableColumns.Any())
-                defs.Add(new { bSortable = false, aTargets = nonSortableColumns }); 
-            if (nonVisibleColumns.Any())  
-                defs.Add(new { bVisible = false, aTargets = nonVisibleColumns }); 
+                defs.Add(new { bSortable = false, aTargets = nonSortableColumns });
+            if (nonVisibleColumns.Any())
+                defs.Add(new { bVisible = false, aTargets = nonVisibleColumns });
+            if (nonSearchableColumns.Any())
+                defs.Add(new { bSearchable = false, aTargets = nonSearchableColumns }); 
 
             if (defs.Count > 0) 
                 return new JavaScriptSerializer().Serialize(defs);

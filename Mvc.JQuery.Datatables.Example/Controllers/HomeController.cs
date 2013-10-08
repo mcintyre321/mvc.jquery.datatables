@@ -10,114 +10,64 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private static List<User> _users;
-        //
-        // GET: /Home/
-
         public ActionResult Index()
         {
             return View();
         }
 
-        public enum PositionTypes
-        {
-            Engineer,
-            Tester,
-            Manager
-        }
 
         public DataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
         {
-            var users = Users().AsQueryable();
-
-            return DataTablesResult.Create(users, dataTableParam, user => new UserView()
+            return DataTablesResult.Create(FakeDatabase.Users.Select(user => new UserView()
             {
                 Id = user.Id,
-                Name = new MvcHtmlString("<b>" + user.Name +"</b>"),
+                Name = user.Name,
                 Email = user.Email,
                 Position = user.Position == null ? "" : user.Position.ToString(),
                 Number = user.Number,
                 Hired = user.Hired,
                 IsAdmin = user.IsAdmin,
                 Salary = user.Salary
+            }), dataTableParam,
+            uv => new 
+            {
+                Name = "<b>" + uv.Name + "</b>",
+                Hired = uv.Hired.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired) + ") "
             });
         }
 
-        public DataTablesResult GetUsersUntyped(DataTablesParam dataTableParam)
-        {
-            var users = Users();
+        //public DataTablesResult<User> GetUsersUntyped(DataTablesParam dataTableParam)
+        //{
+        //    var users = FakeDatabase.Users;
 
-            return DataTablesResult.Create(users, dataTableParam);
-        }
+        //    return DataTablesResult.Create(users, dataTableParam);
+        //}
 
-        private static List<User> Users()
-        {
-            var r = new Random();
-            var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
-            var positions = new List<PositionTypes?> { null, PositionTypes.Engineer, PositionTypes.Tester, PositionTypes.Manager };
-            return _users ?? (_users = new List<User>
-                (
-                Enumerable.Range(1, 100).Select(i =>
-                                                new User()
-                                                {
-                                                    Id = i,
-                                                    Email = "user" + i + "@" + domains[i%domains.Length],
-                                                    Name = r.Next(6) == 3 ? null : "User" + i,
-                                                    Position = positions[i%positions.Count],
-                                                    IsAdmin = i % 11 == 0,
-                                                    Number = (Numbers) r.Next(4),
-                                                    Hired = DateTime.UtcNow.AddDays(-1 * 365 * 3 * r.NextDouble()),
-                                                    Salary = 10000 + (DateTime.UtcNow.Minute * 1000) + (DateTime.UtcNow.Second * 100) + DateTime.UtcNow.Millisecond 
-                                                })
-                ));
-        }
+
     }
 
-    public enum Numbers
-    {
-        Zero,
-        One,
-        Two,
-        Three,
-        Four
-    }
-    public class User
-    {
-        public int Id { get; set; }
-        
-        public string Name { get; set; }
-        public string Email { get; set; }
 
-        public HomeController.PositionTypes? Position { get; set; }
-
-        public DateTime  Hired { get; set; }
-
-        public Numbers Number { get; set; }
-
-        public bool IsAdmin { get; set; }
-
-        public decimal Salary { get; set; }
-    }
+   
 
     public class UserView
     {
         public int Id { get; set; }
 
-        [DisplayName("Full Name")]
-        public MvcHtmlString Name { get; set; }
+        [DataTables( DisplayName = "Full Name")]
+        public string Name { get; set; }
 
+
+        [DataTables(Searchable = false)]
         public string Email { get; set; }
 
-        [DataTablesSortable(false)]
+        [DataTables( Sortable = false)]
         public bool IsAdmin { get; set; }
         public string Position { get; set; }
         public DateTime  Hired { get; set; }
 
         public Numbers Number { get; set; }
 
-        [DataTablesVisible(false)]
+        [DataTables(Visible = false)]
         public decimal Salary { get; set; }
     }
-
-     
 }

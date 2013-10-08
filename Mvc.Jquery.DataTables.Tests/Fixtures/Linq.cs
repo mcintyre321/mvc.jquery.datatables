@@ -36,26 +36,17 @@ namespace Mvc.JQuery.DataTables.Tests
         [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
         public virtual int[] ExecuteParams(DataTablesParam dataTablesParam)
         {
-            var result = DataTablesResult.Create(SomeModelQueryable,
-                dataTablesParam,
-                model => model);
-            var data = (DataTablesData)result.Data;
+            var result = new DataTablesResult<SomeModel>(SomeModelQueryable, dataTablesParam);
+            var data = result.Data;
             return data.RecordIds();
         }
 
         [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
         public virtual int[] ExecuteParamsAndTransform(DataTablesParam dataTablesParam)
         {
-            var result = DataTablesResult.Create(SomeModelQueryable,
-                dataTablesParam,
-                model => new SomeView
-                {
-                    Name = model.DisplayName,
-                    Cat = model.Category,
-                    ViewScale = model.Scale,
-                    Id = model.Id
-                });
-            var data = (DataTablesData)result.Data;
+            var result = new DataTablesResult<SomeModel>(SomeModelQueryable,
+                dataTablesParam);
+            var data = result.Data;
             return data.RecordIds();
         }
     }
@@ -116,7 +107,7 @@ namespace Mvc.JQuery.DataTables.Tests
     {
         public static int[] RecordIds(this DataTablesData data)
         {
-            return Array.ConvertAll<object, int>(data.aaData, d => int.Parse((string)((IEnumerable<object>)d).First()));
+            return data.aaData.Select(row => ((SomeModel) row).Id).ToArray();
         }
         public static List<Tlist> Populate<Tlist>(Tlist value, int capacity = Linq.SomeModelPropertyCount)
         {

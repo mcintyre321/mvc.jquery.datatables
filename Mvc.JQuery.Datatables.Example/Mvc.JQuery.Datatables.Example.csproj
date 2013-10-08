@@ -83,6 +83,8 @@
   <ItemGroup>
     <Content Include="App_Code\RegisterVirtualPathProvider.cs" />
     <Compile Include="App_Start\RegisterDatatablesModelBinder.cs" />
+    <Compile Include="Controllers\FakeDatabase.cs" />
+    <Compile Include="Controllers\FriendlyDateHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

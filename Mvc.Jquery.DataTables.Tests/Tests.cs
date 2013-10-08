@@ -29,8 +29,8 @@ namespace Mvc.JQuery.DataTables.Tests
             }.AsQueryable();
 
             dataTablesParam = new DataTablesParam();
-            columns = TypeExtensions.GetSortedProperties<SomeModel>().Select((p, i) =>
-                Tuple.Create(i, new ColInfo(p.Name, p.PropertyType))).ToArray();
+            columns = DataTablesTypeInfo<SomeModel>.Properties.Select((p, i) =>
+                Tuple.Create(i, new ColInfo(p.Item1.Name, p.Item1.PropertyType))).ToArray();
             dataTablesParam.sSearchColumns = new List<string>(columns.Select(c => null as string));
             dataTablesParam.bSearchable = new List<bool>(columns.Select(c => true));
 
@@ -55,9 +55,9 @@ namespace Mvc.JQuery.DataTables.Tests
             var col = columns.First(c => c.Item2.Type == colType).Item1;
 
             dataTablesParam.sSearchColumns[col] = searchString;
-            var result = DataTablesResult.Create(queryable, dataTablesParam);
+            var result = new DataTablesResult<SomeModel>(queryable, dataTablesParam);
 
-            var data = ((DataTablesData)result.Data);
+            var data = result.Data;
             Assert.AreEqual(returnsResult, data.iTotalDisplayRecords > 0);
         }
 

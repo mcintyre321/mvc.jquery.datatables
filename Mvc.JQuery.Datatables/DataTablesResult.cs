@@ -1,149 +1,130 @@
 using System.Linq.Expressions;
+using System.Web;
+using System.Web.Script.Serialization;
 using Mvc.JQuery.Datatables.DynamicLinq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Mvc.JQuery.Datatables
 {
-    public class DataTablesResult : JsonResult
+    public class DataTablesResult 
     {
-        public static DataTablesResult<TRes> Create<T, TRes>(IQueryable<T> q, DataTablesParam dataTableParam, Expression<Func<T, TRes>> transform)
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TTransform"></typeparam>
+        /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
+        /// <param name="dataTableParam"></param>
+        /// <param name="transform">//a transform for custom column rendering e.g. to do a custom date row => new { CreatedDate = row.CreatedDate.ToString("dd MM yy") } </param>
+        /// <returns></returns>
+        public static DataTablesResult<TSource> Create<TSource, TTransform>(IQueryable<TSource> q, DataTablesParam dataTableParam, Func<TSource, TTransform> transform)
         {
-            return new DataTablesResult<T, TRes>(q, dataTableParam, transform);
+            var result = new DataTablesResult<TSource>(q, dataTableParam);
+            result.Data = result.Data
+                .Transform<TSource, Dictionary<string, object>>(row => TransformTypeInfo<TTransform>.MergeToDictionary(transform, row))
+                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.TransformDictionary)
+                .Transform<Dictionary<string, object>, object[]>(d => d.Values.ToArray());
+                
+            return result;
         }
 
-        public static DataTablesResult<T> Create<T>(IQueryable<T> q, DataTablesParam dataTableParam)
+
+        public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam)
         {
-            return new DataTablesResult<T, T>(q, dataTableParam, t => t);
+            var result = new DataTablesResult<TSource>(q, dataTableParam);
+
+            result.Data = result.Data
+                .Transform<TSource, Dictionary<string, object>>(DataTablesTypeInfo<TSource>.ToDictionary)
+                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.TransformDictionary)
+                .Transform<Dictionary<string, object>, object[]>(d => d.Values.ToArray()); ;
+            return result;
         }
 
-        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
-        {
-            queryable = ((IEnumerable)queryable).AsQueryable();
-            var s = "Create";
+        //public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
+        //{
+        //    queryable = ((IEnumerable)queryable).AsQueryable();
+        //    var s = "Create";
 
-            var openCreateMethod =
-                typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
-            var queryableType = queryable.GetType().GetGenericArguments()[0];
-            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-            return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
-        }
+        //    var openCreateMethod =
+        //        typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
+        //    var queryableType = queryable.GetType().GetGenericArguments()[0];
+        //    var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+        //    return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
+        //}
 
         public static DataTablesResult<T> CreateResultUsingEnumerable<T>(IEnumerable<T> q, DataTablesParam dataTableParam)
         {
-            return new DataTablesResult<T, T>(q.AsQueryable(), dataTableParam, t => t);
+            return Create(q.AsQueryable(), dataTableParam);
         }
+
     }
 
-    public class DataTablesResult<T> : DataTablesResult
+    public class TransformTypeInfo<TTransform>
     {
-    }
-
-    public class DataTablesResult<T, TRes> : DataTablesResult<TRes>
-    {
-        private static readonly List<PropertyTransformer> PropertyTransformers = new List<PropertyTransformer>()
+        public static Dictionary<string, object> MergeToDictionary<TInput>(Func<TInput, TTransform> transformInput, TInput tInput)
         {
-            Guard<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g")),
-            Guard<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g")),
-            Guard<IHtmlString>(s => s.ToHtmlString()),
-            Guard<IEnumerable<string>>(s => s.ToArray()),
-            Guard<IEnumerable<int>>(s => s.ToArray()),
-            Guard<IEnumerable<long>>(s => s.ToArray()),
-            Guard<IEnumerable<decimal>>(s => s.ToArray()),
-            Guard<IEnumerable<bool>>(s => s.ToArray()),
-            Guard<IEnumerable<double>>(s => s.ToArray()),
-            Guard<IEnumerable<object>>(s => s.Select(o => GetTransformedValue(o.GetType(), o)).ToArray()),
-            Guard<bool>(s => s),
-            Guard<object>(o => (o ?? "").ToString())
-        };
-
-        private readonly Expression<Func<T, TRes>> _transform;
-
-        public DataTablesResult(IQueryable<T> q, DataTablesParam dataTableParam, Expression<Func<T, TRes>> transform)
-        {
-            _transform = transform;
-
-            //var properties = typeof(TRes).GetProperties();
-             
-            var content = GetResults(q, dataTableParam);
-            this.Data = content;
-            this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
-        }
-
-        public delegate object GuardedValueTransformer<TVal>(TVal value);
-
-        public delegate object PropertyTransformer(Type type, object value);
-
-        public static void RegisterFilter<TVal>(GuardedValueTransformer<TVal> filter)
-        {
-            PropertyTransformers.Add(Guard<TVal>(filter));
-        }
-
-        private static PropertyTransformer Guard<TVal>(GuardedValueTransformer<TVal> transformer)
-        {
-            return (t, v) =>
+            var transform = transformInput(tInput);
+            var dict = DataTablesTypeInfo<TInput>.ToDictionary(tInput);
+            foreach (var propertyInfo in typeof(TTransform).GetProperties())
             {
-                if (!typeof(TVal).IsAssignableFrom(t))
-                {
-                    return null;
-                }
-                return transformer((TVal)v);
-            };
+                dict[propertyInfo.Name] = propertyInfo.GetValue(transform, null);
+            }
+            return dict;
+        }
+    }
+
+
+    public class DataTablesResult<TSource> : ActionResult
+    {
+
+        public DataTablesData Data { get; set; }
+
+        internal DataTablesResult(IQueryable<TSource> q, DataTablesParam dataTableParam)
+        {
+            this.Data = GetResults(q, dataTableParam);
+        }
+        internal DataTablesResult(DataTablesData data)
+        {
+            this.Data = data;
         }
 
-        DataTablesData GetResults(IQueryable<T> data, DataTablesParam param)
+        public override void ExecuteResult(ControllerContext context)
         {
-            int totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
+            if (context == null)
+                throw new ArgumentNullException("context");
+            HttpResponseBase response = context.HttpContext.Response;
+
+            var scriptSerializer = new JavaScriptSerializer();
+            response.Write(scriptSerializer.Serialize(this.Data));
+        }
+
+        DataTablesData GetResults(IQueryable<TSource> data, DataTablesParam param)
+        {
+            var totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
 
             var filters = new DataTablesFilter();
 
-            var filteredData = (IQueryable) data.Select(_transform).AsQueryable();
-
-            var searchColumns = TypeExtensions.GetSortedProperties<TRes>().Select(p => new ColInfo(p.Name, p.PropertyType)).ToArray();
+            var outputProperties = DataTablesTypeInfo<TSource>.Properties;
+            var searchColumns = outputProperties.Select(p => new ColInfo(p.Item1.Name, p.Item1.PropertyType)).ToArray();
             
-            filteredData = filters.FilterPagingSortingSearch(param, filteredData, searchColumns);
+            var filteredData = filters.FilterPagingSortingSearch(param, data, searchColumns).Skip(param.iDisplayStart);
 
-            var page = filteredData.Skip(param.iDisplayStart);
-            if (param.iDisplayLength > -1)
-            {
-                page = page.Take(param.iDisplayLength);
-            }
-
-            //var type = typeof(TRes);
-            //var propertiesOriginal = type.GetProperties();
-
-            var properties = TypeExtensions.GetSortedProperties<TRes>();
-
-            var transformedPage = from i in ((IQueryable<object>)page).ToArray()
-                                  let pairs = properties.Select(p => new { p.PropertyType, Value = (p.GetGetMethod().Invoke(i, null)) })
-                                  let values = pairs.Select(p => GetTransformedValue(p.PropertyType, p.Value))
-                                  select values;
+            var page = (param.iDisplayLength <= 0 ? filteredData : filteredData.Take(param.iDisplayLength)).ToArray();
 
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,
-                iTotalDisplayRecords = filteredData.Count(),
+                iTotalDisplayRecords = page.Length,
                 sEcho = param.sEcho,
-                aaData = transformedPage.ToArray()
+                aaData = page.Cast<object>().ToArray()
             };
 
             return result;
         }
 
-        private static object GetTransformedValue(Type propertyType, object value)
-        {
-            foreach (var transformer in PropertyTransformers)
-            {
-                var result = transformer(propertyType, value);
-                if (result != null) return result;
-            }
-            return (value as object ?? "").ToString();
-        }
+        
     }
 
     public class ColInfo

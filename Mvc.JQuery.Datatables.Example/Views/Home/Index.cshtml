@@ -63,6 +63,7 @@ can also use
     vm.FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
         .FilterOn("Id").NumberRange();
       //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
+    vm.StateSave = true;
 }
 @Html.Partial("DataTable", vm)
 

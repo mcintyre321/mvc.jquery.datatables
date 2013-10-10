@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "title";
 }
-@Html.DataTableIncludes(jqueryUi:true)
+@Html.DataTableIncludes(jqueryUi: true)
+
 <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
 <script type="text/javascript">    $.SyntaxHighlighter.init();</script>
 
@@ -10,44 +11,35 @@
 Nuget install-package Mvc.JQuery.Datatables
 </pre>
 <p>
-    In the controller:
+    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/Mvc.JQuery.Datatables.Example/Controllers/HomeController.cs">example</a>)
 </p>
 <pre class="highlight">
-public DataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
+public class SomeController : Controller 
 {
-    var users = new List&lt;User&gt;
-    (
-        Enumerable.Range(1, 100).Select(i => new User(){Id = i, Email = "user" + i + "@@gmail.com", Name = "User" + i})
-    ).AsQueryable();
-
-    return DataTablesResult.Create(users, dataTableParam, user => new UserView()
+    ...
+    public DataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
     {
-        Id = user.Id,
-        Name = user.Name
-    });
+        IQueryable&lt;User> users = ... //take a queryable from your database...
+        var userViews = users.Select(u => new UserView(u)); //...transform it into a view object ...
+        return DataTablesResult.Create(userViews, dataTableParam)  //...and return a DataTablesResult
+    }
 }
 </pre>
 
 <p>
-and in the view...
+    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/Mvc.JQuery.Datatables.Example/Views/Home/Index.cshtml">example</a>)
 
-<pre class="highlight">
-@@using Mvc.JQuery.Datatables
-@@using Mvc.JQuery.Datatables.Example.Controllers
+    <pre class="highlight">
+        //include these scripts
+        &lt;link type="text/css" href="@@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
+        &lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
 
-&lt;link type="text/css" href="@@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
-&lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
+        @@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
 
-@@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
-
-can also use 
-
-@@Html.Partial("DataTable", Html.DataTableVm("table-id", "/home/getusers", "Id", "Name", "Email"))
-</pre>
+    </pre>
 </p>
 
-<h1>Voila</h1>
-
+<h1>Voila!</h1>
 <div style="padding: 5px; border: 1px solid grey">
     Custom placement for Position filter:
     <div id="custom-filter-placeholder-position"></div>
@@ -55,6 +47,7 @@ can also use
 
 @using Mvc.JQuery.Datatables
 @using Mvc.JQuery.Datatables.Example.Controllers
+@using Mvc.JQuery.Datatables.Models
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
     //vm.JsOptions.Add("iDisplayLength", 25);
@@ -62,37 +55,51 @@ can also use
     vm.ColumnFilter = true;
     vm.FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
         .FilterOn("Id").NumberRange();
-      //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
+    //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
     vm.StateSave = true;
 
-    //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";
 
-    vm.Language = "{" +
-                  " 'sProcessing': 'Bitte warten...'," +
-                  " 'sLengthMenu': '_MENU_ Einträge anzeigen'," +
-                  " 'sZeroRecords': 'Keine Einträge vorhanden.'," +
-                  " 'sInfo': '_START_ bis _END_ von _TOTAL_ Einträgen'," +
-                  " 'sInfoEmpty': '0 bis 0 von 0 Einträgen'," +
-                  " 'sInfoFiltered': '(gefiltert von _MAX_  Einträgen)'," +
-                  " 'sInfoPostFix': ''," +
-                  " 'sSearch': 'Suchen'," +
-                  " 'sUrl': ''," +
-                  " 'oPaginate': {" +
-                  "	    'sFirst':    'Erster'," +
-                  "	    'sPrevious': 'Zurück'," +
-                  "	    'sNext':     'Weiter'," +
-                  "	    'sLast':     'Letzter'" +
-                  " }" +
-                  "}";
+    if (Request.QueryString["lang"] == "de")
+    {
+        //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";
+        vm.Language = new Language
+        {
+            sProcessing = "Bitte warten...",
+            sLengthMenu = "_MENU_ Einträge anzeigen",
+            sZeroRecords = "Keine Einträge vorhanden.",
+            sInfo = "_START_ bis _END_ von _TOTAL_ Einträgen",
+            sInfoEmpty = "0 bis 0 von 0 Einträgen",
+            sInfoFiltered = "(gefiltert von _MAX_  Einträgen)",
+            sInfoPostFix = "",
+            sSearch = "Suchen",
+            sUrl = "",
+            oPaginate = new Paginate()
+            {
+                sFirst = "Erster",
+                sPrevious = "Zurück",
+                sNext = "Weiter",
+                sLast = "Letzter"
+            }
+        }.ToJsonString();
+    }
 }
 @Html.Partial("DataTable", vm)
 
+<br />
 
 
 
 
 
-
-
+<div>
+    @if (Request.QueryString["lang"] != "de")
+    {
+        <a href="?lang=de#language-switch" id="language-switch">See table with Language settings applied</a>
+    }
+    else
+    {
+        <a href="/#language-switch" id="language-switch">Turn off language settings</a>
+    }
+</div>
 
 

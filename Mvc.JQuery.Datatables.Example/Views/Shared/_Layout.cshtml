@@ -54,17 +54,7 @@
 </head>
 <body>
 
-    <div class="topbar">
-        <div class="topbar-inner">
-            <div class="container">
-                <h3>@Html.ActionLink("My MVC Application", "Index", "Home")</h3>
-                <ul class="nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
-                @Html.Partial("_LogOnPartial")
-            </div>
-        </div>
-    </div>
+  
     <div class="container">
         @RenderBody()
     </div>

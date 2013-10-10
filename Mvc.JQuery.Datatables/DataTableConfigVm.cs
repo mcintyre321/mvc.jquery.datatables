@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using Mvc.JQuery.Datatables.Models;
 
 namespace Mvc.JQuery.Datatables
 {

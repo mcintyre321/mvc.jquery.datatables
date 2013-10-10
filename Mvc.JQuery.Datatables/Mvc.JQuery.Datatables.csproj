@@ -61,6 +61,7 @@
     <Compile Include="DataTablesResult.cs" />
     <Compile Include="DataTableConfigVm.cs" />
     <Compile Include="DynamicLinq\DynamicLinq.cs" />
+    <Compile Include="Models\oLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticReflectionHelper.cs" />
     <Compile Include="StringTransformers.cs" />

@@ -64,6 +64,26 @@ can also use
         .FilterOn("Id").NumberRange();
       //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
     vm.StateSave = true;
+
+    //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";
+
+    vm.Language = "{" +
+                  " 'sProcessing': 'Bitte warten...'," +
+                  " 'sLengthMenu': '_MENU_ Einträge anzeigen'," +
+                  " 'sZeroRecords': 'Keine Einträge vorhanden.'," +
+                  " 'sInfo': '_START_ bis _END_ von _TOTAL_ Einträgen'," +
+                  " 'sInfoEmpty': '0 bis 0 von 0 Einträgen'," +
+                  " 'sInfoFiltered': '(gefiltert von _MAX_  Einträgen)'," +
+                  " 'sInfoPostFix': ''," +
+                  " 'sSearch': 'Suchen'," +
+                  " 'sUrl': ''," +
+                  " 'oPaginate': {" +
+                  "	    'sFirst':    'Erster'," +
+                  "	    'sPrevious': 'Zurück'," +
+                  "	    'sNext':     'Weiter'," +
+                  "	    'sLast':     'Letzter'" +
+                  " }" +
+                  "}";
 }
 @Html.Partial("DataTable", vm)
 

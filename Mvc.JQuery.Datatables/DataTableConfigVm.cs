@@ -110,6 +110,8 @@ namespace Mvc.JQuery.Datatables
 
         public bool StateSave { get; set; }
 
+        public string Language { get; set; }
+
         public string GetFilterType(string columnName, Type type)
         {
             foreach (Func<string, Type, string> filterTypeRule in FilterTypeRules)

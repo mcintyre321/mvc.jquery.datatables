@@ -54,6 +54,13 @@
             },
             "aoColumnDefs" : @Html.Raw(Model.ColumnDefsString)
                 @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
+            @if (!string.IsNullOrEmpty(Model.Language))
+            {
+                <text>
+                    ,"oLanguage": @Html.Raw(@Model.Language)
+
+                </text>
+            }
             });
             @if (Model.ColumnFilter)
             {

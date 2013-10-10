@@ -116,7 +116,7 @@ namespace Mvc.JQuery.Datatables
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,
-                iTotalDisplayRecords = page.Length,
+                iTotalDisplayRecords = filteredData.Count() + param.iDisplayStart,
                 sEcho = param.sEcho,
                 aaData = page.Cast<object>().ToArray()
             };

@@ -99,6 +99,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\jquery.dataTables.lang.de-DE.txt" />
     <Content Include="Content\themes\Aristo\images\bg_fallback.png" />
     <Content Include="Content\themes\Aristo\images\icon_sprite.png" />
     <Content Include="Content\themes\Aristo\images\progress_bar.gif" />

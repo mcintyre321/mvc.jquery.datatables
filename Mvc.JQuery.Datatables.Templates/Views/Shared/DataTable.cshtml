@@ -1,8 +1,6 @@
 ﻿@using Mvc.JQuery.Datatables
 @model DataTableConfigVm
-@{
- 
-}
+
 <table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
     <thead>
         <tr>
@@ -28,6 +26,7 @@
         </tr>
     </tbody>
 </table>
+
 <script type="text/javascript">
     (function setDataTable() {
         if(!window.jQuery) {
@@ -37,7 +36,7 @@
         var $table = $('#@Model.Id');
         var dt = $table.dataTable({
             "bProcessing": true,
-            "bStateSave": true,
+            "bStateSave": @Html.Raw(Model.StateSave ? "true" : "false"),
             "bServerSide": true,
             "bFilter": @Model.ShowSearch.ToString().ToLower(),
             "sDom": '@Html.Raw(Model.Dom)',
@@ -55,6 +54,13 @@
             },
             "aoColumnDefs" : @Html.Raw(Model.ColumnDefsString)
                 @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
+            @if (!string.IsNullOrEmpty(Model.Language))
+            {
+                <text>
+                    ,"oLanguage": @Html.Raw(@Model.Language)
+
+                </text>
+            }
             });
             @if (Model.ColumnFilter)
             {

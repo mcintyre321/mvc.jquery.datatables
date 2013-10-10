@@ -108,6 +108,9 @@ namespace Mvc.JQuery.Datatables
 
         public bool ShowPageSizes { get; set; }
 
+        public bool StateSave { get; set; }
+
+        public string Language { get; set; }
 
         public string GetFilterType(string columnName, Type type)
         {

@@ -1,21 +1,18 @@
 <?xml version="1.0"?>
 <package >
 	<metadata>
-    <id>Mvc.JQuery.Datatables</id>
-    <version>1.2.71</version>
-    <title>Mvc.JQuery.Datatables</title>
-    <authors>Harry McIntyre</authors>
-    <owners>Harry McIntyre</owners>
-    <projectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Strongly type html helpers for rendering jquery.datatables tables from IQueryables</description>
-    <copyright>Copyright 2011</copyright>
-    <tags>jquery datatables iqueryable razor</tags>
-    <dependencies>
-      <dependency id="WebActivator" version="1.5" />
-    </dependencies>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<copyright>Copyright 2011</copyright>
+		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
 	<files>
-		<file src=".\App_Start\*.pp" target="content\App_Start" />
+		<file src=".\Mvc.JQuery.DataTables\App_Start\*.pp" target="content\App_Start" />
 	</files>
 </package>

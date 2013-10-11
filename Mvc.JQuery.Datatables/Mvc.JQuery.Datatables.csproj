@@ -72,7 +72,7 @@
     <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml">
       <Link>Views\Shared\DataTable.cshtml</Link>
     </EmbeddedResource>
-    <None Include="App_Start\RegisterDatatablesModelBinder.cs.pp" />
+    <None Include="Content\App_Start\RegisterDatatablesModelBinder.cs.pp" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

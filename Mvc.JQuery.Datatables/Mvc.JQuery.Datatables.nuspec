@@ -12,7 +12,7 @@
 		<copyright>Copyright 2011</copyright>
 		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
-	<files>
-		<file src=".\Mvc.JQuery.DataTables\App_Start\*.pp" target="content\App_Start" />
-	</files>
+	<dependencies>
+		<dependency id="WebActivatorEx" version="2.0.0" />
+	</dependencies>
 </package>

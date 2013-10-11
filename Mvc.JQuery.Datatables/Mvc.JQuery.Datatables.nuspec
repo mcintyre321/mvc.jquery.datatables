@@ -12,7 +12,4 @@
 		<copyright>Copyright 2011</copyright>
 		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
-	<dependencies>
-		<dependency id="WebActivatorEx" version="2.0.0" />
-	</dependencies>
 </package>

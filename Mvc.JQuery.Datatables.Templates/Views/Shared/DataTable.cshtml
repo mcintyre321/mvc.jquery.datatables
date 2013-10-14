@@ -35,6 +35,7 @@
         }
         var $table = $('#@Model.Id');
         var dt = $table.dataTable({
+            "aaSorting": @Html.Raw(Model.ColumnSortingString),
             "bProcessing": true,
             "bStateSave": @Html.Raw(Model.StateSave ? "true" : "false"),
             "bServerSide": true,

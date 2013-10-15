@@ -123,6 +123,8 @@ namespace Mvc.JQuery.Datatables
 
         public string Language { get; set; }
 
+        public string DrawCallback { get; set; }
+
         public string GetFilterType(string columnName, Type type)
         {
             foreach (Func<string, Type, string> filterTypeRule in FilterTypeRules)

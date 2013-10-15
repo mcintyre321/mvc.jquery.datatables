@@ -59,18 +59,23 @@
             {
                 <text>
                     ,"oLanguage": @Html.Raw(@Model.Language)
-
+                </text>
+            }
+            @if (!string.IsNullOrEmpty(Model.DrawCallback))
+            {
+                <text>
+                    ,"fnDrawCallback": @Html.Raw(Model.DrawCallback)
                 </text>
             }
             });
             @if (Model.ColumnFilter)
             {
-    <text>
-        dt.columnFilter({
-            sPlaceHolder: "head:before",
-            aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
-                });
-        </text>
+                <text>
+                    dt.columnFilter({
+                        sPlaceHolder: "head:before",
+                        aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
+                    });
+                </text>
             }
     })();
 </script>

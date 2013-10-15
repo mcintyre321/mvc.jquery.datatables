@@ -62,6 +62,12 @@
 
                 </text>
             }
+            @if (!string.IsNullOrEmpty(Model.DrawCallback))
+            {
+                <text>
+                    ,"fnDrawCallback": @Html.Raw(Model.DrawCallback)
+                </text>
+            }
             });
             @if (Model.ColumnFilter)
             {

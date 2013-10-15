@@ -59,7 +59,6 @@
             {
                 <text>
                     ,"oLanguage": @Html.Raw(@Model.Language)
-
                 </text>
             }
             @if (!string.IsNullOrEmpty(Model.DrawCallback))
@@ -71,12 +70,12 @@
             });
             @if (Model.ColumnFilter)
             {
-    <text>
-        dt.columnFilter({
-            sPlaceHolder: "head:before",
-            aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
-                });
-        </text>
+                <text>
+                    dt.columnFilter({
+                        sPlaceHolder: "head:before",
+                        aoColumns: [@Html.Raw(Model.ColumnFiltersString)]
+                    });
+                </text>
             }
     })();
 </script>

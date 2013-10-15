@@ -12,7 +12,4 @@
 		<copyright>Copyright 2011</copyright>
 		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
-	<files>
-		<file src=".\App_Start\*.pp" target="content\App_Start" />
-	</files>
 </package>

@@ -56,7 +56,16 @@ namespace Mvc.JQuery.Datatables
         public bool Sortable { get; set; }
         public int? Order { get; set; }
         public string DisplayName { get; set; }
+        public SortDirection SortDirection { get; set; }
+        public string MRenderFunction { get; set; }
 
         public bool Visible { get; set; }
+    }
+
+    public enum SortDirection
+    {
+        None,
+        Ascending,
+        Descending
     }
 }

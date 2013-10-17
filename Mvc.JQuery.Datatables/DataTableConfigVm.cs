@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Serialization;
+using Newtonsoft.Json;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -236,7 +238,7 @@ namespace Mvc.JQuery.Datatables
         {
             // Converting to System.Collections.Generic.Dictionary<> to ensure Dictionary will be converted to Json in correct format
             var dictSystem = new Dictionary<string, object>(dict);
-            return (new JavaScriptSerializer()).Serialize((object)dictSystem).TrimStart('{').TrimEnd('}');
+            return JsonConvert.SerializeObject((object)dictSystem, Formatting.None, new RawConverter()).TrimStart('{').TrimEnd('}');
         }
 
         private static string convertColumnDefsToJson(IEnumerable<ColDef> columns)

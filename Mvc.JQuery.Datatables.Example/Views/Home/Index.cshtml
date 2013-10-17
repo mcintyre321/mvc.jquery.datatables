@@ -66,7 +66,7 @@ public class SomeController : Controller
         .FilterOn("Id").NumberRange();
     //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
     vm.StateSave = true;
-
+    //vm.DrawCallback = "drawCallback";
 
     if (Request.QueryString["lang"] == "de")
     {
@@ -92,12 +92,20 @@ public class SomeController : Controller
         }.ToJsonString();
     }
 }
+
+<script type="text/javascript">
+    function test(data, type, full) {
+        return '<i>' + data + '</i>';
+    }
+    
+    function drawCallback(oSettings) {
+        console.log('fnDrawCallback fired');
+        console.log(oSettings);
+    }
+</script>
 @Html.Partial("DataTable", vm)
 
 <br />
-
-
-
 
 
 <div>

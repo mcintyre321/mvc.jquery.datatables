@@ -17,10 +17,12 @@ namespace Mvc.JQuery.Datatables
         public bool Sortable { get; set; }
         public Type Type { get; set; }
         public bool Searchable { get; set; }
+        public SortDirection SortDirection { get; set; }
+        public string MRenderFunction { get; set; }
 
-        public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true)
+        public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true, SortDirection sortDirection = SortDirection.None, string mRenderFunction = null)
         {
-            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType, Visible = visible, Sortable = sortable};
+            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType, Visible = visible, Sortable = sortable, SortDirection = sortDirection, MRenderFunction = mRenderFunction };
         }
     }
     public class DataTableConfigVm
@@ -109,11 +111,21 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
+        public string ColumnSortingString
+        {
+            get
+            {
+                return convertColumnSortingToJson(Columns);
+            }
+        }
+
         public bool ShowPageSizes { get; set; }
 
         public bool StateSave { get; set; }
 
         public string Language { get; set; }
+
+        public string DrawCallback { get; set; }
 
         public string GetFilterType(string columnName, Type type)
         {
@@ -246,6 +258,7 @@ namespace Mvc.JQuery.Datatables
             var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
             var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
             var nonSearchableColumns = columns.Select((x, idx) => x.Searchable ? -1 : idx).Where(x => x > -1).ToArray();
+            var mRenderColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.MRenderFunction) ? new { x.MRenderFunction, Index = -1 } : new { x.MRenderFunction, Index = idx }).Where(x => x.Index > -1).ToArray();
 
             var defs = new List<dynamic>();
 
@@ -255,9 +268,24 @@ namespace Mvc.JQuery.Datatables
                 defs.Add(new { bVisible = false, aTargets = nonVisibleColumns });
             if (nonSearchableColumns.Any())
                 defs.Add(new { bSearchable = false, aTargets = nonSearchableColumns }); 
+            if (mRenderColumns.Any())
+                foreach (var mRenderColumn in mRenderColumns)
+                {
+                    defs.Add(new { mRender = "%" + mRenderColumn.MRenderFunction + "%", aTargets = new[] {mRenderColumn.Index} });
+                }
 
-            if (defs.Count > 0) 
-                return new JavaScriptSerializer().Serialize(defs);
+            if (defs.Count > 0)
+                return new JavaScriptSerializer().Serialize(defs).Replace("\"%", "").Replace("%\"", "");
+
+            return "[]";
+        }
+
+        private static string convertColumnSortingToJson(IEnumerable<ColDef> columns)
+        {
+            var sortList = columns.Select((c, idx) => c.SortDirection == SortDirection.None ? new dynamic[] { -1, "" } : (c.SortDirection == SortDirection.Ascending ? new dynamic[] { idx, "asc" } : new dynamic[] { idx, "desc" })).Where(x => x[0] > -1).ToArray();
+
+            if (sortList.Length > 0) 
+                return new JavaScriptSerializer().Serialize(sortList);
 
             return "[]";
         }

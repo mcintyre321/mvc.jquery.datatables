@@ -14,7 +14,7 @@ namespace Mvc.JQuery.Datatables
         {
             var infos = from pi in typeof (T).GetProperties()
                         let da = (DataTablesAttribute)(pi.GetCustomAttributes(typeof(DataTablesAttribute), false).SingleOrDefault() ?? new DataTablesAttribute())
-                             orderby da.Order ?? int.MaxValue
+                             orderby da.Order
                         select new DataTablesPropertyInfo(pi, da);
             Properties = infos.ToArray();
         }
@@ -50,11 +50,12 @@ namespace Mvc.JQuery.Datatables
             this.Sortable = true;
             this.Searchable = true;
             this.Visible = true;
+            this.Order = int.MaxValue;
         }
 
         public bool Searchable { get; set; }
         public bool Sortable { get; set; }
-        public int? Order { get; set; }
+        public int Order { get; set; }
         public string DisplayName { get; set; }
         public SortDirection SortDirection { get; set; }
         public string MRenderFunction { get; set; }

@@ -51,12 +51,12 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
     public class UserView
     {
-        [DataTables(SortDirection = SortDirection.Ascending)]
-        public int Id { get; set; }
-
+       
         [DataTables(DisplayName = "Full Name", MRenderFunction = "test")]
         public string Name { get; set; }
 
+        [DataTables(SortDirection = SortDirection.Ascending, Order = 0)]
+        public int Id { get; set; }
 
         [DataTables(Searchable = false)]
         public string Email { get; set; }

@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
             uv => new 
             {
                 Name = "<b>" + uv.Name + "</b>",
-                Hired = uv.Hired.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired) + ") "
+                Hired = uv.Hired == null ? "&lt;pending&gt;" : uv.Hired.Value.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired.Value) + ") "
             });
         }
 
@@ -64,7 +64,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         [DataTables( Sortable = false)]
         public bool IsAdmin { get; set; }
         public string Position { get; set; }
-        public DateTime  Hired { get; set; }
+        public DateTime?  Hired { get; set; }
 
         public Numbers Number { get; set; }
 

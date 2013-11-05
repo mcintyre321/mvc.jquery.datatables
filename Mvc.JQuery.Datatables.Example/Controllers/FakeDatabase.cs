@@ -22,9 +22,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
                 Position = positions[i%positions.Count],
                 IsAdmin = i%11 == 0,
                 Number = (Numbers) r.Next(4),
-                Hired =
-                    DateTime.UtcNow.AddDays(-1*365*3*
-                                            r.NextDouble()),
+                Hired = i % 8 == 0 ? null as DateTime? : DateTime.UtcNow.AddDays(-1*365*3* r.NextDouble()),
                 Salary =
                     10000 + (DateTime.UtcNow.Minute*1000) +
                     (DateTime.UtcNow.Second*100) +
@@ -59,7 +57,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         public PositionTypes? Position { get; set; }
 
-        public DateTime Hired { get; set; }
+        public DateTime? Hired { get; set; }
 
         public Numbers Number { get; set; }
 

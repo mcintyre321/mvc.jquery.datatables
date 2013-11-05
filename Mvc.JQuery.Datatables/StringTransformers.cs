@@ -59,10 +59,7 @@ namespace Mvc.JQuery.Datatables
             var output = new Dictionary<string, object>();
             foreach (var row in dict)
             {
-                if (row.Value != null)
-                {
-                    output[row.Key] = GetStringedValue(row.Value.GetType(), row.Value);
-                }
+                output[row.Key] = row.Value == null ? "" : GetStringedValue(row.Value.GetType(), row.Value);
             }
             return output;
         }

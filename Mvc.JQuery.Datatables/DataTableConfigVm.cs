@@ -167,7 +167,6 @@ namespace Mvc.JQuery.Datatables
             {
                 _target = target;
                 _colDef = colDef;
-                _colDef.Filter = new FilterDef(colDef.Type);
 
             }
 

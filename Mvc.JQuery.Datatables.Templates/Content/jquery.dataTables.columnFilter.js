@@ -589,6 +589,8 @@
 
             if (!oTable.fnSettings().oFeatures.bFilter)
                 return;
+
+
             asInitVals = new Array();
             var sFilterRow = "tfoot tr";
             if (properties.sPlaceHolder == "head:after") {
@@ -611,9 +613,13 @@
                 }
                 sFilterRow = "thead tr:first";
             }
-
-            $(sFilterRow + " th", oTable).each(function (index) {
+            var tableColumnDefs = oTable.fnSettings().aoColumns;
+            var row = $(sFilterRow + " th", oTable);
+            var thIndex = -1;
+            $(tableColumnDefs).each(function (index) {
                 i = index;
+
+
                 var aoColumn = {
                     type: "text",
                     bRegex: false,
@@ -625,25 +631,27 @@
                         return;
                     aoColumn = properties.aoColumns[i];
                 }
-                label = $(this).text(); //"Search by " + $(this).text();
-                if (aoColumn.sSelector == null)
-                    th = $($(this)[0]);
-                else {
-                    th = $(aoColumn.sSelector);
-                    if (th.length == 0)
-                        th = $($(this)[0]);
+                
+
+                if (this.bVisible) {
+                    thIndex++;
+                } else {
+                    if (aoColumn.sSelector == null) return; //if hidden column and sSelector is empty
                 }
+                th = $(row[thIndex]);
+                if (aoColumn.sSelector != null) {
+                    th = $(aoColumn.sSelector);
+                }
+                label = th.text(); //"Search by " + $(this).text();
+                 
 
                 if (aoColumn != null) {
-                    if (aoColumn.sRangeFormat != null)
-                        sRangeFormat = aoColumn.sRangeFormat;
-                    else
-                        sRangeFormat = properties.sRangeFormat
+                    sRangeFormat = aoColumn.sRangeFormat != null ? aoColumn.sRangeFormat : properties.sRangeFormat;
+
                     switch (aoColumn.type) {
                         case "number":
                             fnCreateInput(oTable, true, false, true, aoColumn.iFilterLength);
                             break;
-
                         case "select":
                             fnCreateSelect(oTable, aoColumn.values);
                             break;
@@ -662,17 +670,17 @@
                             bSmart = (aoColumn.bSmart == null ? false : aoColumn.bSmart);
                             fnCreateInput(oTable, bRegex, bSmart, false, aoColumn.iFilterLength);
                             break;
-
                     }
                 }
-            });
 
+            });
+            
             for (j = 0; j < aiCustomSearch_Indexes.length; j++) {
                 //var index = aiCustomSearch_Indexes[j];
                 var fnSearch_ = function () {
                     var id = oTable.attr("id");
                     return $("#" + id + "_range_from_" + aiCustomSearch_Indexes[j]).val() + properties.sRangeSeparator + $("#" + id + "_range_to_" + aiCustomSearch_Indexes[j]).val()
-                }
+                };
                 afnSearch_.push(fnSearch_);
             }
 

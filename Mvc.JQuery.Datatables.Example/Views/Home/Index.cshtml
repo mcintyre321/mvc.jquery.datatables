@@ -46,6 +46,8 @@ public class SomeController : Controller
 <div style="padding: 5px; border: 1px solid grey">
     Custom placement for Position filter:
     <div id="custom-filter-placeholder-position"></div>
+    Custom placement for hidden Salary filter:
+    <div id="custom-filter-placeholder-salary"></div>
 </div>
 
 @using Mvc.JQuery.Datatables
@@ -62,8 +64,10 @@ public class SomeController : Controller
       }
     }"));
     vm.ColumnFilter = true;
-    vm.FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
-        .FilterOn("Id").NumberRange();
+    vm
+        .FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
+        .FilterOn("Id").NumberRange()
+        .FilterOn("Salary", new { sSelector = "#custom-filter-placeholder-salary" }).NumberRange();
     //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
     vm.StateSave = true;
     //vm.DrawCallback = "drawCallback";

@@ -4,12 +4,12 @@
 @model DataTableConfigVm
 <table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
     <thead>
-        @if (Model.ColumnFilter && Model.Columns.Any(c => c.Visible && c.Filter != null))
+        @if (Model.ColumnFilter)
         {
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    <th></th>
+                    <th>@column.DisplayName</th>
                 }
             </tr>
         }
@@ -75,10 +75,7 @@
             @if (Model.ColumnFilter)
             {
                 <text>
-        dt.columnFilter({
-            sPlaceHolder: "head:after",
-            aoColumns: @Html.Raw(Model.ColumnFiltersString)
-                        });
+        dt.columnFilter(@Html.Raw(Model.ColumnFilterVm.ToString()));
         </text>
             }
     })();

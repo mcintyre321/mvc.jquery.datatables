@@ -74,6 +74,7 @@ namespace Mvc.JQuery.Datatables
             this.ShowSearch = true;
             this.ShowPageSizes = true;
             this.TableTools = true;
+            ColumnFilterVm = new ColumnFilterSettingsVm(this);
         }
 
         public bool ShowSearch { get; set; }
@@ -101,30 +102,15 @@ namespace Mvc.JQuery.Datatables
                 return convertColumnDefsToJson(Columns);
             }
         }
+        public bool ColumnFilter { get; set; }
 
-        public bool ColumnFilter
-        {
-            get { return _columnFilter; }
-            set { 
-                _columnFilter = value; 
-                if (value)
-                {
-                    foreach (var column in Columns.Where(c => c.Searchable == false))
-                    {
-                        this.FilterOn(column.Name).None();
-                    }
-                }
-            }
-        }
+        public ColumnFilterSettingsVm ColumnFilterVm { get; set; }
 
         public bool TableTools { get; set; }
 
         public bool AutoWidth { get; set; }
 
-        public string ColumnFiltersString
-        {
-            get { return new JavaScriptSerializer().Serialize(Columns.Select(c => c.Filter).ToArray()); }
-        }
+        
 
         public string Dom
         {
@@ -299,8 +285,23 @@ namespace Mvc.JQuery.Datatables
         }
     }
 
-    public class FilterRuleList : List<Func<string, Type, string>>
+    public class ColumnFilterSettingsVm : Hashtable
     {
-       
-    } 
+        private readonly DataTableConfigVm _vm;
+
+        public ColumnFilterSettingsVm(DataTableConfigVm vm)
+        {
+            _vm = vm;
+            this["sPlaceHolder"] = "head:after";
+        }
+
+        public override string ToString()
+        {
+            this["aoColumns"] = _vm.Columns
+                //.Where(c => c.Visible || c.Filter["sSelector"] != null)
+                .Select(c => c.Filter).ToArray();
+            return new JavaScriptSerializer().Serialize(this);
+        }
+    }
+
 }

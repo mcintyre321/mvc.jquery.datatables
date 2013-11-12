@@ -63,12 +63,19 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         [DataTables( Sortable = false)]
         public bool IsAdmin { get; set; }
+
+        [DataTables(Visible = false)]
+        public bool AHiddenColumn { get; set; }
+
+
+        [DataTables(Visible = false)]
+        public decimal Salary { get; set; }
+        
         public string Position { get; set; }
         public DateTime?  Hired { get; set; }
 
         public Numbers Number { get; set; }
 
-        [DataTables(Visible = false)]
-        public decimal Salary { get; set; }
+        
     }
 }

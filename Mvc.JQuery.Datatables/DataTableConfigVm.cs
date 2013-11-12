@@ -292,6 +292,7 @@ namespace Mvc.JQuery.Datatables
         public ColumnFilterSettingsVm(DataTableConfigVm vm)
         {
             _vm = vm;
+            this["bUseColVis"] = true;
             this["sPlaceHolder"] = "head:after";
         }
 

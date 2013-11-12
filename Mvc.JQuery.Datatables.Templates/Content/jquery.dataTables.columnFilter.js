@@ -62,7 +62,7 @@
 
             // use only filtered rows
             if (bFiltered == true) aiRows = oSettings.aiDisplay;
-            // use all rows
+                // use all rows
             else aiRows = oSettings.aiDisplayMaster; // all row numbers
 
             // set up data array	
@@ -76,10 +76,10 @@
                 // ignore empty values?
                 if (bIgnoreEmpty == true && sValue.length == 0) continue;
 
-                // ignore unique values?
+                    // ignore unique values?
                 else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
 
-                // else push the value onto the result data array
+                    // else push the value onto the result data array
                 else asResultData.push(sValue);
             }
 
@@ -139,7 +139,7 @@
                             iLastFilterLength = 0;
                         var iCurrentFilterLength = this.value.length;
                         if (Math.abs(iCurrentFilterLength - iLastFilterLength) < iFilterLength
-                        //&& currentFilter.length == 0 //Why this?
+                            //&& currentFilter.length == 0 //Why this?
 					) {
                             //Cancel the filtering
                             return;
@@ -325,7 +325,7 @@
             var index = iColumn;
             var currentFilter = oTable.fnSettings().aoPreSearchCols[i].sSearch;
 
-            var r = '<select class="search_init select_filter"><option value="" class="search_init">' + sLabel + '</option>';
+            var r = '<select class="search_init select_filter"><option value="" class="search_init"></option>';
             var j = 0;
             var iLen = aData.length;
             for (j = 0; j < iLen; j++) {
@@ -404,7 +404,7 @@
             if (properties.sFilterButtonText != null || properties.sFilterButtonText != undefined) {
                 labelBtn = properties.sFilterButtonText;
             } else {
-                labelBtn = label;
+                labelBtn = label || "filter";
             }
 
             var relativeDivWidthToggleSize = 10;
@@ -437,7 +437,7 @@
             r += divRowDef;
 
             var storedValues = oTable.fnSettings().aoPreSearchCols[i].sSearch;
-            
+
             var previousValues = storedValues ? storedValues.split("|") : [];
             for (j = 0; j < iLen; j++) {
 
@@ -495,7 +495,7 @@
                 //height: 140,
                 autoOpen: false,
                 //show: "blind",
-                hide: "blind",
+                //hide: "blind",
                 buttons: [{
                     text: "Reset",
                     click: function () {
@@ -513,7 +513,7 @@
 							    text: "Close",
 							    click: function () { $(this).dialog("close"); }
 							}
-						]
+                ]
             });
 
 
@@ -521,7 +521,8 @@
 
                 $('#' + checkToggleDiv).dialog('open');
                 var target = $(this);
-                $('#' + checkToggleDiv).dialog("widget").position({ my: 'top',
+                $('#' + checkToggleDiv).dialog("widget").position({
+                    my: 'top',
                     at: 'bottom',
                     of: target
                 });
@@ -533,7 +534,8 @@
 
             fnOnFiltered = function () {
                 var target = $('#' + buttonId);
-                $('#' + checkToggleDiv).dialog("widget").position({ my: 'top',
+                $('#' + checkToggleDiv).dialog("widget").position({
+                    my: 'top',
                     at: 'bottom',
                     of: target
                 });
@@ -612,7 +614,8 @@
 
             $(sFilterRow + " th", oTable).each(function (index) {
                 i = index;
-                var aoColumn = { type: "text",
+                var aoColumn = {
+                    type: "text",
                     bRegex: false,
                     bSmart: true,
                     iFilterLength: 0

@@ -848,7 +848,12 @@
     <Content Include="Content\jquery.dataTables.columnFilter.js" />
     <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj">
+      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
+      <Name>Mvc.JQuery.Datatables</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

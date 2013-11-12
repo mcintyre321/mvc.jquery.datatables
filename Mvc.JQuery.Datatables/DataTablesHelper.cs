@@ -57,14 +57,13 @@ namespace Mvc.JQuery.Datatables
             var columnList = new List<ColDef>();
             foreach (var pi in propInfos)
             {
-                columnList.Add(new ColDef()
+                columnList.Add(new ColDef(pi.Item1.PropertyType)
                 {
                     Name = pi.Item1.Name,
                     DisplayName = pi.Item2.DisplayName ?? pi.Item1.Name,
                     Sortable = pi.Item2.Sortable,
                     Visible = pi.Item2.Visible,
                     Searchable = pi.Item2.Searchable,
-                    Type = pi.Item1.PropertyType,
                     SortDirection = pi.Item2.SortDirection,
                     MRenderFunction = pi.Item2.MRenderFunction
                 });

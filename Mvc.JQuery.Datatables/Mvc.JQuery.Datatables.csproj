@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColDef.cs" />
     <Compile Include="DataTablesData.cs" />
     <Compile Include="DataTablesFilter.cs" />
     <Compile Include="DataTablesHelper.cs" />

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using Mvc.JQuery.Datatables.Models;
@@ -9,24 +11,51 @@ using Newtonsoft.Json;
 
 namespace Mvc.JQuery.Datatables
 {
-    public class ColDef
+    public class FilterDef : Hashtable
     {
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-        public bool Visible { get; set; }
-        public bool Sortable { get; set; }
-        public Type Type { get; set; }
-        public bool Searchable { get; set; }
-        public SortDirection SortDirection { get; set; }
-        public string MRenderFunction { get; set; }
+        internal object[] values { set { this["values"] = value; } }
+        internal string type { set { this["type"] = value; } }
 
-        public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true, SortDirection sortDirection = SortDirection.None, string mRenderFunction = null)
+
+        public FilterDef(Type t)
         {
-            return new ColDef() {Name = name, DisplayName = p1, Type = propertyType, Visible = visible, Sortable = sortable, SortDirection = sortDirection, MRenderFunction = mRenderFunction };
+            SetDefaultValuesAccordingToColumnType(t);
+        }
+
+        private static List<Type> DateTypes = new List<Type> { typeof(DateTime), typeof(DateTime?), typeof(DateTimeOffset), typeof(DateTimeOffset?) };
+
+
+        private void SetDefaultValuesAccordingToColumnType(Type t)
+        {
+            if (DateTypes.Contains(t))
+            {
+                type = "date-range";
+            }
+            else if (t == typeof (bool))
+            {
+                type = "select";
+                values = new object[] {"True", "False"};
+            }
+            else if (t == typeof (bool?))
+            {
+                type = "select";
+                values = new object[] {"True", "False", "null"};
+            }
+            else if (t.IsEnum)
+            {
+                type = "checkbox";
+                values = Enum.GetNames(t).Cast<object>().ToArray();
+            }
+            else
+            {
+                type = "text";
+            }
         }
     }
+
     public class DataTableConfigVm
     {
+        public bool HideHeaders { get; set; }
         IDictionary<string, object> m_JsOptions = new Dictionary<string, object>();
 
         static DataTableConfigVm()
@@ -42,8 +71,6 @@ namespace Mvc.JQuery.Datatables
             AjaxUrl = ajaxUrl;
             this.Id = id;
             this.Columns = columns;
-            FilterTypeRules = new FilterRuleList();
-            FilterTypeRules.AddRange(StaticFilterTypeRules);
             this.ShowSearch = true;
             this.ShowPageSizes = true;
             this.TableTools = true;
@@ -96,7 +123,7 @@ namespace Mvc.JQuery.Datatables
 
         public string ColumnFiltersString
         {
-            get { return string.Join(",", Columns.Select(c => GetFilterType(c.Name, c.Type))); }
+            get { return new JavaScriptSerializer().Serialize(Columns.Select(c => c.Filter).ToArray()); }
         }
 
         public string Dom
@@ -127,96 +154,64 @@ namespace Mvc.JQuery.Datatables
 
         public string DrawCallback { get; set; }
 
-        public string GetFilterType(string columnName, Type type)
-        {
-            foreach (Func<string, Type, string> filterTypeRule in FilterTypeRules)
-            {
-                var rule = filterTypeRule(columnName, type);
-                if (rule != null) return rule;
-            }
-            return "null";
-        }
 
-        public FilterRuleList FilterTypeRules;
         private bool _columnFilter;
-
-        public static FilterRuleList StaticFilterTypeRules = new FilterRuleList()
-        {
-            (c, t) => (DateTypes.Contains(t)) ? "{type: 'date-range'}" : null,
-            (c, t) => t == typeof(bool) ? "{type: 'checkbox', values : ['True', 'False']}" : null,
-            (c, t) => t == typeof(bool?) ? "{type: 'checkbox', values : ['True', 'False', 'null']}" : null,
-            (c, t) => t.IsEnum ?  ("{type: 'checkbox', values : ['" + string.Join("','", Enum.GetNames(t)) + "']}") : null,
-            (c, t) => "{type: 'text'}", //by default, text filter on everything
-        };
-
-        private static List<Type> DateTypes = new List<Type> { typeof(DateTime), typeof(DateTime?), typeof(DateTimeOffset), typeof(DateTimeOffset?) };
+ 
 
         public class _FilterOn<TTarget>
         {
             private readonly TTarget _target;
-            private readonly FilterRuleList _list;
-            private readonly Func<string, Type, bool> _predicate;
-            private readonly IDictionary<string, object> _jsOptions;
+            private readonly ColDef _colDef;
 
-            public _FilterOn(TTarget target, FilterRuleList list, Func<string, Type, bool> predicate, IDictionary<string, object> jsOptions)
+            public _FilterOn(TTarget target, ColDef colDef)
             {
                 _target = target;
-                _list = list;
-                _predicate = predicate;
-                _jsOptions = jsOptions;
+                _colDef = colDef;
+                _colDef.Filter = new FilterDef(colDef.Type);
+
             }
 
             public TTarget Select(params string[] options)
             {
-                var escapedOptions = options.Select(o => o.Replace("'", "\\'"));
-                AddRule("{type: 'select', values: ['" + string.Join("','", escapedOptions) + "']}");
+                _colDef.Filter.type = "select";
+                _colDef.Filter.values = options.Cast<object>().ToArray();
                 return _target;
             }
             public TTarget NumberRange()
             {
-                AddRule("{type: 'number-range'}");
+                _colDef.Filter.type = "number-range";
                 return _target;
             }
 
             public TTarget DateRange()
             {
-                AddRule("{type: 'date-range'}");
+                _colDef.Filter.type = "date-range";
                 return _target;
             }
 
             public TTarget Number()
             {
-                AddRule("{type: 'number'}");
+                _colDef.Filter.type = "number";
                 return _target;
             }
 
             public TTarget CheckBoxes(params string[] options)
             {
-                var escapedOptions = options.Select(o => o.Replace("'", "\\'"));
-                AddRule("{type: 'checkbox', values: ['" + string.Join("','", escapedOptions) + "']}");
+                _colDef.Filter.type = "checkbox";
+                _colDef.Filter.values = options.Cast<object>().ToArray();
                 return _target;
             }
 
             public TTarget Text()
             {
-                AddRule("{type: 'text'}");
+                _colDef.Filter.type = "text";
                 return _target;
             }
 
             public TTarget None()
             {
-                AddRule("null");
+                _colDef.Filter = null;
                 return _target;
-            }
-
-            private void AddRule(string result)
-            {
-                if (result != "null" && this._jsOptions != null && this._jsOptions.Count > 0)
-                {
-                    var _jsOptionsAsJson = DataTableConfigVm.convertDictionaryToJsonBody(this._jsOptions);
-                    result = result.TrimEnd('}') + ", " + _jsOptionsAsJson + "}";
-                }
-                _list.Insert(0, (c, t) => _predicate(c, t) ? result : null);
             }
         }
         public _FilterOn<DataTableConfigVm> FilterOn<T>()
@@ -228,22 +223,30 @@ namespace Mvc.JQuery.Datatables
             IDictionary<string, object> optionsDict = DataTableConfigVm.convertObjectToDictionary(jsOptions);
             return FilterOn<T>(optionsDict); 
         }
-        public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> jsOptions)
-        {
-            return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
-        }
+        ////public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> jsOptions)
+        ////{
+        ////    return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
+        ////}
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName)
         {
             return FilterOn(columnName, null);
         }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, object jsOptions)
         {
-            IDictionary<string, object> optionsDict = DataTableConfigVm.convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> optionsDict = convertObjectToDictionary(jsOptions);
             return FilterOn(columnName, optionsDict); 
         }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
         {
-            return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => c == columnName, jsOptions);
+            var colDef = this.Columns.Single(c => c.Name == columnName);
+            if (jsOptions != null)
+            {
+                foreach (var jsOption in jsOptions)
+                {
+                    colDef.Filter[jsOption.Key] = jsOption.Value;
+                }
+            }
+            return new _FilterOn<DataTableConfigVm>(this, colDef);
         }
 
         private static string convertDictionaryToJsonBody(IDictionary<string, object> dict)

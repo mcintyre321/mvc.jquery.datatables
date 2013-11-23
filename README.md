@@ -12,3 +12,7 @@ Example output:
 
 
 ![Example](http://snag.gy/FQFdn.jpg)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mcintyre321/mvc.jquery.datatables/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

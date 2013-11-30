@@ -79,6 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\RegisterVirtualPathProvider.cs" />
+    <Compile Include="App_GlobalResources\UserViewResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserViewResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\FakeDatabase.cs" />
     <Compile Include="Controllers\FriendlyDateHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -614,6 +619,12 @@
       <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
       <Name>Mvc.JQuery.Datatables</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\UserViewResource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserViewResource.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

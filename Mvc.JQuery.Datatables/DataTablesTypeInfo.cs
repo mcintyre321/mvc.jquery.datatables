@@ -6,6 +6,17 @@ using System.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
+    public static class DataTablesTypeInfoHelper
+    {
+        public static string ToDisplayName(this DataTablesAttribute attribute)
+        {
+            if (string.IsNullOrEmpty(attribute.DisplayName) || attribute.DisplayNameResourceType == null)
+                return attribute.DisplayName;
+            var value = ResourceHelper.GetResourceLookup<string>(attribute.DisplayNameResourceType, attribute.DisplayName);
+            return value;
+        }
+    }
+
     public static class DataTablesTypeInfo<T>
     {
         public static DataTablesPropertyInfo[] Properties { get; private set; }
@@ -29,6 +40,8 @@ namespace Mvc.JQuery.Datatables
             return dictionary;
         }
     }
+
+    
 
     public class DataTablesPropertyInfo
     {
@@ -57,6 +70,7 @@ namespace Mvc.JQuery.Datatables
         public bool Sortable { get; set; }
         public int Order { get; set; }
         public string DisplayName { get; set; }
+        public Type DisplayNameResourceType { get; set; }
         public SortDirection SortDirection { get; set; }
         public string MRenderFunction { get; set; }
 

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Resources;
 
 namespace Mvc.JQuery.Datatables.Example.Controllers
 {
@@ -52,13 +53,13 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
     public class UserView
     {
        
-        [DataTables(DisplayName = "Full Name", MRenderFunction = "test")]
+        [DataTables(DisplayName = "Name", DisplayNameResourceType = typeof(UserViewResource), MRenderFunction = "test")]
         public string Name { get; set; }
 
         [DataTables(SortDirection = SortDirection.Ascending, Order = 0)]
         public int Id { get; set; }
 
-        [DataTables(Searchable = false)]
+        [DataTables(DisplayName = "E-Mail", Searchable = false)]
         public string Email { get; set; }
 
         [DataTables( Sortable = false)]

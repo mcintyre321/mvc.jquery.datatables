@@ -57,6 +57,7 @@
     <Compile Include="DataTablesParam.cs" />
     <Compile Include="DataTablesResult.cs" />
     <Compile Include="DataTableConfigVm.cs" />
+    <Compile Include="ResourceHelper.cs" />
     <Compile Include="DynamicLinq\DynamicLinq.cs" />
     <Compile Include="Models\oLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

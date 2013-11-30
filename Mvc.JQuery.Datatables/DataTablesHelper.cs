@@ -60,7 +60,7 @@ namespace Mvc.JQuery.Datatables
                 columnList.Add(new ColDef(pi.Item1.PropertyType)
                 {
                     Name = pi.Item1.Name,
-                    DisplayName = pi.Item2.DisplayName ?? pi.Item1.Name,
+                    DisplayName = pi.Item2.ToDisplayName() ?? pi.Item1.Name,
                     Sortable = pi.Item2.Sortable,
                     Visible = pi.Item2.Visible,
                     Searchable = pi.Item2.Searchable,

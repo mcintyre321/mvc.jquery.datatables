@@ -238,7 +238,8 @@ namespace Mvc.JQuery.Datatables
         {
             // Converting to System.Collections.Generic.Dictionary<> to ensure Dictionary will be converted to Json in correct format
             var dictSystem = new Dictionary<string, object>(dict);
-            return JsonConvert.SerializeObject((object)dictSystem, Formatting.None, new RawConverter()).TrimStart('{').TrimEnd('}');
+            var json = JsonConvert.SerializeObject((object)dictSystem, Formatting.None, new RawConverter());
+            return json.Substring(1, json.Length - 2);
         }
 
         private static string convertColumnDefsToJson(IEnumerable<ColDef> columns)

@@ -61,7 +61,6 @@ public class SomeController : Controller
     
     vm.JsOptions.Add("fnCreatedRow", new Raw(@"function( nRow, aData, iDataIndex ) {
         $(nRow).attr('data-id', aData[0]);
-      }
     }"));
     vm.ColumnFilter = true;
     vm

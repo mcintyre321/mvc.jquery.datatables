@@ -32,51 +32,66 @@
 </table>
 
 <script type="text/javascript">
-    (function setDataTable() {
-        if(!window.jQuery) {
-            setTimeout(setDataTable, 100);
-            return;
-        }
-        var $table = $('#@Model.Id');
-        var dt = $table.dataTable({
-            "aaSorting": @Html.Raw(Model.ColumnSortingString),
-            "bProcessing": true,
-            "bStateSave": @Html.Raw(Model.StateSave ? "true" : "false"),
-            "bServerSide": true,
-            "bFilter": @Model.ShowSearch.ToString().ToLower(),
-            "sDom": '@Html.Raw(Model.Dom)',
-            "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-            "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
-            "fnServerData": function(sSource, aoData, fnCallback) {
-                $.ajax({
-                    "dataType": 'json',
-                    "type": "POST",
-                    "url": sSource,
-                    "data": aoData,
-                    "success": fnCallback
-                });
-            },
-            "aoColumnDefs" : @Html.Raw(Model.ColumnDefsString)
-                @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
-            @if (!string.IsNullOrEmpty(Model.Language))
-            {
-                <text>
-                    ,"oLanguage": @Html.Raw(@Model.Language)
-                </text>
+    (function() {
+        var counter=0;
+        (function setDataTable() {
+            var $ = window.jQuery;
+            if(!($ && $.fn.dataTable && $.fn.columnFilter)) {
+                if (++counter>50) {
+                    var message;
+                    if (!$) {
+                        message = 'jQuery';
+                    } else if (!$.fn.dataTable){
+                        message = 'jQuery.dataTables';
+                    } else {
+                        message = 'jQuery.dataTables.columnFilter';
+                    }
+                    throw new ReferenceError(message);
+                }
+                setTimeout(setDataTable, 100);
+                return;
             }
-            @if (!string.IsNullOrEmpty(Model.DrawCallback))
-            {
-                <text>
-                    ,"fnDrawCallback": @Html.Raw(Model.DrawCallback)
-                </text>
-            }
+            var $table = $('#@Model.Id');
+            var dt = $table.dataTable({
+                "aaSorting": @Html.Raw(Model.ColumnSortingString),
+                "bProcessing": true,
+                "bStateSave": @Html.Raw(Model.StateSave ? "true" : "false"),
+                "bServerSide": true,
+                "bFilter": @Model.ShowSearch.ToString().ToLower(),
+                "sDom": '@Html.Raw(Model.Dom)',
+                "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
+                "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"/content/DataTables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf\" }," : "")
+                "fnServerData": function(sSource, aoData, fnCallback) {
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback
                     });
-            @if (Model.ColumnFilter)
-            {
-                <text>
-        dt.columnFilter(@Html.Raw(Model.ColumnFilterVm.ToString()));
-        </text>
-            }
+                },
+                "aoColumnDefs" : @Html.Raw(Model.ColumnDefsString)
+                    @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
+                @if (!string.IsNullOrEmpty(Model.Language))
+                {
+                    <text>
+                        ,"oLanguage": @Html.Raw(@Model.Language)
+                    </text>
+                }
+                @if (!string.IsNullOrEmpty(Model.DrawCallback))
+                {
+                    <text>
+                        ,"fnDrawCallback": @Html.Raw(Model.DrawCallback)
+                    </text>
+                }
+                        });
+                @if (Model.ColumnFilter)
+                {
+                    <text>
+            dt.columnFilter(@Html.Raw(Model.ColumnFilterVm.ToString()));
+            </text>
+                }
+        })();
     })();
 </script>

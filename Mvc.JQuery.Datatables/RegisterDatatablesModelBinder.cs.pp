@@ -5,7 +5,7 @@ using Mvc.JQuery.Datatables;
 
 [assembly: PreApplicationStartMethod(typeof(RegisterDatatablesModelBinder), "Start")]
 
-namespace Mvc.JQuery.Datatables {
+namespace $rootnamespace$ {
     public static class RegisterDatatablesModelBinder {
         public static void Start() {
             if (!ModelBinders.Binders.ContainsKey(typeof(DataTablesParam)))

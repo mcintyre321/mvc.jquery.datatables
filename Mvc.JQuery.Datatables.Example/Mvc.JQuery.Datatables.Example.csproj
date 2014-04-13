@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserViewResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="RegisterDatatablesModelBinder.cs" />
     <Compile Include="Controllers\FakeDatabase.cs" />
     <Compile Include="Controllers\FriendlyDateHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />

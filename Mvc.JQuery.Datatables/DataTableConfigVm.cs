@@ -27,7 +27,11 @@ namespace Mvc.JQuery.Datatables
 
         private void SetDefaultValuesAccordingToColumnType(Type t)
         {
-            if (DateTypes.Contains(t))
+            if (t==null)
+            {
+                type = "null";
+            }
+            else if (DateTypes.Contains(t))
             {
                 type = "date-range";
             }
@@ -299,9 +303,10 @@ namespace Mvc.JQuery.Datatables
 
         public override string ToString()
         {
+            var noColumnFilter = new FilterDef(null);
             this["aoColumns"] = _vm.Columns
                 //.Where(c => c.Visible || c.Filter["sSelector"] != null)
-                .Select(c => c.Filter).ToArray();
+                .Select(c => c.Searchable?c.Filter:noColumnFilter).ToArray();
             return new JavaScriptSerializer().Serialize(this);
         }
     }

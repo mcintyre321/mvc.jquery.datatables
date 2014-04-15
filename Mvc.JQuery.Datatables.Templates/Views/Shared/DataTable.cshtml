@@ -33,7 +33,7 @@
 
 <script type="text/javascript">
     (function setDataTable() {
-        if(!window.jQuery) {
+        if(!window.jQuery || !$.fn.DataTable) {
             setTimeout(setDataTable, 100);
             return;
         }

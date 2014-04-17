@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using Mvc.JQuery.Datatables;
 
-namespace Mvc.JQuery.DataTables.Tests
+namespace Mvc.JQuery.Datatables.Tests
 {
     public class EntityFramework : Linq, IDisposable
     {

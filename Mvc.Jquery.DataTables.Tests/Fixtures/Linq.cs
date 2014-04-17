@@ -4,21 +4,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
-namespace Mvc.JQuery.DataTables.Tests
+namespace Mvc.JQuery.Datatables.Tests
 {
     [TestFixture]
     public class Linq
     {
-        internal const int SomeModelPropertyCount = 4;
-        internal const int SomeViewPropertyCount = 4;
         private const int TotalRecords = 100;
-        internal const int DisplayLength = 5;
 
         protected IQueryable<SomeModel> SomeModelQueryable { get; set; }
 
         public Linq()
         {
+            DateTime startDate = new DateTime(2000, 1, 1);
             var dataSet = new List<SomeModel>(TotalRecords);
             for (var i = 1; i < TotalRecords; i++)
             {
@@ -27,7 +26,8 @@ namespace Mvc.JQuery.DataTables.Tests
                     Id = i,
                     DisplayName = "Name " + i,
                     Category = i % 4,
-                    Scale = Math.Abs(50 - i)
+                    Scale = Math.Abs(50 - i),
+                    When = startDate.AddDays(i)
                 });
             }
             SomeModelQueryable = dataSet.AsQueryable();
@@ -38,40 +38,53 @@ namespace Mvc.JQuery.DataTables.Tests
         {
             var result = new DataTablesResult<SomeModel>(SomeModelQueryable, dataTablesParam);
             var data = result.Data;
-            return data.RecordIds();
+            return data.aaData.Select(row => ((SomeModel)row).Id).ToArray();
         }
 
         [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
         public virtual int[] ExecuteParamsAndTransform(DataTablesParam dataTablesParam)
         {
-            var result = new DataTablesResult<SomeModel>(SomeModelQueryable,
-                dataTablesParam);
+            var result = DataTablesResult.Create(SomeModelQueryable,
+                dataTablesParam,
+                m => new { 
+                    FriendlyWhen = m.When.ToShortDateString(),
+                });
             var data = result.Data;
-            return data.RecordIds();
+            return data.aaData.Select(d=>Convert.ToInt32(((IList)d)[0])).ToArray();
         }
+
     }
     public static class MyFactoryClass
     {
+        static int PropertyCount(Type T)
+        {
+            return T.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+                .Count(pi=>pi.CanRead);
+        }
+
+        static int DefaultTestCasesLength = 5;
+
         public static IEnumerable TestCases
         {
             get
             {
-                var dataTablesParam = EmptyParam();
+                int propertyCount = PropertyCount(typeof(DataTablesParam));
+                var dataTablesParam = GetEmptyParam(propertyCount);
                 dataTablesParam.sSortDir[0] = "asc";
                 dataTablesParam.iSortingCols = 1;
                 yield return new TestCaseData(dataTablesParam)
-                    .Returns(Enumerable.Range(1, Linq.DisplayLength).ToArray())
+                    .Returns(Enumerable.Range(1, DefaultTestCasesLength).ToArray())
                     .SetName("SimpleOrder")
                     .SetDescription("Simple Ordering");
 
-                dataTablesParam = EmptyParam();
+                dataTablesParam = GetEmptyParam(propertyCount);
                 dataTablesParam.sSearch = "Name 10";
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(new int[] { 10 })
                     .SetName("SingleRecordSearch")
                     .SetDescription("Single Record Text Search");
 
-                dataTablesParam = EmptyParam();
+                dataTablesParam = GetEmptyParam(propertyCount);
                 dataTablesParam.iSortingCols = 1;
                 dataTablesParam.iSortCol[0] = 2;
                 dataTablesParam.sSearchColumns[3] = "25~35";
@@ -83,43 +96,22 @@ namespace Mvc.JQuery.DataTables.Tests
             }
         }
 
-        public static DataTablesParam EmptyParam(int columns = Linq.SomeModelPropertyCount)
+        static DataTablesParam GetEmptyParam(int columns)
         {
-            return new DataTablesParam
-            {
-                bEscapeRegex = false,
-                bEscapeRegexColumns = LinqTestStaticMethods.Populate<bool>(false, columns),
-                bSearchable = LinqTestStaticMethods.Populate<bool>(true, columns),
-                bSortable = LinqTestStaticMethods.Populate<bool>(true, columns),
-                iColumns = columns,
-                iDisplayLength = Linq.DisplayLength,
-                iSortingCols = 1,
-                iSortCol = LinqTestStaticMethods.Populate<int>(0, columns),
-                sEcho = 1,
-                sSearchColumns = LinqTestStaticMethods.Populate<string>("", columns),
-                sSortDir = LinqTestStaticMethods.Populate<string>(null, columns),
-                sSearch = ""
-            };
+            var returnVar = new DataTablesParam(columns);
+            returnVar.iDisplayLength = DefaultTestCasesLength;
+            returnVar.iSortingCols = 1;
+            returnVar.sEcho = 1;
+            returnVar.sSearch = "";
+            returnVar.bEscapeRegexColumns.AddRange(Enumerable.Repeat(false, columns));
+            returnVar.bSearchable.AddRange(Enumerable.Repeat(true, columns));
+            returnVar.bSortable.AddRange(Enumerable.Repeat(true, columns));
+            returnVar.iSortCol.AddRange(Enumerable.Repeat(0, columns));
+            returnVar.sSearchColumns.AddRange(Enumerable.Repeat("", columns));
+            returnVar.sSortDir.AddRange(Enumerable.Repeat<string>(null, columns));
+
+            return returnVar;
         }
     }
 
-    public static class LinqTestStaticMethods
-    {
-        public static int[] RecordIds(this DataTablesData data)
-        {
-            return data.aaData.Select(row => ((SomeModel) row).Id).ToArray();
-        }
-        public static List<Tlist> Populate<Tlist>(Tlist value, int capacity = Linq.SomeModelPropertyCount)
-        {
-            var returnVal = new Tlist[capacity];
-            if (!EqualityComparer<Tlist>.Default.Equals(value, default(Tlist)))
-            {
-                for (var i = 0; i < capacity; ++i)
-                {
-                    returnVal[i] = value;
-                }
-            }
-            return new List<Tlist>(returnVal);
-        }
-    }
 }

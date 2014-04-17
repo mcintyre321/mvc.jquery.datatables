@@ -5,7 +5,7 @@ using System.Text;
 using Mvc.JQuery.Datatables;
 using NUnit.Framework;
 
-namespace Mvc.JQuery.DataTables.Tests
+namespace Mvc.JQuery.Datatables.Tests
 {
     public class FilterTests
     {

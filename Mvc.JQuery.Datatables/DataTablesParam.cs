@@ -31,6 +31,17 @@ namespace Mvc.JQuery.Datatables
             sSortDir = new List<string>();
             bEscapeRegexColumns = new List<bool>();
         }
+
+        public DataTablesParam(int iColumns)
+        {
+            this.iColumns = iColumns;
+            bSortable = new List<bool>(iColumns);
+            bSearchable = new List<bool>(iColumns);
+            sSearchColumns = new List<string>(iColumns);
+            iSortCol = new List<int>(iColumns);
+            sSortDir = new List<string>(iColumns);
+            bEscapeRegexColumns = new List<bool>(iColumns);
+        }
     }
     //public enum DataType
     //{

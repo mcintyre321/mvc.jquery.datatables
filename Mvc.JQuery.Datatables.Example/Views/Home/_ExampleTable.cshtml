@@ -1,0 +1,53 @@
+﻿@using Mvc.JQuery.Datatables
+@using Mvc.JQuery.Datatables.Example.Controllers
+@using Mvc.JQuery.Datatables.Models
+@using Mvc.JQuery.Datatables.Serialization
+@Html.DataTableIncludes(jqueryUi: true)
+@{
+    var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    //vm.JsOptions.Add("iDisplayLength", 25);
+    //vm.JsOptions.Add("aLengthMenu", new object[] { new[] {5, 10, 25, 250, -1} , new object[] { 5, 10, 25, 250, "All"} });
+
+    vm.JsOptions.Add("fnCreatedRow", new Raw(@"function( nRow, aData, iDataIndex ) {
+        $(nRow).attr('data-id', aData[0]);
+    }"));
+    vm.ColumnFilter = true;
+    vm
+        .FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
+        .FilterOn("Id").NumberRange()
+        .FilterOn("Salary", new { sSelector = "#custom-filter-placeholder-salary" }).NumberRange();
+    //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
+    vm.StateSave = true;
+    //vm.DrawCallback = "drawCallback";
+
+    if (Request.QueryString["lang"] == "de")
+    {
+        //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";
+        vm.Language = new Language
+        {
+            sProcessing = "Bitte warten...",
+            sLengthMenu = "_MENU_ Einträge anzeigen",
+            sZeroRecords = "Keine Einträge vorhanden.",
+            sInfo = "_START_ bis _END_ von _TOTAL_ Einträgen",
+            sInfoEmpty = "0 bis 0 von 0 Einträgen",
+            sInfoFiltered = "(gefiltert von _MAX_  Einträgen)",
+            sInfoPostFix = "",
+            sSearch = "Suchen",
+            sUrl = "",
+            oPaginate = new Paginate()
+            {
+                sFirst = "Erster",
+                sPrevious = "Zurück",
+                sNext = "Weiter",
+                sLast = "Letzter"
+            }
+        }.ToJsonString();
+    }
+}
+
+<script type="text/javascript">
+    function encloseInEmTag(data, type, full) {
+        return '<em>' + data + '</em>';
+    }
+</script>
+@Html.Partial("DataTable", vm)

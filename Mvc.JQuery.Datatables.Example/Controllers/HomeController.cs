@@ -16,6 +16,10 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
             return View();
         }
 
+        public ActionResult JSUnitTests()
+        {
+            return View();
+        }
 
         public DataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
         {
@@ -53,7 +57,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
     public class UserView
     {
        
-        [DataTables(DisplayName = "Name", DisplayNameResourceType = typeof(UserViewResource), MRenderFunction = "test")]
+        [DataTables(DisplayName = "Name", DisplayNameResourceType = typeof(UserViewResource), MRenderFunction = "encloseInEmTag")]
         public string Name { get; set; }
 
         [DataTables(SortDirection = SortDirection.Ascending, Order = 0)]

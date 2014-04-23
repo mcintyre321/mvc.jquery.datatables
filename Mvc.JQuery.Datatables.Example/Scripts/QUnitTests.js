@@ -103,33 +103,39 @@
     QUnit.done(dTAjaxController.cleanup);
     QUnit.config.testTimeout = 30000;
     QUnit.testStart(function resetElements() {
-        var context = document.getElementById("testTableHolder");
-        $("input[type='text']:enabled", context)
-            .each(function () {
-                if (this.value !== "") {
-                    this.value = "";
-                    $(this).triggerHandler("keyup");
-                }
-            });
-        $("input[type='checkbox']:enabled", context)
-            .each(function () {
-                if (this.checked) {
-                    this.checked = false;
-                    $(this).triggerHandler("click");
-                }
-        });
-        $("select:enabled", context)
-            .each(function () {
-                $(this).children().filter(function (indx) {
-                    return (indx == 0 || this.defaultSelected)
-                }).last()
-                    .each(function () {
-                        if (!this.selected) {
-                            this.selected = true;
-                            this.triggerHandler("change");
-                        }
-                    });
-        });
+        try {
+            var context = document.getElementById("testTableHolder");
+            $("input[type='text']:enabled", context)
+                .each(function () {
+                    if (this.value !== "") {
+                        this.value = "";
+                        $(this).triggerHandler("keyup");
+                    }
+                });
+            $("input[type='checkbox']:enabled", context)
+                .each(function () {
+                    if (this.checked) {
+                        this.checked = false;
+                        $(this).triggerHandler("click");
+                    }
+                });
+            $("select:enabled", context)
+                .each(function () {
+                    $(this).children().filter(function (indx) {
+                        return (indx == 0 || this.defaultSelected)
+                    }).last()
+                        .each(function () {
+                            if (!this.selected) {
+                                this.selected = true;
+                                this.triggerHandler("change");
+                            }
+                        });
+                });
+        } catch (err) {
+            if (console && console.log) {
+                console.log("error on executing QUnit.testStart: " + err.toString());
+            }
+        }
     });
 
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError)

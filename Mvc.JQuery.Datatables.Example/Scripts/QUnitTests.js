@@ -1,5 +1,8 @@
 ﻿; (function ($) {
     var debug = true,
+        getRowCount$Select = function () {
+            return $("select[name='table-id_length']");
+        },
         queryStringToObject = function (queryString) {
             var vars = queryString.split('&'),
                 returnVar = {};
@@ -170,16 +173,17 @@
         var $testTbl = $($.fn.dataTable.fnTables()[0]),
             $dtHead = $testTbl.children('thead');
         //test datatable has been applied
-        expect(4);
+        expect(5);
         ok($testTbl.length && $testTbl[0].tagName.toLowerCase() == 'table', "an instantiated datatable is expected to be found before window.onLoad");
         //test appropriate input elements are placed
         equal($dtHead.find('input').filter(".hasDatepicker").length, 2, "2 datepicker elements are expected");
         equal($dtHead.find('select').length, 2, "2 select elements are expected");
         ok($dtHead.find('button').length, "a button element is expected");
+        ok(getRowCount$Select().length == 1, "select element found which denotes number of records to retrieve from server")
     });
 
     asyncTest("data sent to and returned from server is OK", function (assert) {
-        expect(12);
+        expect(13);
         stop();
         dTAjaxController.add({
             runSendIfNoEcho: true,
@@ -212,6 +216,7 @@
                 });
                 assert.isNumeric(tableIds, "first column of table contains only numeric text");
                 deepEqual(tableIds, listIds, "JSON translated to table");
+                ok(getRowCount$Select().val() == tableIds.length, "number of rows returned corresponds to number of entries selected")
                 start();
             }
         });
@@ -225,8 +230,13 @@
             triggerClick = function () {
                 $id.trigger("click");
             },
-            ordered = $.map($(Array(10)), function (val, i) { return i+1+""; }),
-            reverseOrdered = $.map($(Array(10)), function (val, i) { return 100-i+""; }),
+            records = parseInt(getRowCount$Select().val(),10),
+            ordered = $.map($(new Array(records)), function (val, i) {
+                return i + 1 + "";
+            }),
+            reverseOrdered = $.map($(new Array(records)), function (val, i) {
+                return 100 - i + "";
+            }),
             secondClickExpect;
         expect(2);
         stop();

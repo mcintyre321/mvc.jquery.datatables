@@ -13,23 +13,7 @@ namespace Mvc.JQuery.Datatables
 {
     public static class DataTablesHelper
     {
-        public static IHtmlString DataTableIncludes(this HtmlHelper helper, bool jqueryUi = false, bool filters = true, bool tableTools = true)
-        {
-            StringBuilder output = new StringBuilder();
-            Action<string> addJs = s => output.AppendLine(@"<script src=""" + s + @""" type=""text/javascript""></script>");
-            Action<string> addCss = s => output.AppendLine(@"<link type=""text/css"" href=""" + s + @""" rel=""stylesheet""/>");
-
-            addCss("/Content/DataTables/media/css/" + (jqueryUi ? ("jquery.dataTables_themeroller.css") : "jquery.dataTables.css"));
-            addJs("/Content/DataTables/media/js/jquery.dataTables.js");
-            if (filters) addJs("/Content/jquery.dataTables.columnFilter.js");
-            if (tableTools)
-            {
-                addJs("/Content/DataTables/extras/TableTools/media/js/ZeroClipboard.js");
-                addJs("/Content/DataTables/extras/TableTools/media/js/TableTools.js");
-                addCss("/Content/DataTables/extras/TableTools/media/css/TableTools.css");
-            }
-            return helper.Raw(output.ToString());
-        }
+        
 
         public static DataTableConfigVm DataTableVm<TController, TResult>(this HtmlHelper html, string id, Expression<Func<TController, DataTablesResult<TResult>>> exp, IEnumerable<ColDef> columns = null)
         {

@@ -2,7 +2,18 @@
 @using Mvc.JQuery.Datatables.Example.Controllers
 @using Mvc.JQuery.Datatables.Models
 @using Mvc.JQuery.Datatables.Serialization
-@Html.DataTableIncludes(jqueryUi: true)
+
+
+<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
+<!-- table tools (csv export etc) https://datatables.net/extensions/tabletools -->
+<script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
+
+<script type="text/javascript" src="/Content/jquery.dataTables.columnFilter.js"></script>
+
+
+
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
     //vm.JsOptions.Add("iDisplayLength", 25);

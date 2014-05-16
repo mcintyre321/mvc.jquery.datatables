@@ -53,10 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DummyPocos\SomeModel.cs" />
-    <Compile Include="DummyPocos\SomeView.cs" />
+    <Compile Include="FilterTests.cs" />
     <Compile Include="Fixtures\EntityFramework.cs" />
     <Compile Include="Fixtures\Linq.cs" />
-    <Compile Include="Tests.cs" />
+    <Compile Include="Fixtures\ModelBinding.cs" />
+    <Compile Include="TestingUtilities\LINQExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj">
+      <Project>{476d3266-8699-4e89-a528-646c1235eeb1}</Project>
+      <Name>Mvc.JQuery.Datatables.Example</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj">
       <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
       <Name>Mvc.JQuery.Datatables</Name>

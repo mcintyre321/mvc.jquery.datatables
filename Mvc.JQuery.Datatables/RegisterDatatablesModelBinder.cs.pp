@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.WebPages;
 using Mvc.JQuery.Datatables;
 
-[assembly: PreApplicationStartMethod(typeof(RegisterDatatablesModelBinder), "Start")]
+[assembly: PreApplicationStartMethod(typeof($rootnamespace$.RegisterDatatablesModelBinder), "Start")]
 
 namespace $rootnamespace$ {
     public static class RegisterDatatablesModelBinder {

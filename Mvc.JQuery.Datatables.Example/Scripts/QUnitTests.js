@@ -179,7 +179,7 @@
         equal($dtHead.find('input').filter(".hasDatepicker").length, 2, "2 datepicker elements are expected");
         equal($dtHead.find('select').length, 2, "2 select elements are expected");
         ok($dtHead.find('button').length, "a button element is expected");
-        ok(getRowCount$Select().length == 1, "select element found which denotes number of records to retrieve from server")
+        equal(getRowCount$Select().length, 1, "single select element found which denotes number of records to retrieve from server")
     });
 
     asyncTest("data sent to and returned from server is OK", function (assert) {
@@ -216,7 +216,7 @@
                 });
                 assert.isNumeric(tableIds, "first column of table contains only numeric text");
                 deepEqual(tableIds, listIds, "JSON translated to table");
-                ok(getRowCount$Select().val() == tableIds.length, "number of rows returned corresponds to number of entries selected")
+                equal(getRowCount$Select().val(), tableIds.length, "number of rows returned corresponds to number of entries selected")
                 start();
             }
         });

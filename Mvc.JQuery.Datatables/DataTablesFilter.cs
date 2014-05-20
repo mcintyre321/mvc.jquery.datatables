@@ -68,7 +68,7 @@ namespace Mvc.JQuery.Datatables
         }
 
         public delegate string ReturnedFilteredQueryForType(
-            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+            string query, string columnName, ColInfo columnType, List<object> parametersForLinqQuery);
 
 
         private static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
@@ -78,14 +78,14 @@ namespace Mvc.JQuery.Datatables
             Guard(IsDateTimeOffsetType, TypeFilters.DateTimeOffsetFilter),
             Guard(IsNumericType, TypeFilters.NumericFilter),
             Guard(IsEnumType, TypeFilters.EnumFilter),
-            Guard(arg => arg == typeof (string), TypeFilters.StringFilter),
+            Guard(arg => arg.Type == typeof (string), TypeFilters.StringFilter),
         };
 
 
         public delegate string GuardedFilter(
-            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+            string query, string columnName, ColInfo columnType, List<object> parametersForLinqQuery);
 
-        private static ReturnedFilteredQueryForType Guard(Func<Type, bool> guard, GuardedFilter filter)
+        private static ReturnedFilteredQueryForType Guard(Func<ColInfo, bool> guard, GuardedFilter filter)
         {
             return (q, c, t, p) =>
             {
@@ -106,7 +106,7 @@ namespace Mvc.JQuery.Datatables
         {
             Func<string, string> filterClause = (queryPart) =>
                                                 Filters.Select(
-                                                    f => f(queryPart, column.Name, column.Type, parametersForLinqQuery))
+                                                    f => f(queryPart, column.Name, column, parametersForLinqQuery))
                                                        .FirstOrDefault(filterPart => filterPart != null) ?? "";
 
             var queryParts = query.Split('|').Select(filterClause).Where(fc => fc != "").ToArray();
@@ -118,7 +118,13 @@ namespace Mvc.JQuery.Datatables
         }
 
 
-        public static bool IsNumericType(Type type)
+        public static bool IsNumericType(ColInfo colInfo)
+        {
+            var type = colInfo.Type;
+            return IsNumericType(type);
+        }
+
+        private static bool IsNumericType(Type type)
         {
             if (type == null || type.IsEnum)
             {
@@ -140,31 +146,31 @@ namespace Mvc.JQuery.Datatables
                 case TypeCode.UInt64:
                     return true;
                 case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>))
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
                     return false;
             }
             return false;
-
-        }
-        public static bool IsEnumType(Type type)
-        {
-            return type.IsEnum;
         }
 
-        public static bool IsBoolType(Type type)
+        public static bool IsEnumType(ColInfo colInfo)
         {
-            return type == typeof(bool) || type == typeof(bool?);
+            return colInfo.Type.IsEnum;
         }
-        public static bool IsDateTimeType(Type type)
+
+        public static bool IsBoolType(ColInfo colInfo)
         {
-            return type == typeof(DateTime) || type == typeof(DateTime?);
+            return colInfo.Type == typeof(bool) || colInfo.Type == typeof(bool?);
         }
-        public static bool IsDateTimeOffsetType(Type type)
+        public static bool IsDateTimeType(ColInfo colInfo)
         {
-            return type == typeof(DateTimeOffset) || type == typeof(DateTimeOffset?);
+            return colInfo.Type == typeof(DateTime) || colInfo.Type == typeof(DateTime?);
+        }
+        public static bool IsDateTimeOffsetType(ColInfo colInfo)
+        {
+            return colInfo.Type == typeof(DateTimeOffset) || colInfo.Type == typeof(DateTimeOffset?);
         }
 
     }

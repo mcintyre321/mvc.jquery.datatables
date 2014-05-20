@@ -38,7 +38,7 @@ namespace Mvc.JQuery.Datatables
                 return makeClause("Contains", q);
             }
         }
-        public static string NumericFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        public static string NumericFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query.StartsWith("^")) query = query.TrimStart('^');
             if (query.EndsWith("$")) query = query.TrimEnd('$');
@@ -51,7 +51,7 @@ namespace Mvc.JQuery.Datatables
                 var clause = null as string;
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[0], columnType));
+                    parametersForLinqQuery.Add(Convert.ChangeType(parts[0], colInfo.Type));
                     clause = string.Format("{0} >= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
@@ -60,7 +60,7 @@ namespace Mvc.JQuery.Datatables
 
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[1], columnType));
+                    parametersForLinqQuery.Add(Convert.ChangeType(parts[1], colInfo.Type));
                     if (clause != null) clause += " and ";
                     clause += string.Format("{0} <= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
@@ -74,7 +74,7 @@ namespace Mvc.JQuery.Datatables
             {
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(query, columnType));
+                    parametersForLinqQuery.Add(Convert.ChangeType(query, colInfo.Type));
                     return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
@@ -84,7 +84,7 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public static string DateTimeOffsetFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        public static string DateTimeOffsetFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
 
@@ -93,18 +93,25 @@ namespace Mvc.JQuery.Datatables
                 var parts = query.Split('~');
                 DateTimeOffset start, end;
                 DateTimeOffset.TryParse(parts[0] ?? "", out start);
-                if (!DateTimeOffset.TryParse(parts[1] ?? "", out end)) end = DateTimeOffset.MaxValue;
+                if (!DateTimeOffset.TryParse(parts[1] ?? "", out end))
+                {
+                    end = DateTimeOffset.MaxValue;
+                }
+                else
+                {
+                    end = end.Date.AddDays(1);
+                }
 
                 parametersForLinqQuery.Add(start);
-                parametersForLinqQuery.Add(end);
-                return string.Format("{0} >= @{1} and {0} <= @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+                parametersForLinqQuery.Add(end.AddDays(1).AddSeconds(-1));
+                return string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, columnType), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
             }
         }
-        public static string DateTimeFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        public static string DateTimeFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
             if (query.Contains("~"))
@@ -112,18 +119,25 @@ namespace Mvc.JQuery.Datatables
                 var parts = query.Split('~');
                 DateTime start, end;
                 DateTime.TryParse(parts[0] ?? "", out start);
-                if (!DateTime.TryParse(parts[1] ?? "", out end)) end = DateTime.MaxValue;
+                if (!DateTime.TryParse(parts[1] ?? "", out end))
+                {
+                    end = DateTime.MaxValue;
+                }
+                else
+                {
+                    end = end.Date.AddDays(1);
+                }
 
                 parametersForLinqQuery.Add(start);
                 parametersForLinqQuery.Add(end);
-                return string.Format("{0} >= @{1} and {0} <= @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+                return string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, columnType), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
             }
         }
-        public static string BoolFilter(string query, string columnname, Type columnType, List<object> parametersForLinqQuery)
+        public static string BoolFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query != null)
                 query = query.TrimStart('^').TrimEnd('$');
@@ -133,7 +147,7 @@ namespace Mvc.JQuery.Datatables
                 if (query.ToLower() == "true") return columnname + " == true";
                 return columnname + " == false";
             }
-            if (columnType == typeof (bool?))
+            if (colInfo.Type == typeof(bool?))
             {
                 if (lowerCaseQuery == "null") return columnname + " == null";
             }
@@ -141,7 +155,7 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static string StringFilter(string q, string columnname, Type columntype, List<object> parametersforlinqquery)
+        public static string StringFilter(string q, string columnname, ColInfo columntype, List<object> parametersforlinqquery)
         {
             if (q == ".*") return "";
             if (q.StartsWith("^"))
@@ -172,12 +186,12 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public static string EnumFilter(string q, string columnname, Type type, List<object> parametersForLinqQuery)
+        public static string EnumFilter(string q, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             
             if (q.StartsWith("^")) q = q.Substring(1);
             if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
-            parametersForLinqQuery.Add(ParseValue(q, type));
+            parametersForLinqQuery.Add(ParseValue(q, colInfo.Type));
             return columnname + " == @" + (parametersForLinqQuery.Count - 1);
         }
     }

@@ -24,7 +24,8 @@ namespace Mvc.JQuery.Datatables.Tests
                     DisplayName = "Cheddar",
                     Id = 123,
                     Scale = 123.456d,
-                    Discounted = true
+                    Discounted = true,
+                    Cost = 123
                 }
             }.AsQueryable();
 
@@ -50,6 +51,8 @@ namespace Mvc.JQuery.Datatables.Tests
         [TestCase("^456$", typeof(int), false)] //exact query, isnt match
         [TestCase("123", typeof(int), true)] //query, is match
         [TestCase("456", typeof(int), false)] //query, isnt match
+        [TestCase("123", typeof(decimal?), true)] //query, is match
+        [TestCase("456", typeof(decimal?), false)] //query, isnt match
         public void SearchQueryTests(string searchString, Type colType, bool returnsResult)
         {
             var col = columns.First(c => c.Item2.Type == colType).Item1;

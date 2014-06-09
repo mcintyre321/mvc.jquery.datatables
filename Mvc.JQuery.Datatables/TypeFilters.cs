@@ -6,9 +6,9 @@ namespace Mvc.JQuery.Datatables
 {
     static class TypeFilters
     {
-        private static readonly Func<string, Type, object> ParseValue = 
+        private static readonly Func<string, Type, object> ParseValue =
             (input, t) => t.IsEnum ? Enum.Parse(t, input) : Convert.ChangeType(input, t);
-        
+
         internal static string FilterMethod(string q, List<object> parametersForLinqQuery, Type type)
         {
 
@@ -51,7 +51,7 @@ namespace Mvc.JQuery.Datatables
                 var clause = null as string;
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[0], colInfo.Type));
+                    parametersForLinqQuery.Add(ChangeType(colInfo, parts[0]));
                     clause = string.Format("{0} >= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
@@ -60,7 +60,7 @@ namespace Mvc.JQuery.Datatables
 
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(parts[1], colInfo.Type));
+                    parametersForLinqQuery.Add(ChangeType(colInfo, parts[1]));
                     if (clause != null) clause += " and ";
                     clause += string.Format("{0} <= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
@@ -74,13 +74,26 @@ namespace Mvc.JQuery.Datatables
             {
                 try
                 {
-                    parametersForLinqQuery.Add(Convert.ChangeType(query, colInfo.Type));
+                    parametersForLinqQuery.Add(ChangeType(colInfo, query));
                     return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
                 {
                 }
                 return null;
+            }
+        }
+
+        private static object ChangeType(ColInfo colInfo, string query)
+        {
+            if (colInfo.Type.IsGenericType && colInfo.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                Type u = Nullable.GetUnderlyingType(colInfo.Type);
+                return Convert.ChangeType(query, u);
+            }
+            else
+            {
+                return Convert.ChangeType(query, colInfo.Type);
             }
         }
 
@@ -188,7 +201,7 @@ namespace Mvc.JQuery.Datatables
 
         public static string EnumFilter(string q, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
-            
+
             if (q.StartsWith("^")) q = q.Substring(1);
             if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
             parametersForLinqQuery.Add(ParseValue(q, colInfo.Type));

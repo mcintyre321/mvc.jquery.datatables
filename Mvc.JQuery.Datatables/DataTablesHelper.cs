@@ -49,7 +49,9 @@ namespace Mvc.JQuery.Datatables
                     Visible = pi.Item2.Visible,
                     Searchable = pi.Item2.Searchable,
                     SortDirection = pi.Item2.SortDirection,
-                    MRenderFunction = pi.Item2.MRenderFunction
+                    MRenderFunction = pi.Item2.MRenderFunction,
+                    CssClass = pi.Item2.CssClass,
+                    CssClassHeader = pi.Item2.CssClassHeader
                 });
             }
             return  columnList.ToArray();

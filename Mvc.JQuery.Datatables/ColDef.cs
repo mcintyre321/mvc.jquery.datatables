@@ -16,12 +16,15 @@ namespace Mvc.JQuery.Datatables
         public bool Sortable { get; set; }
         public Type Type { get; set; }
         public bool Searchable { get; set; }
+        public String CssClass { get; set; }
+        public String CssClassHeader { get; set; }
         public SortDirection SortDirection { get; set; }
         public string MRenderFunction { get; set; }
         public FilterDef Filter { get; set; }
 
         public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true,
-            SortDirection sortDirection = SortDirection.None, string mRenderFunction = null)
+            SortDirection sortDirection = SortDirection.None, string mRenderFunction = null, string pCssClass = "",
+            string pCssClassHeader = "")
         {
             return new ColDef(propertyType)
             {
@@ -31,6 +34,8 @@ namespace Mvc.JQuery.Datatables
                 Sortable = sortable,
                 SortDirection = sortDirection,
                 MRenderFunction = mRenderFunction,
+                CssClass = pCssClass,
+                CssClassHeader = pCssClassHeader,
             };
         }
 

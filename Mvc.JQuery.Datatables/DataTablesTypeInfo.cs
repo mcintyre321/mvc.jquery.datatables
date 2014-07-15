@@ -73,6 +73,8 @@ namespace Mvc.JQuery.Datatables
         public Type DisplayNameResourceType { get; set; }
         public SortDirection SortDirection { get; set; }
         public string MRenderFunction { get; set; }
+        public String CssClass { get; set; }
+        public String CssClassHeader { get; set; }
 
         public bool Visible { get; set; }
     }

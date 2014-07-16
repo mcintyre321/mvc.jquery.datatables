@@ -252,6 +252,7 @@ namespace Mvc.JQuery.Datatables
             var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
             var nonSearchableColumns = columns.Select((x, idx) => x.Searchable ? -1 : idx).Where(x => x > -1).ToArray();
             var mRenderColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.MRenderFunction) ? new { x.MRenderFunction, Index = -1 } : new { x.MRenderFunction, Index = idx }).Where(x => x.Index > -1).ToArray();
+            var CssClassColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.CssClass) ? new { x.CssClass, Index = -1 } : new { x.CssClass, Index = idx }).Where(x => x.Index > -1).ToArray();
 
             var defs = new List<dynamic>();
 
@@ -265,6 +266,11 @@ namespace Mvc.JQuery.Datatables
                 foreach (var mRenderColumn in mRenderColumns)
                 {
                     defs.Add(new { mRender = "%" + mRenderColumn.MRenderFunction + "%", aTargets = new[] {mRenderColumn.Index} });
+                }
+            if (CssClassColumns.Any())
+                foreach (var CssClassColumn in CssClassColumns)
+                {
+                    defs.Add(new { className = CssClassColumn.CssClass, aTargets = new[] { CssClassColumn.Index } });
                 }
 
             if (defs.Count > 0)

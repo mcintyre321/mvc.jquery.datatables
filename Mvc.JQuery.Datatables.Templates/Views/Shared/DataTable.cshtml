@@ -18,7 +18,7 @@
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    <th>@column.DisplayName</th>
+                    <th class="@column.CssClassHeader">@column.DisplayName</th>
                 }
             </tr>
         }

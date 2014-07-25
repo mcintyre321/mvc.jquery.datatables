@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -21,6 +22,9 @@ namespace Mvc.JQuery.Datatables
         public SortDirection SortDirection { get; set; }
         public string MRenderFunction { get; set; }
         public FilterDef Filter { get; set; }
+
+        IDictionary<string, object> m_JsInitialSearchCols = new Dictionary<string, object>();
+        public IDictionary<string, object> JsInitialSearchCols { get { return m_JsInitialSearchCols; } }
 
         public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true,
             SortDirection sortDirection = SortDirection.None, string mRenderFunction = null, string pCssClass = "",

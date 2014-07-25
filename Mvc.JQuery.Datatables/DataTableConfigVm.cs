@@ -114,7 +114,15 @@ namespace Mvc.JQuery.Datatables
 
         public bool AutoWidth { get; set; }
 
-        
+        public string ColumnInitialSearchString
+        {
+            get
+            {
+                return convertColumnDefsInitialSearchToJson(Columns);
+            }
+        }
+
+
 
         public string Dom
         {
@@ -225,7 +233,17 @@ namespace Mvc.JQuery.Datatables
             IDictionary<string, object> optionsDict = convertObjectToDictionary(jsOptions);
             return FilterOn(columnName, optionsDict); 
         }
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, object jsOptions, object jsInitialSearchCols)
+        {
+            IDictionary<string, object> optionsDict = convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> initialSearchColsDict = convertObjectToDictionary(jsInitialSearchCols);
+            return FilterOn(columnName, optionsDict, initialSearchColsDict);
+        }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
+        {
+            return FilterOn(columnName, jsOptions, null);
+        }
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions, IDictionary<string, object> jsInitialSearchCols)
         {
             var colDef = this.Columns.Single(c => c.Name == columnName);
             if (jsOptions != null)
@@ -233,6 +251,13 @@ namespace Mvc.JQuery.Datatables
                 foreach (var jsOption in jsOptions)
                 {
                     colDef.Filter[jsOption.Key] = jsOption.Value;
+                }
+            }
+            if (jsInitialSearchCols != null)
+            {
+                foreach (var jsInitialSearchCol in jsInitialSearchCols)
+                {
+                    colDef.JsInitialSearchCols[jsInitialSearchCol.Key] = jsInitialSearchCol.Value;
                 }
             }
             return new _FilterOn<DataTableConfigVm>(this, colDef);
@@ -277,6 +302,13 @@ namespace Mvc.JQuery.Datatables
                 return new JavaScriptSerializer().Serialize(defs).Replace("\"%", "").Replace("%\"", "");
 
             return "[]";
+        }
+
+        private static string convertColumnDefsInitialSearchToJson(IEnumerable<ColDef> columns)
+        {
+            var initialSearches = columns
+                .Select(c => c.Searchable & c.JsInitialSearchCols.Any() ? c.JsInitialSearchCols : null).ToArray();
+            return new JavaScriptSerializer().Serialize(initialSearches);
         }
 
         private static string convertColumnSortingToJson(IEnumerable<ColDef> columns)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,17 +18,29 @@ namespace Mvc.JQuery.Datatables
         }
     }
 
+    public static class DataTablesTypeInfo
+    {
+        static ConcurrentDictionary<Type, DataTablesPropertyInfo[]> propertiesCache = new ConcurrentDictionary<Type, DataTablesPropertyInfo[]>(); 
+        public static DataTablesPropertyInfo[] Properties(Type type)
+        {
+            return propertiesCache.GetOrAdd(type, t =>
+            {
+                var infos = from pi in t.GetProperties()
+                            let da = (DataTablesAttribute)(pi.GetCustomAttributes(typeof(DataTablesAttribute), false).SingleOrDefault() ?? new DataTablesAttribute())
+                            orderby da.Order
+                            select new DataTablesPropertyInfo(pi, da);
+                return infos.ToArray();
+            });
+            
+        }
+    }
     public static class DataTablesTypeInfo<T>
     {
         public static DataTablesPropertyInfo[] Properties { get; private set; }
 
         static DataTablesTypeInfo()
         {
-            var infos = from pi in typeof (T).GetProperties()
-                        let da = (DataTablesAttribute)(pi.GetCustomAttributes(typeof(DataTablesAttribute), false).SingleOrDefault() ?? new DataTablesAttribute())
-                             orderby da.Order
-                        select new DataTablesPropertyInfo(pi, da);
-            Properties = infos.ToArray();
+            Properties = DataTablesTypeInfo.Properties(typeof (T));
         }
 
         public static Dictionary<string, object> ToDictionary(T row)

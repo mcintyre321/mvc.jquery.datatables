@@ -100,56 +100,63 @@ namespace Mvc.JQuery.Datatables
         public static string DateTimeOffsetFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
-
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
+
+                var filterString = null as string;
+
                 DateTimeOffset start, end;
-                DateTimeOffset.TryParse(parts[0] ?? "", out start);
-                if (!DateTimeOffset.TryParse(parts[1] ?? "", out end))
+                if (DateTimeOffset.TryParse(parts[0] ?? "", out start))
                 {
-                    end = DateTimeOffset.MaxValue;
-                }
-                else
-                {
-                    end = end.Date.AddDays(1);
+                    filterString = columnname + " >= @" + parametersForLinqQuery.Count;
+                    parametersForLinqQuery.Add(start);
                 }
 
-                parametersForLinqQuery.Add(start);
-                parametersForLinqQuery.Add(end.AddDays(1).AddSeconds(-1));
-                return string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+                if (DateTimeOffset.TryParse(parts[1] ?? "", out end))
+                {
+                    filterString = (filterString == null ? null : filterString + " and ") + columnname + " <= @" + parametersForLinqQuery.Count;
+                    parametersForLinqQuery.Add(end);
+                }
+
+                return filterString ?? "";
             }
             else
             {
                 return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
             }
         }
+
         public static string DateTimeFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
+
+                var filterString = null as string;
+
                 DateTime start, end;
-                DateTime.TryParse(parts[0] ?? "", out start);
-                if (!DateTime.TryParse(parts[1] ?? "", out end))
+                if (DateTime.TryParse(parts[0] ?? "", out start))
                 {
-                    end = DateTime.MaxValue;
-                }
-                else
-                {
-                    end = end.Date.AddDays(1);
+                    filterString = columnname + " >= @" + parametersForLinqQuery.Count;
+                    parametersForLinqQuery.Add(start);
                 }
 
-                parametersForLinqQuery.Add(start);
-                parametersForLinqQuery.Add(end);
-                return string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
+                if (DateTime.TryParse(parts[1] ?? "", out end))
+                {
+                    filterString = (filterString == null ? null : filterString + " and ") + columnname + " <= @" + parametersForLinqQuery.Count;
+                    parametersForLinqQuery.Add(end);
+                }
+
+                return filterString ?? "";
             }
             else
             {
                 return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
             }
         }
+
         public static string BoolFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
         {
             if (query != null)

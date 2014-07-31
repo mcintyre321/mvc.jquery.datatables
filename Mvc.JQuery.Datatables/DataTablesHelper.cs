@@ -30,14 +30,19 @@ namespace Mvc.JQuery.Datatables
             return new DataTableConfigVm(id, ajaxUrl, columns);
         }
 
-        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, Uri uri)
+        public static DataTableConfigVm DataTableVm(this HtmlHelper html, Type t, string id, Uri uri)
         {
-            return new DataTableConfigVm(id, uri.ToString(), ColDefs<TResult>());
+            return new DataTableConfigVm(id, uri.ToString(), ColDefs(t));
         }
 
-        public static ColDef[] ColDefs<TResult>()
+        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, Uri uri)
         {
-            var propInfos = DataTablesTypeInfo<TResult>.Properties;
+            return DataTableVm(html, typeof (TResult), id, uri);
+        }
+
+        public static ColDef[] ColDefs (Type t)
+        {
+            var propInfos = DataTablesTypeInfo.Properties(t);
             var columnList = new List<ColDef>();
             foreach (var pi in propInfos)
             {
@@ -54,7 +59,11 @@ namespace Mvc.JQuery.Datatables
                     CssClassHeader = pi.Item2.CssClassHeader
                 });
             }
-            return  columnList.ToArray();
+            return columnList.ToArray();
+        }
+        public static ColDef[] ColDefs<TResult>()
+        {
+            return ColDefs(typeof(TResult));
         }
 
         public static DataTableConfigVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)

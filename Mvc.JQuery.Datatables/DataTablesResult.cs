@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Mvc.JQuery.Datatables
 {
-    public class DataTablesResult 
+    public abstract class DataTablesResult  : ActionResult
     {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TTransform"></typeparam>
@@ -42,23 +42,25 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
 
-        //public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
-        //{
-        //    queryable = ((IEnumerable)queryable).AsQueryable();
-        //    var s = "Create";
 
-        //    var openCreateMethod =
-        //        typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
-        //    var queryableType = queryable.GetType().GetGenericArguments()[0];
-        //    var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-        //    return (DataTablesResult)closedCreateMethod.Invoke(null, new[] { queryable, dataTableParam });
-        //}
+
+
+
+        public static DataTablesResult Create(IQueryable queryable, DataTablesParam dataTableParam)
+        {
+            var s = "Create";
+            var openCreateMethod =
+                typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
+            var queryableType = queryable.GetType().GetGenericArguments()[0];
+            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+            return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam });
+        }
 
         public static DataTablesResult<T> CreateResultUsingEnumerable<T>(IEnumerable<T> q, DataTablesParam dataTableParam)
         {
             return Create(q.AsQueryable(), dataTableParam);
         }
-
+ 
     }
 
     public class TransformTypeInfo<TTransform>
@@ -76,7 +78,7 @@ namespace Mvc.JQuery.Datatables
     }
 
 
-    public class DataTablesResult<TSource> : ActionResult
+    public class DataTablesResult<TSource> : DataTablesResult
     {
 
         public DataTablesData Data { get; set; }
@@ -108,15 +110,18 @@ namespace Mvc.JQuery.Datatables
 
             var outputProperties = DataTablesTypeInfo<TSource>.Properties;
             var searchColumns = outputProperties.Select(p => new ColInfo(p.Item1.Name, p.Item1.PropertyType)).ToArray();
+
+            var filteredData = filters.FilterPagingSortingSearch(param, data, searchColumns);
+            var totalDisplayRecords = filteredData.Count();
+
+            var skipped = filteredData.Skip(param.iDisplayStart);
+            var page = (param.iDisplayLength <= 0 ? skipped : skipped.Take(param.iDisplayLength)).ToArray();
+
             
-            var filteredData = filters.FilterPagingSortingSearch(param, data, searchColumns).Skip(param.iDisplayStart);
-
-            var page = (param.iDisplayLength <= 0 ? filteredData : filteredData.Take(param.iDisplayLength)).ToArray();
-
             var result = new DataTablesData
             {
                 iTotalRecords = totalRecords,
-                iTotalDisplayRecords = filteredData.Count() + param.iDisplayStart,
+                iTotalDisplayRecords = totalDisplayRecords,
                 sEcho = param.sEcho,
                 aaData = page.Cast<object>().ToArray()
             };

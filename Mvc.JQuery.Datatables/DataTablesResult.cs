@@ -98,7 +98,10 @@ namespace Mvc.JQuery.Datatables
                 throw new ArgumentNullException("context");
             HttpResponseBase response = context.HttpContext.Response;
 
-            var scriptSerializer = new JavaScriptSerializer();
+            var scriptSerializer = new JavaScriptSerializer()
+            {
+                MaxJsonLength = int.MaxValue
+            };
             response.Write(scriptSerializer.Serialize(this.Data));
         }
 
@@ -123,7 +126,7 @@ namespace Mvc.JQuery.Datatables
                 iTotalRecords = totalRecords,
                 iTotalDisplayRecords = totalDisplayRecords,
                 sEcho = param.sEcho,
-                aaData = page.Cast<object>().ToArray()
+                aaData = page.Cast<object>().ToArray(),
             };
 
             return result;

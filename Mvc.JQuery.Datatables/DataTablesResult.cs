@@ -23,8 +23,8 @@ namespace Mvc.JQuery.Datatables
         {
             var result = new DataTablesResult<TSource>(q, dataTableParam);
             result.Data = result.Data
-                .Transform<TSource, Dictionary<string, object>>(row => TransformTypeInfo<TTransform>.MergeToDictionary(transform, row))
-                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.TransformDictionary)
+                .Transform<TSource, Dictionary<string, object>>(row => TransformTypeInfo.MergeTransformValuesIntoDictionary(transform, row))
+                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.StringifyValues)
                 .Transform<Dictionary<string, object>, object[]>(d => d.Values.ToArray());
                 
             return result;
@@ -36,7 +36,7 @@ namespace Mvc.JQuery.Datatables
 
             result.Data = result.Data
                 .Transform<TSource, Dictionary<string, object>>(DataTablesTypeInfo<TSource>.ToDictionary)
-                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.TransformDictionary)
+                .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.StringifyValues)
                 .Transform<Dictionary<string, object>, object[]>(d => d.Values.ToArray()); ;
             return result;
         }
@@ -69,15 +69,21 @@ namespace Mvc.JQuery.Datatables
  
     }
 
-    public class TransformTypeInfo<TTransform>
+    public class TransformTypeInfo 
     {
-        public static Dictionary<string, object> MergeToDictionary<TInput>(Func<TInput, TTransform> transformInput, TInput tInput)
+        public static Dictionary<string, object> MergeTransformValuesIntoDictionary<TInput, TTransform>(Func<TInput, TTransform> transformInput, TInput tInput)
         {
-            var transform = transformInput(tInput);
+            //get the the properties from the input as a dictionary
             var dict = DataTablesTypeInfo<TInput>.ToDictionary(tInput);
-            foreach (var propertyInfo in typeof(TTransform).GetProperties())
+
+            //get the transform object
+            var transform = transformInput(tInput);
+            if (transform != null)
             {
-                dict[propertyInfo.Name] = propertyInfo.GetValue(transform, null);
+                foreach (var propertyInfo in transform.GetType().GetProperties())
+                {
+                    dict[propertyInfo.Name] = propertyInfo.GetValue(transform, null);
+                }
             }
             return dict;
         }

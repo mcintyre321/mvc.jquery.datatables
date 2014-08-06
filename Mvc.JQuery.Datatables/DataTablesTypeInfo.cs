@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -52,6 +53,18 @@ namespace Mvc.JQuery.Datatables
             }
             return dictionary;
         }
+
+        public static OrderedDictionary ToOrderedDictionary(T row)
+        {
+            var dictionary = new OrderedDictionary();
+            foreach (var pi in Properties)
+            {
+                dictionary[pi.Item1.Name] = pi.Item1.GetValue(row, null);
+            }
+            return dictionary;
+        }
+
+
     }
 
     

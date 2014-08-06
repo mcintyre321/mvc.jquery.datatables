@@ -30,7 +30,6 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
 
-
         public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam)
         {
             var result = new DataTablesResult<TSource>(q, dataTableParam);
@@ -43,14 +42,21 @@ namespace Mvc.JQuery.Datatables
         }
 
 
-
-
+        /// <param name="transform">Should be a Func<T, TTransform></param>
+        public static DataTablesResult Create(IQueryable queryable, DataTablesParam dataTableParam, object transform)
+        {
+            var s = "Create";
+            var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 2);
+            var queryableType = queryable.GetType().GetGenericArguments()[0];
+            var transformType = transform.GetType().GetGenericArguments()[1];
+            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType, transformType);
+            return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam, transform });
+        }
 
         public static DataTablesResult Create(IQueryable queryable, DataTablesParam dataTableParam)
         {
             var s = "Create";
-            var openCreateMethod =
-                typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
+            var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
             var queryableType = queryable.GetType().GetGenericArguments()[0];
             var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
             return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam });

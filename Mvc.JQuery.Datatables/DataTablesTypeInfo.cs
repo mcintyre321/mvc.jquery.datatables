@@ -90,6 +90,7 @@ namespace Mvc.JQuery.Datatables
         public String CssClassHeader { get; set; }
 
         public bool Visible { get; set; }
+        public string Filter { get; set; } //Select("Engineer", "Tester", "Manager") 
     }
 
     public enum SortDirection

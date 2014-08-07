@@ -100,11 +100,11 @@ namespace Mvc.JQuery.Datatables
         {
             var totalRecords = data.Count(); //annoying this, as it causes an extra evaluation..
 
-            var filters = new DataTablesFilter();
+            var filters = new DataTablesFiltering();
 
             var outputProperties = DataTablesTypeInfo<TSource>.Properties;
 
-            var filteredData = filters.FilterPagingSortingSearch(param, data, outputProperties);
+            var filteredData = filters.ApplyFiltersAndSort(param, data, outputProperties);
             var totalDisplayRecords = filteredData.Count();
 
             var skipped = filteredData.Skip(param.iDisplayStart);

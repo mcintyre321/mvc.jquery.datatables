@@ -6,9 +6,9 @@ using Mvc.JQuery.Datatables.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
-    internal class DataTablesFilter
+    internal class DataTablesFiltering
     {
-        public IQueryable<T> FilterPagingSortingSearch<T>(DataTablesParam dtParameters, IQueryable<T> data, DataTablesPropertyInfo[] columns)
+        public IQueryable<T> ApplyFiltersAndSort<T>(DataTablesParam dtParameters, IQueryable<T> data, DataTablesPropertyInfo[] columns)
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {

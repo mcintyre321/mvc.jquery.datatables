@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTablesFilter.cs" />
+    <Compile Include="DataTablesFiltering.cs" />
     <Compile Include="DataTablesFilterAttribute.cs" />
     <Compile Include="Models\ColDef.cs" />
     <Compile Include="ColumnFilterSettingsVm.cs" />

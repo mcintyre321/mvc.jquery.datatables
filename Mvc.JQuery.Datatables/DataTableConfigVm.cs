@@ -47,7 +47,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return convertDictionaryToJsonBody(JsOptions);
+                return ConvertDictionaryToJsonBody(JsOptions);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return convertColumnDefsToJson(Columns);
+                return ConvertColumnDefsToJson(Columns);
             }
         }
         public bool ColumnFilter { get; set; }
@@ -70,7 +70,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return convertColumnDefsInitialSearchToJson(Columns);
+                return ConvertColumnDefsInitialSearchToJson(Columns);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return convertColumnSortingToJson(Columns);
+                return ConvertColumnSortingToJson(Columns);
             }
         }
 
@@ -169,7 +169,7 @@ namespace Mvc.JQuery.Datatables
         }
         public _FilterOn<DataTableConfigVm> FilterOn<T>(object jsOptions)
         {
-            IDictionary<string, object> optionsDict = DataTableConfigVm.convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> optionsDict = DataTableConfigVm.ConvertObjectToDictionary(jsOptions);
             return FilterOn<T>(optionsDict); 
         }
         ////public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> jsOptions)
@@ -182,13 +182,13 @@ namespace Mvc.JQuery.Datatables
         }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, object jsOptions)
         {
-            IDictionary<string, object> optionsDict = convertObjectToDictionary(jsOptions);
+            IDictionary<string, object> optionsDict = ConvertObjectToDictionary(jsOptions);
             return FilterOn(columnName, optionsDict); 
         }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, object jsOptions, object jsInitialSearchCols)
         {
-            IDictionary<string, object> optionsDict = convertObjectToDictionary(jsOptions);
-            IDictionary<string, object> initialSearchColsDict = convertObjectToDictionary(jsInitialSearchCols);
+            IDictionary<string, object> optionsDict = ConvertObjectToDictionary(jsOptions);
+            IDictionary<string, object> initialSearchColsDict = ConvertObjectToDictionary(jsInitialSearchCols);
             return FilterOn(columnName, optionsDict, initialSearchColsDict);
         }
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
@@ -215,7 +215,7 @@ namespace Mvc.JQuery.Datatables
             return new _FilterOn<DataTableConfigVm>(this, colDef);
         }
 
-        private static string convertDictionaryToJsonBody(IDictionary<string, object> dict)
+        private static string ConvertDictionaryToJsonBody(IDictionary<string, object> dict)
         {
             // Converting to System.Collections.Generic.Dictionary<> to ensure Dictionary will be converted to Json in correct format
             var dictSystem = new Dictionary<string, object>(dict);
@@ -223,7 +223,7 @@ namespace Mvc.JQuery.Datatables
             return json.Substring(1, json.Length - 2);
         }
 
-        private static string convertColumnDefsToJson(IEnumerable<ColDef> columns)
+        private static string ConvertColumnDefsToJson(IEnumerable<ColDef> columns)
         {
             var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
             var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
@@ -256,14 +256,14 @@ namespace Mvc.JQuery.Datatables
             return "[]";
         }
 
-        private static string convertColumnDefsInitialSearchToJson(IEnumerable<ColDef> columns)
+        private static string ConvertColumnDefsInitialSearchToJson(IEnumerable<ColDef> columns)
         {
             var initialSearches = columns
                 .Select(c => c.Searchable & c.JsInitialSearchCols.Any() ? c.JsInitialSearchCols : null).ToArray();
             return new JavaScriptSerializer().Serialize(initialSearches);
         }
 
-        private static string convertColumnSortingToJson(IEnumerable<ColDef> columns)
+        private static string ConvertColumnSortingToJson(IEnumerable<ColDef> columns)
         {
             var sortList = columns.Select((c, idx) => c.SortDirection == SortDirection.None ? new dynamic[] { -1, "" } : (c.SortDirection == SortDirection.Ascending ? new dynamic[] { idx, "asc" } : new dynamic[] { idx, "desc" })).Where(x => x[0] > -1).ToArray();
 
@@ -273,7 +273,7 @@ namespace Mvc.JQuery.Datatables
             return "[]";
         }
 
-        private static IDictionary<string, object> convertObjectToDictionary(object obj)
+        private static IDictionary<string, object> ConvertObjectToDictionary(object obj)
         {
             // Doing this way because RouteValueDictionary converts to Json in wrong format
             return new Dictionary<string, object>(new RouteValueDictionary(obj));

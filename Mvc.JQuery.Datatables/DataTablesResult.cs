@@ -1,12 +1,8 @@
-using System.Linq.Expressions;
 using System.Web;
 using System.Web.Script.Serialization;
-using Mvc.JQuery.Datatables.DynamicLinq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables.Models;
 using Mvc.JQuery.Datatables.Reflection;
@@ -107,9 +103,8 @@ namespace Mvc.JQuery.Datatables
             var filters = new DataTablesFilter();
 
             var outputProperties = DataTablesTypeInfo<TSource>.Properties;
-            var searchColumns = outputProperties.Select(p => new ColInfo(p.PropertyInfo.Name, p.PropertyInfo.PropertyType)).ToArray();
 
-            var filteredData = filters.FilterPagingSortingSearch(param, data, searchColumns);
+            var filteredData = filters.FilterPagingSortingSearch(param, data, outputProperties);
             var totalDisplayRecords = filteredData.Count();
 
             var skipped = filteredData.Skip(param.iDisplayStart);

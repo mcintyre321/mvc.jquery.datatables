@@ -28,7 +28,7 @@ namespace Mvc.JQuery.Datatables
 
         public bool Visible { get; set; }
 
-        public override void ApplyTo(ColDef colDef, PropertyInfo pi)
+        public override void ApplyTo(ColDef colDef, System.Reflection.PropertyInfo pi)
         {
             
             colDef.DisplayName = this.ToDisplayName() ?? colDef.Name;

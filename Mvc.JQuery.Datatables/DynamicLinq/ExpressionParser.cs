@@ -884,8 +884,8 @@ namespace Mvc.JQuery.Datatables.DynamicLinq
                 if (member == null)
                     throw ParseError(errorPos, Res.UnknownPropertyOrField,
                         id, GetTypeName(type));
-                return member is PropertyInfo ?
-                    Expression.Property(instance, (PropertyInfo)member) :
+                return member is System.Reflection.PropertyInfo ?
+                    Expression.Property(instance, (System.Reflection.PropertyInfo)member) :
                     Expression.Field(instance, (FieldInfo)member);
             }
         }
@@ -1128,7 +1128,7 @@ namespace Mvc.JQuery.Datatables.DynamicLinq
                 if (members.Length != 0)
                 {
                     IEnumerable<MethodBase> methods = members.
-                        OfType<PropertyInfo>().
+                        OfType<System.Reflection.PropertyInfo>().
                         Select(p => (MethodBase)p.GetGetMethod()).
                         Where(m => m != null);
                     int count = FindBestMethod(methods, args, out method);

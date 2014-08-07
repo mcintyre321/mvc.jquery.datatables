@@ -12,7 +12,7 @@ namespace Mvc.JQuery.Datatables.Tests
     {
         private DataTablesParam dataTablesParam;
         private IQueryable<SomeModel> queryable;
-        private Tuple<int, ColInfo>[] columns;
+        private Tuple<int, DataTablesPropertyInfo>[] columns;
 
         [SetUp]
         public void Setup()
@@ -32,7 +32,7 @@ namespace Mvc.JQuery.Datatables.Tests
 
             dataTablesParam = new DataTablesParam();
             columns = DataTablesTypeInfo<SomeModel>.Properties.Select((p, i) =>
-                Tuple.Create(i, new ColInfo(p.PropertyInfo.Name, p.PropertyInfo.PropertyType))).ToArray();
+                Tuple.Create(i, new DataTablesPropertyInfo(p.PropertyInfo, new DataTablesAttributeBase[]{}))).ToArray();
             dataTablesParam.sSearchColumns = new List<string>(columns.Select(c => null as string));
             dataTablesParam.bSearchable = new List<bool>(columns.Select(c => true));
 

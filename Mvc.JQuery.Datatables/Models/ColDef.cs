@@ -10,6 +10,13 @@ namespace Mvc.JQuery.Datatables.Models
             Name = name;
             Type = type;
             Filter = new FilterDef(Type);
+            DisplayName = name;
+            Visible = true;
+            Sortable = true;
+            SortDirection = SortDirection.None;
+            MRenderFunction = (string) null;
+            CssClass = "";
+            CssClassHeader = "";
         }
 
         public string Name { get; set; }
@@ -27,23 +34,5 @@ namespace Mvc.JQuery.Datatables.Models
         IDictionary<string, object> m_JsInitialSearchCols = new Dictionary<string, object>();
         public IDictionary<string, object> JsInitialSearchCols { get { return m_JsInitialSearchCols; } }
         public Attribute[] CustomAttributes { get; set; }
-
-        public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true,
-            SortDirection sortDirection = SortDirection.None, string mRenderFunction = null, string pCssClass = "",
-            string pCssClassHeader = "")
-        {
-            return new ColDef(name, propertyType)
-            {
-                DisplayName = p1,
-                Visible = visible,
-                Sortable = sortable,
-                SortDirection = sortDirection,
-                MRenderFunction = mRenderFunction,
-                CssClass = pCssClass,
-                CssClassHeader = pCssClassHeader,
-            };
-        }
-
-
     }
 }

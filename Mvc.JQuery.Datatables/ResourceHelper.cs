@@ -12,7 +12,7 @@ namespace Mvc.JQuery.Datatables
         {
             if ((resourceType != null) && (resourceName != null))
             {
-                PropertyInfo property = resourceType.GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
+                System.Reflection.PropertyInfo property = resourceType.GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
                 if (property == null)
                 {
                     return default(T);

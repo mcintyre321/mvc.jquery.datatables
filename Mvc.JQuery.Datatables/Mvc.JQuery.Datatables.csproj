@@ -78,13 +78,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTablesFilter.cs" />
+    <Compile Include="DataTablesFilterAttribute.cs" />
     <Compile Include="Models\ColDef.cs" />
-    <Compile Include="ColInfo.cs" />
     <Compile Include="ColumnFilterSettingsVm.cs" />
     <Compile Include="DataTablesAttribute.cs" />
     <Compile Include="DataTablesAttributeBase.cs" />
     <Compile Include="Models\DataTablesData.cs" />
-    <Compile Include="DataTablesFilter.cs" />
     <Compile Include="DataTablesHelper.cs" />
     <Compile Include="DataTablesModelBinder.cs" />
     <Compile Include="DataTablesParam.cs" />
@@ -112,9 +112,9 @@
     <Compile Include="Serialization\Raw.cs" />
     <Compile Include="Serialization\RawConverter.cs" />
     <Compile Include="Reflection\StaticReflectionHelper.cs" />
-    <Compile Include="StringTransformers.cs" />
+    <Compile Include="Processing\StringTransformers.cs" />
     <Compile Include="Util\TransformTypeInfo.cs" />
-    <Compile Include="TypeFilters.cs" />
+    <Compile Include="Processing\TypeFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml">

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Mvc.JQuery.Datatables.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -38,7 +39,7 @@ namespace Mvc.JQuery.Datatables
                 return makeClause("Contains", q);
             }
         }
-        public static string NumericFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
+        public static string NumericFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query.StartsWith("^")) query = query.TrimStart('^');
             if (query.EndsWith("$")) query = query.TrimEnd('$');
@@ -51,7 +52,7 @@ namespace Mvc.JQuery.Datatables
                 var clause = null as string;
                 try
                 {
-                    parametersForLinqQuery.Add(ChangeType(colInfo, parts[0]));
+                    parametersForLinqQuery.Add(ChangeType(propertyInfo, parts[0]));
                     clause = string.Format("{0} >= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
@@ -60,7 +61,7 @@ namespace Mvc.JQuery.Datatables
 
                 try
                 {
-                    parametersForLinqQuery.Add(ChangeType(colInfo, parts[1]));
+                    parametersForLinqQuery.Add(ChangeType(propertyInfo, parts[1]));
                     if (clause != null) clause += " and ";
                     clause += string.Format("{0} <= @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
@@ -74,7 +75,7 @@ namespace Mvc.JQuery.Datatables
             {
                 try
                 {
-                    parametersForLinqQuery.Add(ChangeType(colInfo, query));
+                    parametersForLinqQuery.Add(ChangeType(propertyInfo, query));
                     return string.Format("{0} == @{1}", columnname, parametersForLinqQuery.Count - 1);
                 }
                 catch (FormatException)
@@ -84,20 +85,20 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        private static object ChangeType(ColInfo colInfo, string query)
+        private static object ChangeType(DataTablesPropertyInfo propertyInfo, string query)
         {
-            if (colInfo.Type.IsGenericType && colInfo.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (propertyInfo.PropertyInfo.PropertyType.IsGenericType && propertyInfo.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                Type u = Nullable.GetUnderlyingType(colInfo.Type);
+                Type u = Nullable.GetUnderlyingType(propertyInfo.Type);
                 return Convert.ChangeType(query, u);
             }
             else
             {
-                return Convert.ChangeType(query, colInfo.Type);
+                return Convert.ChangeType(query, propertyInfo.Type);
             }
         }
 
-        public static string DateTimeOffsetFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
+        public static string DateTimeOffsetFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
             if (query.Contains("~"))
@@ -123,11 +124,11 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, propertyInfo.Type), columnname);
             }
         }
 
-        public static string DateTimeFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
+        public static string DateTimeFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
             if (query.Contains("~"))
@@ -153,11 +154,11 @@ namespace Mvc.JQuery.Datatables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, colInfo.Type), columnname);
+                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, propertyInfo.Type), columnname);
             }
         }
 
-        public static string BoolFilter(string query, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
+        public static string BoolFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query != null)
                 query = query.TrimStart('^').TrimEnd('$');
@@ -167,7 +168,7 @@ namespace Mvc.JQuery.Datatables
                 if (query.ToLower() == "true") return columnname + " == true";
                 return columnname + " == false";
             }
-            if (colInfo.Type == typeof(bool?))
+            if (propertyInfo.Type == typeof(bool?))
             {
                 if (lowerCaseQuery == "null") return columnname + " == null";
             }
@@ -175,7 +176,7 @@ namespace Mvc.JQuery.Datatables
 
         }
 
-        public static string StringFilter(string q, string columnname, ColInfo columntype, List<object> parametersforlinqquery)
+        public static string StringFilter(string q, string columnname, DataTablesPropertyInfo columntype, List<object> parametersforlinqquery)
         {
             if (q == ".*") return "";
             if (q.StartsWith("^"))
@@ -206,12 +207,12 @@ namespace Mvc.JQuery.Datatables
             }
         }
 
-        public static string EnumFilter(string q, string columnname, ColInfo colInfo, List<object> parametersForLinqQuery)
+        public static string EnumFilter(string q, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
 
             if (q.StartsWith("^")) q = q.Substring(1);
             if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
-            parametersForLinqQuery.Add(ParseValue(q, colInfo.Type));
+            parametersForLinqQuery.Add(ParseValue(q, propertyInfo.Type));
             return columnname + " == @" + (parametersForLinqQuery.Count - 1);
         }
     }

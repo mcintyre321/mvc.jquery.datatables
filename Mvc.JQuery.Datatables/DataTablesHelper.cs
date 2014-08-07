@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using Mvc.JQuery.Datatables.Models;
 using Mvc.JQuery.Datatables.Reflection;
-
 namespace Mvc.JQuery.Datatables
 {
     public static class DataTablesHelper
@@ -67,7 +61,10 @@ namespace Mvc.JQuery.Datatables
 
         public static DataTableConfigVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableConfigVm(id, ajaxUrl, columns.Select(c => ColDef.Create(c, (string)null, typeof(string))));
+            return new DataTableConfigVm(id, ajaxUrl, columns.Select(c => new ColDef(c, typeof(string))
+            {
+               
+            }));
         }
     }
 }

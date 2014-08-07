@@ -12,7 +12,8 @@
 
 <script type="text/javascript" src="/Content/jquery.dataTables.columnFilter.js"></script>
 
-
+<link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
+<script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
 
 @{
     var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));

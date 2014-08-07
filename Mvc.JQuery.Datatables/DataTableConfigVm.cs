@@ -80,6 +80,7 @@ namespace Mvc.JQuery.Datatables
         {
             get { 
                 var sdom = "";
+                if (ColVis) sdom += "C";
                 if (TableTools) sdom += "T<\"clear\">";
                 if (ShowPageSizes) sdom += "l";
                 if (ShowSearch) sdom += "f";
@@ -87,6 +88,8 @@ namespace Mvc.JQuery.Datatables
                 return sdom;
             }
         }
+
+        public bool ColVis { get; set; }
 
         public string ColumnSortingString
         {

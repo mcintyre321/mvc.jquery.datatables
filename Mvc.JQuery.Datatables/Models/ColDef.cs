@@ -17,6 +17,7 @@ namespace Mvc.JQuery.Datatables.Models
             MRenderFunction = (string) null;
             CssClass = "";
             CssClassHeader = "";
+            this.Searchable = true;
         }
 
         public string Name { get; set; }

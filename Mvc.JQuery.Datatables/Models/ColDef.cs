@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.Datatables.Models
 {
     public class ColDef
     {
-        protected internal ColDef(Type type)
+        protected internal ColDef(string name, Type type)
         {
+            Name = name;
             Type = type;
             Filter = new FilterDef(Type);
         }
@@ -25,14 +26,14 @@ namespace Mvc.JQuery.Datatables
 
         IDictionary<string, object> m_JsInitialSearchCols = new Dictionary<string, object>();
         public IDictionary<string, object> JsInitialSearchCols { get { return m_JsInitialSearchCols; } }
+        public Attribute[] CustomAttributes { get; set; }
 
         public static ColDef Create(string name, string p1, Type propertyType, bool visible = true, bool sortable = true,
             SortDirection sortDirection = SortDirection.None, string mRenderFunction = null, string pCssClass = "",
             string pCssClassHeader = "")
         {
-            return new ColDef(propertyType)
+            return new ColDef(name, propertyType)
             {
-                Name = name,
                 DisplayName = p1,
                 Visible = visible,
                 Sortable = sortable,

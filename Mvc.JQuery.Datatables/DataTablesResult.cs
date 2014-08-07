@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.Datatables.Util;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -69,26 +72,6 @@ namespace Mvc.JQuery.Datatables
  
     }
 
-    public class TransformTypeInfo 
-    {
-        public static Dictionary<string, object> MergeTransformValuesIntoDictionary<TInput, TTransform>(Func<TInput, TTransform> transformInput, TInput tInput)
-        {
-            //get the the properties from the input as a dictionary
-            var dict = DataTablesTypeInfo<TInput>.ToDictionary(tInput);
-
-            //get the transform object
-            var transform = transformInput(tInput);
-            if (transform != null)
-            {
-                foreach (var propertyInfo in transform.GetType().GetProperties())
-                {
-                    dict[propertyInfo.Name] = propertyInfo.GetValue(transform, null);
-                }
-            }
-            return dict;
-        }
-    }
-
 
     public class DataTablesResult<TSource> : DataTablesResult
     {
@@ -124,7 +107,7 @@ namespace Mvc.JQuery.Datatables
             var filters = new DataTablesFilter();
 
             var outputProperties = DataTablesTypeInfo<TSource>.Properties;
-            var searchColumns = outputProperties.Select(p => new ColInfo(p.Item1.Name, p.Item1.PropertyType)).ToArray();
+            var searchColumns = outputProperties.Select(p => new ColInfo(p.PropertyInfo.Name, p.PropertyInfo.PropertyType)).ToArray();
 
             var filteredData = filters.FilterPagingSortingSearch(param, data, searchColumns);
             var totalDisplayRecords = filteredData.Count();
@@ -145,18 +128,5 @@ namespace Mvc.JQuery.Datatables
         }
 
         
-    }
-
-    public class ColInfo
-    {
-        public string Name { get; set; }
-        public Type Type { get; set; }
-
-        public ColInfo(string name, Type propertyType)
-        {
-            Name = name;
-            Type = propertyType;
-
-        }
     }
 }

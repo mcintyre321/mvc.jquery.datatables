@@ -8,6 +8,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -40,24 +42,21 @@ namespace Mvc.JQuery.Datatables
             return DataTableVm(html, typeof (TResult), id, uri);
         }
 
-        public static ColDef[] ColDefs (Type t)
+        public static ColDef[] ColDefs (this Type t)
         {
             var propInfos = DataTablesTypeInfo.Properties(t);
             var columnList = new List<ColDef>();
-            foreach (var pi in propInfos)
+            
+            foreach (var dtpi in propInfos)
             {
-                columnList.Add(new ColDef(pi.Item1.PropertyType)
+
+                var colDef = new ColDef(dtpi.PropertyInfo.Name, dtpi.PropertyInfo.PropertyType);
+                foreach (var att in dtpi.Attributes)
                 {
-                    Name = pi.Item1.Name,
-                    DisplayName = pi.Item2.ToDisplayName() ?? pi.Item1.Name,
-                    Sortable = pi.Item2.Sortable,
-                    Visible = pi.Item2.Visible,
-                    Searchable = pi.Item2.Searchable,
-                    SortDirection = pi.Item2.SortDirection,
-                    MRenderFunction = pi.Item2.MRenderFunction,
-                    CssClass = pi.Item2.CssClass,
-                    CssClassHeader = pi.Item2.CssClassHeader
-                });
+                    att.ApplyTo(colDef, dtpi.PropertyInfo);
+                }
+                
+                columnList.Add(colDef);
             }
             return columnList.ToArray();
         }

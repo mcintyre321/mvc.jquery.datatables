@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mvc.JQuery.Datatables;
+using Mvc.JQuery.Datatables.Reflection;
 using NUnit.Framework;
 
 namespace Mvc.JQuery.Datatables.Tests
@@ -31,7 +32,7 @@ namespace Mvc.JQuery.Datatables.Tests
 
             dataTablesParam = new DataTablesParam();
             columns = DataTablesTypeInfo<SomeModel>.Properties.Select((p, i) =>
-                Tuple.Create(i, new ColInfo(p.Item1.Name, p.Item1.PropertyType))).ToArray();
+                Tuple.Create(i, new ColInfo(p.PropertyInfo.Name, p.PropertyInfo.PropertyType))).ToArray();
             dataTablesParam.sSearchColumns = new List<string>(columns.Select(c => null as string));
             dataTablesParam.bSearchable = new List<bool>(columns.Select(c => true));
 

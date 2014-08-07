@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables.Models;
 using Resources;
 
 namespace Mvc.JQuery.Datatables.Example.Controllers

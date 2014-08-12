@@ -106,7 +106,8 @@ namespace Mvc.JQuery.Datatables
         public string Language { get; set; }
 
         public string DrawCallback { get; set; }
-
+        public LengthMenuVm LengthMenu { get; set; }
+        public int? PageLength { get; set; }
 
         private bool _columnFilter;
  

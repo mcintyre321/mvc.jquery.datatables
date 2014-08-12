@@ -31,7 +31,12 @@
     //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
     vm.StateSave = true;
     //vm.DrawCallback = "drawCallback";
-
+    
+    //you can change the page length options... 
+    vm.LengthMenu = LengthMenuVm.Default();
+    vm.LengthMenu.RemoveAll(t => t.Item2 == 5);
+    vm.PageLength = 25; //... and set a default
+    
     if (Request.QueryString["lang"] == "de")
     {
         //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";

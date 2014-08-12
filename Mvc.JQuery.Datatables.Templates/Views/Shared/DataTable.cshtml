@@ -1,6 +1,8 @@
 ﻿@using System.Data.Odbc
 @using System.Linq
 @using Mvc.JQuery.Datatables
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
 @model DataTableConfigVm
 <table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
     <thead>
@@ -38,50 +40,54 @@
             return;
         }
         var $table = $('#@Model.Id');
-        var dt = $table.dataTable({
-            "aaSorting": @Html.Raw(Model.ColumnSortingString),
-            "bProcessing": true,
-            "bStateSave": @Html.Raw(Model.StateSave ? "true" : "false"),
-            "bServerSide": true,
-            "bFilter": @Model.ShowSearch.ToString().ToLower(),
-            "sDom": '@Html.Raw(Model.Dom)',
-            @if (Model.LengthMenu != null) { <text>"lengthMenu": @Html.Raw(Model.LengthMenu),</text> }
-            @if (Model.PageLength.HasValue)
+
+        @{
+            var options = new JObject();
+            options["aaSorting"] = new JRaw(Model.ColumnSortingString);
+            options["bProcessing"] = true;
+            options["bSaveState"] = Model.StateSave;
+            options["bFilter"] = Model.ShowSearch;
+            options["sDom"] = Model.Dom;
+            
+            if (Model.LengthMenu != null)
             {
-                <text>"pageLength": @Html.Raw(Model.PageLength),</text>
+                options["lengthMenu"] = new JRaw(Model.LengthMenu);
             }
-            "bAutoWidth": @Model.AutoWidth.ToString().ToLowerInvariant(),
-            "sAjaxSource": "@Html.Raw(Model.AjaxUrl)", @Html.Raw(Model.TableTools ? "\"oTableTools\" : { \"sSwfPath\": \"//cdn.datatables.net/tabletools/2.2.1/swf/copy_csv_xls_pdf.swf\" }," : "")
-            "fnServerData": function(sSource, aoData, fnCallback) {
-                $.ajax({
-                    "dataType": 'json',
-                    "type": "POST",
-                    "url": sSource,
-                    "data": aoData,
-                    "success": fnCallback
-                });
-            },
-            "aoColumnDefs" : @Html.Raw(Model.ColumnDefsString),
-            "aoSearchCols": @Html.Raw(Model.ColumnInitialSearchString)
-                @Html.Raw(!string.IsNullOrWhiteSpace(Model.JsOptionsString) ? ", " + Model.JsOptionsString : "")
-            @if (!string.IsNullOrEmpty(Model.Language))
+            if (Model.PageLength.HasValue)
             {
-                <text>
-                    ,"oLanguage": @Html.Raw(@Model.Language)
-                </text>
+                options["pageLength"] = Model.PageLength;
             }
-            @if (!string.IsNullOrEmpty(Model.DrawCallback))
+            options["bAutoWidth"] = Model.AutoWidth;
+            options["sAjaxSource"] = Model.AjaxUrl;
+            if (Model.TableTools)
             {
-                <text>
-                    ,"fnDrawCallback": @Html.Raw(Model.DrawCallback)
-                </text>
+                options["oTableTools"] = new JRaw("{ 'sSwfPath': '//cdn.datatables.net/tabletools/2.2.1/swf/copy_csv_xls_pdf.swf' }");
             }
-                    });
+            options["fnServerData"] = new JRaw(" function(sSource, aoData, fnCallback) { $.ajax({ 'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback })}");
+            options["aoColumnDefs"] = new JRaw(Model.ColumnDefsString);
+            options["aoSearchCols"] = new JRaw(Model.ColumnInitialSearchString);
+            if (Model.JsOptions.Any())
+            {
+                foreach (var jsOption in Model.JsOptions)
+                {
+                    options[jsOption.Key] = new JRaw(jsOption.Value);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(Model.Language))
+            {
+                options["oLanguage"] = new JRaw(Model.Language);
+            }
+            if (!string.IsNullOrWhiteSpace(Model.DrawCallback))
+            {
+                options["fnDrawCallback"] = new JRaw(Model.DrawCallback);
+            }
+            
+        }
+
+        var dt = $table.dataTable(@Html.Raw(options.ToString(Formatting.Indented)));
         @if (Model.ColumnFilter)
-            {
-                <text>
-        dt.columnFilter(@Html.Raw(Model.ColumnFilterVm.ToString()));
-        </text>
-            }
+        {
+            @Html.Raw("dt.columnFilter(" + Model.ColumnFilterVm + ");")
+        }
     })();
 </script>

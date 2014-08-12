@@ -43,13 +43,7 @@ namespace Mvc.JQuery.Datatables
 
         public IDictionary<string, object> JsOptions { get { return m_JsOptions; } }
 
-        public string JsOptionsString
-        {
-            get
-            {
-                return ConvertDictionaryToJsonBody(JsOptions);
-            }
-        }
+       
 
         public string ColumnDefsString
         {

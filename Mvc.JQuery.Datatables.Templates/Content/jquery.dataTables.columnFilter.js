@@ -817,7 +817,7 @@
                             if (aoData[k].name == "sSearch_" + index)
                                 aoData[k].value = afnSearch_[j]();
                             //HM// Added this line to force the value in
-                            //HMoTable.fnSettings().aoPreSearchCols[index].sSearch = aoData[k].value;
+                            oTable.fnSettings().aoPreSearchCols[index].sSearch = aoData[k].value;
                         }
                     }
                     aoData.push({ "name": "sRangeSeparator", "value": properties.sRangeSeparator });

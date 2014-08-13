@@ -6,6 +6,7 @@ using System.Web.Script.Serialization;
 using Mvc.JQuery.Datatables.Models;
 using Mvc.JQuery.Datatables.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -205,9 +206,10 @@ namespace Mvc.JQuery.Datatables
             }
             if (jsInitialSearchCols != null)
             {
+                colDef.SearchCols = new JObject();
                 foreach (var jsInitialSearchCol in jsInitialSearchCols)
                 {
-                    colDef.JsInitialSearchCols[jsInitialSearchCol.Key] = jsInitialSearchCol.Value;
+                    colDef.SearchCols[jsInitialSearchCol.Key] = new JValue(jsInitialSearchCol.Value);
                 }
             }
             return new _FilterOn<DataTableConfigVm>(this, colDef);
@@ -257,8 +259,8 @@ namespace Mvc.JQuery.Datatables
         private static string ConvertColumnDefsInitialSearchToJson(IEnumerable<ColDef> columns)
         {
             var initialSearches = columns
-                .Select(c => c.Searchable & c.JsInitialSearchCols.Any() ? c.JsInitialSearchCols : null).ToArray();
-            return new JavaScriptSerializer().Serialize(initialSearches);
+                .Select(c => c.Searchable & c.SearchCols != null ? c.SearchCols.ToString() : null as object).ToArray();
+            return new JArray(initialSearches).ToString();
         }
 
         private static string ConvertColumnSortingToJson(IEnumerable<ColDef> columns)

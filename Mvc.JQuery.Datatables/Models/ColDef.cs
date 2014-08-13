@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Mvc.JQuery.Datatables.Models
 {
@@ -32,8 +33,7 @@ namespace Mvc.JQuery.Datatables.Models
         public string MRenderFunction { get; set; }
         public FilterDef Filter { get; set; }
 
-        IDictionary<string, object> m_JsInitialSearchCols = new Dictionary<string, object>();
-        public IDictionary<string, object> JsInitialSearchCols { get { return m_JsInitialSearchCols; } }
+        public JObject SearchCols { get; set; }
         public Attribute[] CustomAttributes { get; set; }
     }
 }

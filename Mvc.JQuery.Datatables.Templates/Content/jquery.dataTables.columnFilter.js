@@ -814,10 +814,11 @@
                         var index = aiCustomSearch_Indexes[j];
 
                         for (k = 0; k < aoData.length; k++) {
-                            if (aoData[k].name == "sSearch_" + index)
+                            if (aoData[k].name == "sSearch_" + index) {
                                 aoData[k].value = afnSearch_[j]();
-                            //HM// Added this line to force the value in
-                            oTable.fnSettings().aoPreSearchCols[index].sSearch = aoData[k].value;
+                                //HM// Added this line to force the value in
+                                oTable.fnSettings().aoPreSearchCols[index].sSearch = aoData[k].value;
+                            }
                         }
                     }
                     aoData.push({ "name": "sRangeSeparator", "value": properties.sRangeSeparator });

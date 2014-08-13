@@ -66,7 +66,7 @@
             }
             options["fnServerData"] = new JRaw(" function(sSource, aoData, fnCallback) { $.ajax({ 'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback })}");
             options["aoColumnDefs"] = new JRaw(Model.ColumnDefsString);
-            options["aoSearchCols"] = new JRaw(Model.ColumnInitialSearchString);
+            options["aoSearchCols"] = Model.SearchCols;
             if (Model.JsOptions.Any())
             {
                 foreach (var jsOption in Model.JsOptions)

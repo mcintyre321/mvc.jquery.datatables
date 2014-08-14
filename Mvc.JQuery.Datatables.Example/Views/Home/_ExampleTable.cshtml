@@ -10,7 +10,7 @@
 <script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
 <link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
 
-<script type="text/javascript" src="/Content/jquery.dataTables.columnFilter.js"></script>
+<script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js"></script>
 
 <link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
 <script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
@@ -25,7 +25,7 @@
     }"));
     vm.ColumnFilter = true;
     vm
-        .FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }).Select("Engineer", "Tester", "Manager")
+        .FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }, new { sSearch = "Tester" }).Select("Engineer", "Tester", "Manager")
         .FilterOn("Id").NumberRange()
         .FilterOn("Salary", new { sSelector = "#custom-filter-placeholder-salary" }).NumberRange();
     //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));

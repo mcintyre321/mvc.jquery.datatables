@@ -61,13 +61,11 @@ namespace Mvc.JQuery.Datatables
 
         public bool AutoWidth { get; set; }
 
-        public JToken SearchCols
+        public string ColumnInitialSearchString
         {
             get
             {
-                var initialSearches = Columns
-                    .Select(c => c.Searchable & c.SearchCols != null ? c.SearchCols : null as object).ToArray();
-                return new JArray(initialSearches);
+                return ConvertColumnDefsInitialSearchToJson(Columns);
             }
         }
 
@@ -256,6 +254,13 @@ namespace Mvc.JQuery.Datatables
                 return new JavaScriptSerializer().Serialize(defs).Replace("\"%", "").Replace("%\"", "");
 
             return "[]";
+        }
+
+        private static string ConvertColumnDefsInitialSearchToJson(IEnumerable<ColDef> columns)
+        {
+            var initialSearches = columns
+                .Select(c => c.Searchable & c.SearchCols != null ? c.SearchCols.ToString() : null as object).ToArray();
+            return new JArray(initialSearches).ToString();
         }
 
         private static string ConvertColumnSortingToJson(IEnumerable<ColDef> columns)

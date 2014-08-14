@@ -42,7 +42,12 @@ namespace Mvc.JQuery.Datatables
 
     public enum DataTablesFilterType
     {
-        Select,NumberRange,DateRange,Checkbox,Text
+        Select,
+        NumberRange,
+        DateRange,
+        Checkbox,
+        Text,
+        DateTimeRange
     }
  
 }

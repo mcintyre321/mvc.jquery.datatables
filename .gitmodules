@@ -1,3 +1,0 @@
-[submodule "Mvc.JQuery.Datatables/Content/jquery-datatables-column-filter"]
-	path = Mvc.JQuery.Datatables/Content/jquery-datatables-column-filter
-	url = https://github.com/mcintyre321/jquery-datatables-column-filter.git

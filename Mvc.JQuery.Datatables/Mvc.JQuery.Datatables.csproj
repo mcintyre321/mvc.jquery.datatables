@@ -121,17 +121,15 @@
     <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml">
       <Link>Views\Shared\DataTable.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js">
+      <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js</Link>
+    </EmbeddedResource>
     <Content Include="RegisterDatatablesModelBinder.cs.pp" />
     <None Include="packages.config" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery.dataTables.columnFilter.js">
-      <Link>Content\jquery.dataTables.columnFilter.js</Link>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -11,7 +11,7 @@
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    <th @(Html.Raw(column.Width != null ? "style='width:" + column.Width + "'" : ""))>@column.DisplayName</th>
+                    <th >@column.DisplayName</th>
                 }
             </tr>
         }

@@ -67,7 +67,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         [DataTables(DisplayName = "E-Mail", Searchable = true)]
         public string Email { get; set; }
 
-        [DataTables( Sortable = false, Width = "150px")]
+        [DataTables( Sortable = false, Width = "70px")]
         public bool IsAdmin { get; set; }
 
         [DataTables(Visible = false)]

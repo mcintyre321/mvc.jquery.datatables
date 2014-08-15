@@ -50,7 +50,7 @@ namespace Mvc.JQuery.Datatables
         {
             get
             {
-                return ConvertColumnDefsToJson(Columns);
+                return ConvertColumnDefsToJson(Columns.ToArray());
             }
         }
         public bool ColumnFilter { get; set; }
@@ -227,13 +227,15 @@ namespace Mvc.JQuery.Datatables
             return json.Substring(1, json.Length - 2);
         }
 
-        private static string ConvertColumnDefsToJson(IEnumerable<ColDef> columns)
+        private static string ConvertColumnDefsToJson(ColDef[] columns)
         {
             var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
             var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
             var nonSearchableColumns = columns.Select((x, idx) => x.Searchable ? -1 : idx).Where(x => x > -1).ToArray();
             var mRenderColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.MRenderFunction) ? new { x.MRenderFunction, Index = -1 } : new { x.MRenderFunction, Index = idx }).Where(x => x.Index > -1).ToArray();
             var CssClassColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.CssClass) ? new { x.CssClass, Index = -1 } : new { x.CssClass, Index = idx }).Where(x => x.Index > -1).ToArray();
+            
+
 
             var defs = new List<dynamic>();
 
@@ -253,6 +255,15 @@ namespace Mvc.JQuery.Datatables
                 {
                     defs.Add(new { className = CssClassColumn.CssClass, aTargets = new[] { CssClassColumn.Index } });
                 }
+
+            for(var i=0;i<columns.Length;i++)
+            {
+                if (columns[i].Width != null)
+                {
+                    defs.Add(new { width = columns[i].Width, aTargets = new[] { i} });
+                }
+            }
+             
 
             if (defs.Count > 0)
                 return new JavaScriptSerializer().Serialize(defs).Replace("\"%", "").Replace("%\"", "");

@@ -130,6 +130,9 @@
     <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js">
       <Link>Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css">
+      <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css</Link>
+    </EmbeddedResource>
     <Content Include="RegisterDatatablesModelBinder.cs.pp" />
     <None Include="packages.config" />
     <None Include="Views\Web.config" />

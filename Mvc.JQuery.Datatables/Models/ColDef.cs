@@ -35,5 +35,6 @@ namespace Mvc.JQuery.Datatables.Models
 
         public JObject SearchCols { get; set; }
         public Attribute[] CustomAttributes { get; set; }
+        public string Width { get; set; }
     }
 }

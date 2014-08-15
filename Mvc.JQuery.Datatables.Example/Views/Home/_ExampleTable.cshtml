@@ -13,7 +13,7 @@
 <script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js"></script>
 <link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
 
-<script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js"></script>
+<link rel="stylesheet" href="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.css" />
 <script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js"></script>
 
 <link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
@@ -41,6 +41,7 @@
     vm.LengthMenu.RemoveAll(t => t.Item2 == 5);
     vm.PageLength = 25; //... and set a default
     vm.ColVis = true;
+    vm.FixedLayout = true;
     if (Request.QueryString["lang"] == "de")
     {
         //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";

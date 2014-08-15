@@ -108,7 +108,8 @@ namespace Mvc.JQuery.Datatables
         public string GlobalJsVariableName { get; private set; }
 
         private bool _columnFilter;
- 
+
+        public bool FixedLayout { get; set; }
 
         public class _FilterOn<TTarget>
         {

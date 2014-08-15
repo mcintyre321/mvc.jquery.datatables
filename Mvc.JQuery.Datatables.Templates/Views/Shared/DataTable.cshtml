@@ -4,14 +4,14 @@
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @model DataTableConfigVm
-<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
+<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" @Html.Raw(Model.FixedLayout ? "style='table-layout:fixed'":"")>
     <thead>
         @if (Model.ColumnFilter)
         {
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    <th>@column.DisplayName</th>
+                    <th @(Html.Raw(column.Width != null ? "style='width:" + column.Width + "'" : ""))>@column.DisplayName</th>
                 }
             </tr>
         }

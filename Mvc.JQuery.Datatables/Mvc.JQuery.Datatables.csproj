@@ -10,10 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mvc.JQuery.Datatables</RootNamespace>
     <AssemblyName>Mvc.JQuery.Datatables</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,46 +33,105 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColDef.cs" />
-    <Compile Include="DataTablesData.cs" />
-    <Compile Include="DataTablesFilter.cs" />
+    <Compile Include="DataTablesFiltering.cs" />
+    <Compile Include="DataTablesFilterAttribute.cs" />
+    <Compile Include="LengthMenuVm.cs" />
+    <Compile Include="Models\ColDef.cs" />
+    <Compile Include="ColumnFilterSettingsVm.cs" />
+    <Compile Include="DataTablesAttribute.cs" />
+    <Compile Include="DataTablesAttributeBase.cs" />
+    <Compile Include="Models\DataTablesData.cs" />
     <Compile Include="DataTablesHelper.cs" />
     <Compile Include="DataTablesModelBinder.cs" />
     <Compile Include="DataTablesParam.cs" />
     <Compile Include="DataTablesResult.cs" />
     <Compile Include="DataTableConfigVm.cs" />
+    <Compile Include="DynamicLinq\ClassFactory.cs" />
+    <Compile Include="DynamicLinq\DynamicClass.cs" />
+    <Compile Include="DynamicLinq\DynamicExpression.cs" />
+    <Compile Include="DynamicLinq\DynamicOrdering.cs" />
+    <Compile Include="DynamicLinq\DynamicProperty.cs" />
+    <Compile Include="DynamicLinq\ExpressionParser.cs" />
+    <Compile Include="DynamicLinq\ParseException.cs" />
+    <Compile Include="DynamicLinq\Res.cs" />
+    <Compile Include="DynamicLinq\Signature.cs" />
+    <Compile Include="FilterDef.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Reflection\DataTablesPropertyInfo.cs" />
+    <Compile Include="Reflection\DataTablesTypeInfo.cs" />
+    <Compile Include="Reflection\DataTablesTypeInfoHelper.cs" />
+    <Compile Include="Models\SortDirection.cs" />
     <Compile Include="ResourceHelper.cs" />
-    <Compile Include="DynamicLinq\DynamicLinq.cs" />
-    <Compile Include="Models\oLanguage.cs" />
+    <Compile Include="DynamicLinq\DynamicQueryable.cs" />
+    <Compile Include="Models\Paginate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Raw.cs" />
     <Compile Include="Serialization\RawConverter.cs" />
-    <Compile Include="StaticReflectionHelper.cs" />
-    <Compile Include="StringTransformers.cs" />
-    <Compile Include="DataTablesTypeInfo.cs" />
-    <Compile Include="TypeFilters.cs" />
+    <Compile Include="Reflection\StaticReflectionHelper.cs" />
+    <Compile Include="Processing\StringTransformers.cs" />
+    <Compile Include="Util\TransformTypeInfo.cs" />
+    <Compile Include="Processing\TypeFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml">
       <Link>Views\Shared\DataTable.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js">
+      <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css">
+      <Link>Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js">
+      <Link>Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css">
+      <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css</Link>
     </EmbeddedResource>
     <Content Include="RegisterDatatablesModelBinder.cs.pp" />
     <None Include="packages.config" />
@@ -78,11 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery.dataTables.columnFilter.js">
-      <Link>Content\jquery.dataTables.columnFilter.js</Link>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

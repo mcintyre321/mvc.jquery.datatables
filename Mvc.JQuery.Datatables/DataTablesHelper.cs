@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
-
+using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Reflection;
 namespace Mvc.JQuery.Datatables
 {
     public static class DataTablesHelper
@@ -30,34 +26,45 @@ namespace Mvc.JQuery.Datatables
             return new DataTableConfigVm(id, ajaxUrl, columns);
         }
 
-        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, Uri uri)
+        public static DataTableConfigVm DataTableVm(this HtmlHelper html, Type t, string id, Uri uri)
         {
-            return new DataTableConfigVm(id, uri.ToString(), ColDefs<TResult>());
+            return new DataTableConfigVm(id, uri.ToString(), ColDefs(t));
         }
 
+        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, Uri uri)
+        {
+            return DataTableVm(html, typeof (TResult), id, uri);
+        }
+
+        public static ColDef[] ColDefs (this Type t)
+        {
+            var propInfos = DataTablesTypeInfo.Properties(t);
+            var columnList = new List<ColDef>();
+            
+            foreach (var dtpi in propInfos)
+            {
+
+                var colDef = new ColDef(dtpi.PropertyInfo.Name, dtpi.PropertyInfo.PropertyType);
+                foreach (var att in dtpi.Attributes)
+                {
+                    att.ApplyTo(colDef, dtpi.PropertyInfo);
+                }
+                
+                columnList.Add(colDef);
+            }
+            return columnList.ToArray();
+        }
         public static ColDef[] ColDefs<TResult>()
         {
-            var propInfos = DataTablesTypeInfo<TResult>.Properties;
-            var columnList = new List<ColDef>();
-            foreach (var pi in propInfos)
-            {
-                columnList.Add(new ColDef(pi.Item1.PropertyType)
-                {
-                    Name = pi.Item1.Name,
-                    DisplayName = pi.Item2.ToDisplayName() ?? pi.Item1.Name,
-                    Sortable = pi.Item2.Sortable,
-                    Visible = pi.Item2.Visible,
-                    Searchable = pi.Item2.Searchable,
-                    SortDirection = pi.Item2.SortDirection,
-                    MRenderFunction = pi.Item2.MRenderFunction
-                });
-            }
-            return  columnList.ToArray();
+            return ColDefs(typeof(TResult));
         }
 
         public static DataTableConfigVm DataTableVm(this HtmlHelper html, string id, string ajaxUrl, params string[] columns)
         {
-            return new DataTableConfigVm(id, ajaxUrl, columns.Select(c => ColDef.Create(c, (string)null, typeof(string))));
+            return new DataTableConfigVm(id, ajaxUrl, columns.Select(c => new ColDef(c, typeof(string))
+            {
+               
+            }));
         }
     }
 }

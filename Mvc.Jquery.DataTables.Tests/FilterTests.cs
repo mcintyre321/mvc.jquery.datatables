@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mvc.JQuery.Datatables;
+using Mvc.JQuery.Datatables.Reflection;
 using NUnit.Framework;
 
 namespace Mvc.JQuery.Datatables.Tests
@@ -11,7 +12,7 @@ namespace Mvc.JQuery.Datatables.Tests
     {
         private DataTablesParam dataTablesParam;
         private IQueryable<SomeModel> queryable;
-        private Tuple<int, ColInfo>[] columns;
+        private Tuple<int, DataTablesPropertyInfo>[] columns;
 
         [SetUp]
         public void Setup()
@@ -24,13 +25,14 @@ namespace Mvc.JQuery.Datatables.Tests
                     DisplayName = "Cheddar",
                     Id = 123,
                     Scale = 123.456d,
-                    Discounted = true
+                    Discounted = true,
+                    Cost = 123
                 }
             }.AsQueryable();
 
             dataTablesParam = new DataTablesParam();
             columns = DataTablesTypeInfo<SomeModel>.Properties.Select((p, i) =>
-                Tuple.Create(i, new ColInfo(p.Item1.Name, p.Item1.PropertyType))).ToArray();
+                Tuple.Create(i, new DataTablesPropertyInfo(p.PropertyInfo, new DataTablesAttributeBase[]{}))).ToArray();
             dataTablesParam.sSearchColumns = new List<string>(columns.Select(c => null as string));
             dataTablesParam.bSearchable = new List<bool>(columns.Select(c => true));
 
@@ -50,6 +52,8 @@ namespace Mvc.JQuery.Datatables.Tests
         [TestCase("^456$", typeof(int), false)] //exact query, isnt match
         [TestCase("123", typeof(int), true)] //query, is match
         [TestCase("456", typeof(int), false)] //query, isnt match
+        [TestCase("123", typeof(decimal?), true)] //query, is match
+        [TestCase("456", typeof(decimal?), false)] //query, isnt match
         public void SearchQueryTests(string searchString, Type colType, bool returnsResult)
         {
             var col = columns.First(c => c.Item2.Type == colType).Item1;

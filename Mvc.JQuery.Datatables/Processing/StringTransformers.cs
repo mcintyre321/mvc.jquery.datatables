@@ -56,7 +56,7 @@ namespace Mvc.JQuery.Datatables
             };
         }
 
-        public static Dictionary<string, object> TransformDictionary(Dictionary<string, object> dict)
+        public static Dictionary<string, object> StringifyValues(Dictionary<string, object> dict)
         {
             var output = new Dictionary<string, object>();
             foreach (var row in dict)

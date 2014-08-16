@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.Datatables.Reflection
 {
     public static class StaticReflectionHelper
     {

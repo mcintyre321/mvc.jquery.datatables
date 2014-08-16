@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mvc.JQuery.Datatables.DynamicLinq;
+using Mvc.JQuery.Datatables.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
-    public class DataTablesFilter
+    internal class DataTablesFiltering
     {
-        public IQueryable<T> FilterPagingSortingSearch<T>(DataTablesParam dtParameters, IQueryable<T> data, ColInfo[] columns)
+        public IQueryable<T> ApplyFiltersAndSort<T>(DataTablesParam dtParameters, IQueryable<T> data, DataTablesPropertyInfo[] columns)
         {
             if (!String.IsNullOrEmpty(dtParameters.sSearch))
             {
@@ -51,7 +52,7 @@ namespace Mvc.JQuery.Datatables
             {
 
                 int columnNumber = dtParameters.iSortCol[i];
-                string columnName = columns[columnNumber].Name;
+                string columnName = columns[columnNumber].PropertyInfo.Name;
                 string sortDir = dtParameters.sSortDir[i];
                 if (i != 0)
                     sortString += ", ";
@@ -59,7 +60,7 @@ namespace Mvc.JQuery.Datatables
             }
             if (string.IsNullOrWhiteSpace(sortString))
             {
-                sortString = columns[0].Name;
+                sortString = columns[0].PropertyInfo.Name;
             }
             data = data.OrderBy(sortString);
 
@@ -68,7 +69,7 @@ namespace Mvc.JQuery.Datatables
         }
 
         public delegate string ReturnedFilteredQueryForType(
-            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+            string query, string columnName, DataTablesPropertyInfo columnType, List<object> parametersForLinqQuery);
 
 
         private static readonly List<ReturnedFilteredQueryForType> Filters = new List<ReturnedFilteredQueryForType>()
@@ -78,14 +79,14 @@ namespace Mvc.JQuery.Datatables
             Guard(IsDateTimeOffsetType, TypeFilters.DateTimeOffsetFilter),
             Guard(IsNumericType, TypeFilters.NumericFilter),
             Guard(IsEnumType, TypeFilters.EnumFilter),
-            Guard(arg => arg == typeof (string), TypeFilters.StringFilter),
+            Guard(arg => arg.Type == typeof (string), TypeFilters.StringFilter),
         };
 
 
         public delegate string GuardedFilter(
-            string query, string columnName, Type columnType, List<object> parametersForLinqQuery);
+            string query, string columnName, DataTablesPropertyInfo columnType, List<object> parametersForLinqQuery);
 
-        private static ReturnedFilteredQueryForType Guard(Func<Type, bool> guard, GuardedFilter filter)
+        private static ReturnedFilteredQueryForType Guard(Func<DataTablesPropertyInfo, bool> guard, GuardedFilter filter)
         {
             return (q, c, t, p) =>
             {
@@ -102,11 +103,11 @@ namespace Mvc.JQuery.Datatables
             Filters.Add(Guard(arg => arg is T, filter));
         }
 
-        private static string GetFilterClause(string query, ColInfo column, List<object> parametersForLinqQuery)
+        private static string GetFilterClause(string query, DataTablesPropertyInfo column, List<object> parametersForLinqQuery)
         {
             Func<string, string> filterClause = (queryPart) =>
                                                 Filters.Select(
-                                                    f => f(queryPart, column.Name, column.Type, parametersForLinqQuery))
+                                                    f => f(queryPart, column.PropertyInfo.Name, column, parametersForLinqQuery))
                                                        .FirstOrDefault(filterPart => filterPart != null) ?? "";
 
             var queryParts = query.Split('|').Select(filterClause).Where(fc => fc != "").ToArray();
@@ -118,7 +119,13 @@ namespace Mvc.JQuery.Datatables
         }
 
 
-        public static bool IsNumericType(Type type)
+        public static bool IsNumericType(DataTablesPropertyInfo propertyInfo)
+        {
+            var type = propertyInfo.Type;
+            return IsNumericType(type);
+        }
+
+        private static bool IsNumericType(Type type)
         {
             if (type == null || type.IsEnum)
             {
@@ -140,31 +147,31 @@ namespace Mvc.JQuery.Datatables
                 case TypeCode.UInt64:
                     return true;
                 case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>))
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
                     return false;
             }
             return false;
-
-        }
-        public static bool IsEnumType(Type type)
-        {
-            return type.IsEnum;
         }
 
-        public static bool IsBoolType(Type type)
+        public static bool IsEnumType(DataTablesPropertyInfo propertyInfo)
         {
-            return type == typeof(bool) || type == typeof(bool?);
+            return propertyInfo.Type.IsEnum;
         }
-        public static bool IsDateTimeType(Type type)
+
+        public static bool IsBoolType(DataTablesPropertyInfo propertyInfo)
         {
-            return type == typeof(DateTime) || type == typeof(DateTime?);
+            return propertyInfo.Type == typeof(bool) || propertyInfo.Type == typeof(bool?);
         }
-        public static bool IsDateTimeOffsetType(Type type)
+        public static bool IsDateTimeType(DataTablesPropertyInfo propertyInfo)
         {
-            return type == typeof(DateTimeOffset) || type == typeof(DateTimeOffset?);
+            return propertyInfo.Type == typeof(DateTime) || propertyInfo.Type == typeof(DateTime?);
+        }
+        public static bool IsDateTimeOffsetType(DataTablesPropertyInfo propertyInfo)
+        {
+            return propertyInfo.Type == typeof(DateTimeOffset) || propertyInfo.Type == typeof(DateTimeOffset?);
         }
 
     }

@@ -1,9 +1,7 @@
-
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.Datatables.Models
 {
     public class DataTablesData
     {
@@ -12,6 +10,7 @@ namespace Mvc.JQuery.Datatables
         public int sEcho { get; set; }
         public object[] aaData { get; set; }
 
+     
         public DataTablesData Transform<TData, TTransform>(Func<TData, TTransform> transformRow)
         {
             var data = new DataTablesData 

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables.Models;
 using Resources;
 
 namespace Mvc.JQuery.Datatables.Example.Controllers
@@ -63,10 +64,10 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         [DataTables(SortDirection = SortDirection.Ascending, Order = 0)]
         public int Id { get; set; }
 
-        [DataTables(DisplayName = "E-Mail", Searchable = false)]
+        [DataTables(DisplayName = "E-Mail", Searchable = true)]
         public string Email { get; set; }
 
-        [DataTables( Sortable = false)]
+        [DataTables( Sortable = false, Width = "70px")]
         public bool IsAdmin { get; set; }
 
         [DataTables(Visible = false)]
@@ -77,6 +78,8 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public decimal Salary { get; set; }
         
         public string Position { get; set; }
+
+        [DataTablesFilter(DataTablesFilterType.DateTimeRange)]
         public DateTime?  Hired { get; set; }
 
         public Numbers Number { get; set; }

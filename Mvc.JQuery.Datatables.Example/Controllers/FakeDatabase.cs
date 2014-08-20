@@ -57,6 +57,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         public PositionTypes? Position { get; set; }
 
+        
         public DateTime? Hired { get; set; }
 
         public Numbers Number { get; set; }

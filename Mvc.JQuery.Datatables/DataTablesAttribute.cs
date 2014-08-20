@@ -25,6 +25,7 @@ namespace Mvc.JQuery.Datatables
         public string MRenderFunction { get; set; }
         public String CssClass { get; set; }
         public String CssClassHeader { get; set; }
+        public string Width { get; set; }
 
         public bool Visible { get; set; }
 
@@ -40,6 +41,7 @@ namespace Mvc.JQuery.Datatables
             colDef.CssClass = this.CssClass;
             colDef.CssClassHeader = this.CssClassHeader;
             colDef.CustomAttributes = pi.GetCustomAttributes().ToArray();
+            colDef.Width = this.Width;
         }
     }
 }

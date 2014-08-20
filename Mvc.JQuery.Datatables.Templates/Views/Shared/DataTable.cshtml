@@ -4,14 +4,14 @@
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @model DataTableConfigVm
-<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" >
+<table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" @Html.Raw(Model.FixedLayout ? "style='table-layout:fixed'":"")>
     <thead>
         @if (Model.ColumnFilter)
         {
             <tr>
                 @foreach (var column in Model.Columns)
                 {
-                    <th>@column.DisplayName</th>
+                    <th >@column.DisplayName</th>
                 }
             </tr>
         }
@@ -49,7 +49,6 @@
             options["bServerSide"] = true;
             options["bFilter"] = Model.ShowSearch;
             options["sDom"] = Model.Dom;
-            
             if (Model.LengthMenu != null)
             {
                 options["lengthMenu"] = new JRaw(Model.LengthMenu);
@@ -89,6 +88,11 @@
         @if (Model.ColumnFilter)
         {
             @Html.Raw("dt.columnFilter(" + Model.ColumnFilterVm + ");")
+        }
+        
+        @if (Model.GlobalJsVariableName != null)
+        {
+            @Html.Raw("window['@Model.GlobalJsVariableName'] = dt;")
         }
     })();
 </script>

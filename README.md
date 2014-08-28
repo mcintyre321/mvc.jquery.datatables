@@ -6,7 +6,7 @@ turn IQueryables into datagrids
 > Install-Package Mvc.JQuery.Datatables.Templates *
 
 
-[Demo site](http://mvcjquerydatatables.apphb.com/)
+[Demo site](http://aspdatatables.azurewebsites.net/)
 ![Example](http://snag.gy/FQFdn.jpg)
 
  - turn any IQueryable into a live datagrid. Tested with:

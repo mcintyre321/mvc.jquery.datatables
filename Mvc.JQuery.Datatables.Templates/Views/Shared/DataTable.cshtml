@@ -92,7 +92,7 @@
         
         @if (Model.GlobalJsVariableName != null)
         {
-            @Html.Raw("window['@Model.GlobalJsVariableName'] = dt;")
+            @Html.Raw("window['" + Model.GlobalJsVariableName + "'] = dt;")
         }
     })();
 </script>

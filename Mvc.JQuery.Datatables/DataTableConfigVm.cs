@@ -105,7 +105,7 @@ namespace Mvc.JQuery.Datatables
         public string DrawCallback { get; set; }
         public LengthMenuVm LengthMenu { get; set; }
         public int? PageLength { get; set; }
-        public string GlobalJsVariableName { get; private set; }
+        public string GlobalJsVariableName { get; set; }
 
         private bool _columnFilter;
 

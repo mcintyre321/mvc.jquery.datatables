@@ -26,7 +26,6 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         public DataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
         {
-            throw new Exception();
             return DataTablesResult.Create(FakeDatabase.Users.Select(user => new UserView()
             {
                 Id = user.Id,

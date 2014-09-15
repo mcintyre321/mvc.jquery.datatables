@@ -32,6 +32,12 @@ namespace Mvc.JQuery.Datatables
             this.ShowPageSizes = true;
             this.TableTools = true;
             ColumnFilterVm = new ColumnFilterSettingsVm(this);
+            AjaxErrorHandler = 
+                "function(jqXHR, textStatus, errorThrown)" + 
+                "{ " + 
+                    "window.alert('error loading data: ' + textStatus + ' - ' + errorThrown); " + 
+                    "console.log(arguments);" + 
+                "}";
         }
 
         public bool ShowSearch { get; set; }
@@ -110,6 +116,7 @@ namespace Mvc.JQuery.Datatables
         private bool _columnFilter;
 
         public bool FixedLayout { get; set; }
+        public string AjaxErrorHandler { get; set; }
 
         public class _FilterOn<TTarget>
         {

@@ -87,6 +87,9 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
 
         public Numbers Number { get; set; }
 
+        [DataTablesExclude]
+        public string ThisColumnIsExcluded { get { return "asdf"; } }
+
         
     }
 

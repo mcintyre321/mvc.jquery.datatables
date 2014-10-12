@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables.Models;
+using Newtonsoft.Json.Linq;
 using Resources;
 
 namespace Mvc.JQuery.Datatables.Example.Controllers
@@ -80,10 +82,23 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Position { get; set; }
 
         [DataTablesFilter(DataTablesFilterType.DateTimeRange)]
+        [DefaultToStartOfYear]
         public DateTime?  Hired { get; set; }
 
         public Numbers Number { get; set; }
 
+        [DataTablesExclude]
+        public string ThisColumnIsExcluded { get { return "asdf"; } }
+
         
+    }
+
+    public class DefaultToStartOfYearAttribute : DataTablesAttributeBase
+    {
+        public override void ApplyTo(ColDef colDef, PropertyInfo pi)
+        {
+            colDef.SearchCols = colDef.SearchCols ?? new JObject();
+            colDef.SearchCols["sSearch"] = new DateTime(DateTime.Now.Year, 1, 1).ToString("g") + "~" + DateTimeOffset.Now.Date.AddDays(1).ToString("g");
+        }
     }
 }

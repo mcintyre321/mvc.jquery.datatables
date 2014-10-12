@@ -6,7 +6,7 @@ turn IQueryables into datagrids
 > Install-Package Mvc.JQuery.Datatables.Templates *
 
 
-[Demo site](http://mvcjquerydatatables.apphb.com/)
+[Demo site](http://aspdatatables.azurewebsites.net/)
 ![Example](http://snag.gy/FQFdn.jpg)
 
  - turn any IQueryable into a live datagrid. Tested with:
@@ -14,14 +14,14 @@ turn IQueryables into datagrids
    - Entity Framework
    - Lucene.Net.Linq
  - wraps the very comprehensive jquery datatables plugin. Supported features: 
-   - Filtering (text, date range (with datepicker), number ranges, choose from dropdown, multiple values using checkboxes)
+   - Filtering (text, date or datetime range (with datepicker), number ranges, choose from dropdown, multiple values using checkboxes)
    - Sorting (configurable per column)
    - Paging (choose page size options, or fix them)
    - Customer column rendering 
    - Custom positioning of filters (e.g. you could move them above the table)
    - Localization
    - TableTools support (PDF/Excel export)
-   - Attribute based configuration (optional)
+   - Attribute based configuration (optional)   
  - Can be run from dll 
  
 *skip this if using EmbeddedResourceVirtualPathProvider

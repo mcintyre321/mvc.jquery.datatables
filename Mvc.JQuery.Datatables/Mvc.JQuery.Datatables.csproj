@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTablesExcludeAttribute.cs" />
     <Compile Include="DataTablesFiltering.cs" />
     <Compile Include="DataTablesFilterAttribute.cs" />
     <Compile Include="LengthMenuVm.cs" />

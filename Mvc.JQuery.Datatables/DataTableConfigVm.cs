@@ -32,6 +32,12 @@ namespace Mvc.JQuery.Datatables
             this.ShowPageSizes = true;
             this.TableTools = true;
             ColumnFilterVm = new ColumnFilterSettingsVm(this);
+            AjaxErrorHandler = 
+                "function(jqXHR, textStatus, errorThrown)" + 
+                "{ " + 
+                    "window.alert('error loading data: ' + textStatus + ' - ' + errorThrown); " + 
+                    "console.log(arguments);" + 
+                "}";
         }
 
         public bool ShowSearch { get; set; }
@@ -105,11 +111,12 @@ namespace Mvc.JQuery.Datatables
         public string DrawCallback { get; set; }
         public LengthMenuVm LengthMenu { get; set; }
         public int? PageLength { get; set; }
-        public string GlobalJsVariableName { get; private set; }
+        public string GlobalJsVariableName { get; set; }
 
         private bool _columnFilter;
 
         public bool FixedLayout { get; set; }
+        public string AjaxErrorHandler { get; set; }
 
         public class _FilterOn<TTarget>
         {

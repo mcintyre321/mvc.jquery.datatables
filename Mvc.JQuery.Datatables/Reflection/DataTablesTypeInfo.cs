@@ -15,6 +15,7 @@ namespace Mvc.JQuery.Datatables.Reflection
             return propertiesCache.GetOrAdd(type, t =>
             {
                 var infos = from pi in t.GetProperties()
+                            where pi.GetCustomAttribute<DataTablesExcludeAttribute>() == null
                             let attributes = (pi.GetCustomAttributes()).OfType<DataTablesAttributeBase>().ToArray()
                             orderby attributes.OfType<DataTablesAttribute>().Select(a => a.Order as int?).SingleOrDefault() ?? int.MaxValue
                             select new DataTablesPropertyInfo(pi, attributes);

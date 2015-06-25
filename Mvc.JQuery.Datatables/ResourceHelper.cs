@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -21,6 +22,63 @@ namespace Mvc.JQuery.Datatables
                 return (T)property.GetValue(null, null);
             }
             return default(T);
+        }
+    }
+    
+        /// <summary>
+    /// Group of helpers that gets Display attributes values from Enum members
+    /// DražaM
+    /// </summary>
+    public static class EnumHelper
+    {
+        public static string DisplayName(this Enum value)
+        {
+            Type enumType = value.GetType();
+            var enumValue = Enum.GetName(enumType, value);
+            MemberInfo member = enumType.GetMember(enumValue)[0];
+            var outString = "";
+
+            try
+            {
+                var attrs = member.GetCustomAttributes(typeof(DisplayAttribute), false);
+
+
+                if (((DisplayAttribute)attrs[0]).ResourceType != null)
+                {
+                    outString = ((DisplayAttribute)attrs[0]).GetName();
+                }
+                else
+                {
+                    outString = ((DisplayAttribute)attrs[0]).Name;
+                }
+            }
+            catch
+            {
+                outString = member.Name;
+            }
+
+            return outString;
+        }
+
+        public static List<string> AllDisplayNames(this Type tip)
+        {
+            List<string> exitList = new List<string>();
+            foreach (string r in Enum.GetNames(tip))
+            {
+                exitList.Add(((Enum)Enum.Parse(tip, r)).DisplayName());
+            };
+            return exitList;
+        }
+
+        public static object[] EnumValLabPairs(this Type type)
+        {
+            var vals = Enum.GetNames(type).Cast<object>().ToArray();
+            var lbls = type.AllDisplayNames().Cast<object>().ToArray();
+            var result = new List<object>();
+
+            for (var x = 0; x <= vals.Length - 1; x++) { result.Add(new { value = vals[x], label = lbls[x] }); }
+            var ttt = result.ToArray<object>();
+            return ttt;
         }
     }
 }

@@ -42,7 +42,9 @@ namespace Mvc.JQuery.Datatables
             else if (t.IsEnum)
             {
                 type = "checkbox";
-                values = Enum.GetNames(t).Cast<object>().ToArray();
+                //values = Enum.GetNames(t).Cast<object>().ToArray();
+                values = t.EnumValLabPairs();
+
             }
             else
             {

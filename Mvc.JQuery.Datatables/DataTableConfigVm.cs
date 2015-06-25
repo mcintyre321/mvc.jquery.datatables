@@ -134,6 +134,10 @@ namespace Mvc.JQuery.Datatables
             {
                 _colDef.Filter.type = "select";
                 _colDef.Filter.values = options.Cast<object>().ToArray();
+                if (_colDef.Type.IsEnum)
+                {
+                    _colDef.Filter.values = _colDef.Type.EnumValLabPairs();
+                }
                 return _target;
             }
             public TTarget NumberRange()
@@ -158,6 +162,10 @@ namespace Mvc.JQuery.Datatables
             {
                 _colDef.Filter.type = "checkbox";
                 _colDef.Filter.values = options.Cast<object>().ToArray();
+                if (_colDef.Type.IsEnum)
+                {
+                    _colDef.Filter.values = _colDef.Type.EnumValLabPairs();
+                }
                 return _target;
             }
 

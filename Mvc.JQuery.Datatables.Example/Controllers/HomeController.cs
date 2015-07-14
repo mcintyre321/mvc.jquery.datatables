@@ -82,7 +82,7 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         public string Position { get; set; }
 
         [DataTablesFilter(DataTablesFilterType.DateTimeRange)]
-        [DefaultToStartOfYear]
+        [DefaultToStartOf2014]
         public DateTime?  Hired { get; set; }
 
         public Numbers Number { get; set; }
@@ -93,12 +93,12 @@ namespace Mvc.JQuery.Datatables.Example.Controllers
         
     }
 
-    public class DefaultToStartOfYearAttribute : DataTablesAttributeBase
+    public class DefaultToStartOf2014Attribute : DataTablesAttributeBase
     {
         public override void ApplyTo(ColDef colDef, PropertyInfo pi)
         {
             colDef.SearchCols = colDef.SearchCols ?? new JObject();
-            colDef.SearchCols["sSearch"] = new DateTime(DateTime.Now.Year, 1, 1).ToString("g") + "~" + DateTimeOffset.Now.Date.AddDays(1).ToString("g");
+            colDef.SearchCols["sSearch"] = new DateTime(2014, 1, 1).ToString("g") + "~" + DateTimeOffset.Now.Date.AddDays(1).ToString("g");
         }
     }
 }

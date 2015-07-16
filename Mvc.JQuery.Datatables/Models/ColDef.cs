@@ -6,7 +6,7 @@ namespace Mvc.JQuery.Datatables.Models
 {
     public class ColDef
     {
-        protected internal ColDef(string name, Type type)
+        public ColDef(string name, Type type)
         {
             Name = name;
             Type = type;

@@ -11,7 +11,7 @@ namespace Mvc.JQuery.Datatables.Models
         public object[] aaData { get; set; }
 
      
-        public DataTablesData Transform<TData, TTransform>(Func<TData, TTransform> transformRow)
+        public DataTablesData Transform<TData, TTransform>(Func<TData, TTransform> transformRow, ResponseOptions responseOptions = null)
         {
             var data = new DataTablesData 
             {

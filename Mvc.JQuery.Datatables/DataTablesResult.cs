@@ -21,36 +21,55 @@ namespace Mvc.JQuery.Datatables
         public static DataTablesResult<TSource> Create<TSource, TTransform>(IQueryable<TSource> q, DataTablesParam dataTableParam,
             Func<TSource, TTransform> transform, ArrayOutputType? arrayOutput = null)
         {
+            return Create(q, dataTableParam, transform, new ResponseOptions<TSource>() { ArrayOutputType = arrayOutput });
+        }
+
+        public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
+            ArrayOutputType? arrayOutput = null)
+        {
+            return Create(q, dataTableParam, new ResponseOptions<TSource>() { ArrayOutputType = arrayOutput });
+        }
+
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TTransform"></typeparam>
+        /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
+        /// <param name="dataTableParam"></param>
+        /// <param name="transform">//a transform for custom column rendering e.g. to do a custom date row => new { CreatedDate = row.CreatedDate.ToString("dd MM yy") } </param>
+        /// <returns></returns>
+        public static DataTablesResult<TSource> Create<TSource, TTransform>(IQueryable<TSource> q, DataTablesParam dataTableParam,
+            Func<TSource, TTransform> transform, ResponseOptions<TSource> responseOptions = null)
+        {
             var result = new DataTablesResult<TSource>(q, dataTableParam);
 
             result.Data = result.Data
                 .Transform<TSource, Dictionary<string, object>>(row => TransformTypeInfo.MergeTransformValuesIntoDictionary(transform, row))
                 .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.StringifyValues);
 
-            result.Data = ApplyOutputRules(result.Data, arrayOutput);
+            result.Data = ApplyOutputRules(result.Data, responseOptions);
 
             return result;
         }
 
         public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
-            ArrayOutputType? arrayOutput = null)
+            ResponseOptions<TSource> responseOptions = null)
         {
             var result = new DataTablesResult<TSource>(q, dataTableParam);
 
+            var dictionaryTransform = DataTablesTypeInfo<TSource>.ToDictionary(responseOptions);
             result.Data = result.Data
-                .Transform<TSource, Dictionary<string, object>>(DataTablesTypeInfo<TSource>.ToDictionary)
+                .Transform<TSource, Dictionary<string, object>>(dictionaryTransform)
                 .Transform<Dictionary<string, object>, Dictionary<string, object>>(StringTransformers.StringifyValues);
 
-            result.Data = ApplyOutputRules(result.Data, arrayOutput);
+            result.Data = ApplyOutputRules(result.Data, responseOptions);
 
             return result;
         }
 
-        private static DataTablesData ApplyOutputRules(DataTablesData sourceData, ArrayOutputType? arrayOutput = null)
+        private static DataTablesData ApplyOutputRules<TSource>(DataTablesData sourceData, ResponseOptions<TSource> responseOptions)
         {
             DataTablesData outputData = sourceData;
 
-            switch (arrayOutput)
+            switch (responseOptions.ArrayOutputType)
             {
                 case ArrayOutputType.ArrayOfObjects:
                     // Nothing is needed

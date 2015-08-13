@@ -31,15 +31,16 @@ namespace Mvc.JQuery.Datatables
                 var values = parts.Where(p => p != null);
                 data = data.Where(string.Join(" or ", values), parameters.ToArray());
             }
-            for (int i = 0; i < dtParameters.sSearchColumns.Count; i++)
+            for (int i = 0; i < dtParameters.sSearchValues.Count; i++)
             {
                 if (dtParameters.bSearchable[i])
                 {
-                    var searchColumn = dtParameters.sSearchColumns[i];
+                    var searchColumn = dtParameters.sSearchValues[i];
                     if (!string.IsNullOrWhiteSpace(searchColumn))
                     {
+                        DataTablesPropertyInfo column = FindColumn(dtParameters, columns, i);
                         var parameters = new List<object>();
-                        var filterClause = GetFilterClause(dtParameters.sSearchColumns[i], columns[i], parameters);
+                        var filterClause = GetFilterClause(searchColumn, column, parameters);
                         if (string.IsNullOrWhiteSpace(filterClause) == false)
                         {
                             data = data.Where(filterClause, parameters.ToArray());
@@ -50,9 +51,9 @@ namespace Mvc.JQuery.Datatables
             string sortString = "";
             for (int i = 0; i < dtParameters.iSortingCols; i++)
             {
-
                 int columnNumber = dtParameters.iSortCol[i];
-                string columnName = columns[columnNumber].PropertyInfo.Name;
+                DataTablesPropertyInfo column = FindColumn(dtParameters, columns, i);
+                string columnName = column.PropertyInfo.Name;
                 string sortDir = dtParameters.sSortDir[i];
                 if (i != 0)
                     sortString += ", ";
@@ -66,6 +67,18 @@ namespace Mvc.JQuery.Datatables
 
 
             return data;
+        }
+
+        private DataTablesPropertyInfo FindColumn(DataTablesParam dtParameters, DataTablesPropertyInfo[] columns, int i)
+        {
+            if (dtParameters.sColumnNames.Any())
+            {
+                return columns.First(x => x.PropertyInfo.Name == dtParameters.sColumnNames[i]);
+            }
+            else
+            {
+                return columns[i];
+            }
         }
 
         public delegate string ReturnedFilteredQueryForType(

@@ -52,7 +52,7 @@ namespace Mvc.JQuery.Datatables
             for (int i = 0; i < dtParameters.iSortingCols; i++)
             {
                 int columnNumber = dtParameters.iSortCol[i];
-                DataTablesPropertyInfo column = FindColumn(dtParameters, columns, i);
+                DataTablesPropertyInfo column = FindColumn(dtParameters, columns, columnNumber);
                 string columnName = column.PropertyInfo.Name;
                 string sortDir = dtParameters.sSortDir[i];
                 if (i != 0)

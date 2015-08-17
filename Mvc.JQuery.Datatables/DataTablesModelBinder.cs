@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Mvc.JQuery.Datatables
@@ -11,8 +12,65 @@ namespace Mvc.JQuery.Datatables
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var valueProvider = bindingContext.ValueProvider;
+            int columns = GetValue<int>(valueProvider, "iColumns");
+            if (columns == 0)
+            {
+                return BindV10Model(valueProvider);
+            }
+            else
+            {
+                return BindLegacyModel(valueProvider, columns);
+            }
+        }
 
-            DataTablesParam obj = new DataTablesParam(GetValue<int>(valueProvider, "iColumns"));
+        private object BindV10Model(IValueProvider valueProvider)
+        {
+            DataTablesParam obj = new DataTablesParam();
+            obj.iDisplayStart = GetValue<int>(valueProvider, "start");
+            obj.iDisplayLength = GetValue<int>(valueProvider, "length");
+            obj.sSearch = GetValue<string>(valueProvider, "search[value]");
+            obj.bEscapeRegex = GetValue<bool>(valueProvider, "search[regex]");
+            obj.sEcho = GetValue<int>(valueProvider, "draw");
+
+            int colIdx = 0;
+            while (true)
+            {
+                string colPrefix = String.Format("columns[{0}]", colIdx);
+                string colName = GetValue<string>(valueProvider, colPrefix+"[data]");
+                if (String.IsNullOrWhiteSpace(colName)) {
+                    break;
+                }
+                obj.sColumnNames.Add(colName);
+                obj.bSortable.Add(GetValue<bool>(valueProvider, colPrefix+"[orderable]"));
+                obj.bSearchable.Add(GetValue<bool>(valueProvider, colPrefix+"[searchable]"));
+                obj.sSearchValues.Add(GetValue<string>(valueProvider, colPrefix+"[search][value]"));
+                obj.bEscapeRegexColumns.Add(GetValue<bool>(valueProvider, colPrefix+"[searchable][regex]"));
+                colIdx++;
+            }
+            obj.iColumns = colIdx;
+            colIdx = 0;
+            while (true)
+            {
+                string colPrefix = String.Format("order[{0}]", colIdx);
+                int? orderColumn = GetValue<int?>(valueProvider, colPrefix+"[column]");
+                if (orderColumn.HasValue)
+                {
+                    obj.iSortCol.Add(orderColumn.Value);
+                    obj.sSortDir.Add(GetValue<string>(valueProvider, colPrefix+"[dir]"));
+                    colIdx++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            obj.iSortingCols = colIdx;
+            return obj;
+        }
+
+        private DataTablesParam BindLegacyModel(IValueProvider valueProvider, int columns)
+        {
+            DataTablesParam obj = new DataTablesParam(columns);
 
             obj.iDisplayStart = GetValue<int>(valueProvider, "iDisplayStart");
             obj.iDisplayLength = GetValue<int>(valueProvider, "iDisplayLength");
@@ -20,17 +78,17 @@ namespace Mvc.JQuery.Datatables
             obj.bEscapeRegex = GetValue<bool>(valueProvider, "bEscapeRegex");
             obj.iSortingCols = GetValue<int>(valueProvider, "iSortingCols");
             obj.sEcho = GetValue<int>(valueProvider, "sEcho");
-            
+
             for (int i = 0; i < obj.iColumns; i++)
             {
                 obj.bSortable.Add(GetValue<bool>(valueProvider, "bSortable_" + i));
                 obj.bSearchable.Add(GetValue<bool>(valueProvider, "bSearchable_" + i));
-                obj.sSearchColumns.Add(GetValue<string>(valueProvider, "sSearch_" + i));
+                obj.sSearchValues.Add(GetValue<string>(valueProvider, "sSearch_" + i));
                 obj.bEscapeRegexColumns.Add(GetValue<bool>(valueProvider, "bEscapeRegex_" + i));
                 obj.iSortCol.Add(GetValue<int>(valueProvider, "iSortCol_" + i));
                 obj.sSortDir.Add(GetValue<string>(valueProvider, "sSortDir_" + i));
             }
-            return obj;            
+            return obj;
         }
 
         private static T GetValue<T>(IValueProvider valueProvider, string key)

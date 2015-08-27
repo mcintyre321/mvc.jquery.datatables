@@ -79,17 +79,28 @@ namespace Mvc.JQuery.Datatables
 
 
 
+        private string _dom;
+
         public string Dom
         {
-            get { 
-                var sdom = "";
-                if (ColVis) sdom += "C";
-                if (TableTools) sdom += "T<\"clear\">";
-                if (ShowPageSizes) sdom += "l";
-                if (ShowSearch) sdom += "f";
-                sdom += "tipr";
-                return sdom;
+            get
+            {
+                if (!string.IsNullOrEmpty(_dom))
+                    return _dom;
+
+                string str = "";
+                if (this.ColVis)
+                    str += "C";
+                if (this.TableTools)
+                    str += "T<\"clear\">";
+                if (this.ShowPageSizes)
+                    str += "l";
+                if (this.ShowSearch)
+                    str += "f";
+                return str + "tipr";
             }
+
+            set { _dom = value; }
         }
 
         public bool ColVis { get; set; }

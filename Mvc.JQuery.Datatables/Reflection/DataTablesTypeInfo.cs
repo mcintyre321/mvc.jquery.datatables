@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
+using Mvc.JQuery.Datatables.Models;
 
 namespace Mvc.JQuery.Datatables.Reflection
 {
@@ -27,10 +28,12 @@ namespace Mvc.JQuery.Datatables.Reflection
     static class DataTablesTypeInfo<T>
     {
         internal static DataTablesPropertyInfo[] Properties { get; private set; }
+        internal static DataTablesPropertyInfo RowID { get; private set; }
 
         static DataTablesTypeInfo()
         {
             Properties = DataTablesTypeInfo.Properties(typeof (T));
+            RowID = Properties.SingleOrDefault(x => x.Attributes.Any(y => y is DataTablesRowIdAttribute));
         }
 
         public static Dictionary<string, object> ToDictionary(T row)
@@ -40,7 +43,36 @@ namespace Mvc.JQuery.Datatables.Reflection
             {
                 dictionary[pi.PropertyInfo.Name] = pi.PropertyInfo.GetValue(row, null);
             }
+            if (RowID != null)
+            {
+                dictionary["DT_RowID"] = RowID.PropertyInfo.GetValue(row, null);
+                if (!RowID.Attributes.OfType<DataTablesRowIdAttribute>().First().EmitAsColumnName)
+                {
+                    dictionary.Remove(RowID.PropertyInfo.Name);
+                }
+            }
             return dictionary;
+        }
+
+        public static Func<T, Dictionary<string, object>> ToDictionary(ResponseOptions<T> options = null)
+        {
+            if (options == null || options.DT_RowID == null)
+            {
+                return ToDictionary;
+            }
+            else
+            {
+                return row =>
+                {
+                    var dictionary = new Dictionary<string, object>();
+                    dictionary["DT_RowID"] = options.DT_RowID(row);
+                    foreach (var pi in Properties)
+                    {
+                        dictionary[pi.PropertyInfo.Name] = pi.PropertyInfo.GetValue(row, null);
+                    }
+                    return dictionary;
+                };
+            }
         }
 
         public static OrderedDictionary ToOrderedDictionary(T row)

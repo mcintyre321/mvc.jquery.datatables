@@ -82,6 +82,7 @@
     <Compile Include="DataTablesExcludeAttribute.cs" />
     <Compile Include="DataTablesFiltering.cs" />
     <Compile Include="DataTablesFilterAttribute.cs" />
+    <Compile Include="DataTablesRowIdAttribute.cs" />
     <Compile Include="LengthMenuVm.cs" />
     <Compile Include="Models\ArrayOutputType.cs" />
     <Compile Include="Models\ColDef.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="DynamicLinq\Signature.cs" />
     <Compile Include="FilterDef.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\ResponseOptions.cs" />
     <Compile Include="Reflection\DataTablesPropertyInfo.cs" />
     <Compile Include="Reflection\DataTablesTypeInfo.cs" />
     <Compile Include="Reflection\DataTablesTypeInfoHelper.cs" />

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Mvc.JQuery.DataTables")]
 [assembly: AssemblyDescription("Popular wrapper lib for working with JQuery Datatables. Install this for MVC5")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Harry McIntyre")]
 [assembly: AssemblyProduct("Mvc.JQuery.DataTables")]
-[assembly: AssemblyCopyright("Harry McIntyre")]
+[assembly: AssemblyCopyright("MIT Licence")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

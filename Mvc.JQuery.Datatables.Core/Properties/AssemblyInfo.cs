@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Mvc.JQuery.DataTables.Core")]
-[assembly: AssemblyDescription("Popular wrapper lib for working with JQuery Datatables. This package contains framework non-specific core logic")]
+[assembly: AssemblyDescription("Popular wrapper lib for working with JQuery Datatables. This package contains framework non-specific core logic. You probably want the package Mvc.Jquery.DataTables")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Harry McIntyre")]
 [assembly: AssemblyProduct("Mvc.JQuery.DataTables.Core")]
-[assembly: AssemblyCopyright("Harry McIntyre")]
+[assembly: AssemblyCopyright("MIT Licence")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

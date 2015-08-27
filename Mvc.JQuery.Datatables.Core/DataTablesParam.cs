@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Reflection;
 
 namespace Mvc.JQuery.Datatables
 {
@@ -44,6 +47,31 @@ namespace Mvc.JQuery.Datatables
             iSortCol = new List<int>(iColumns);
             sSortDir = new List<string>(iColumns);
             bEscapeRegexColumns = new List<bool>(iColumns);
+        }
+
+        public DataTablesResponseData GetDataTablesResponse<TSource>(IQueryable<TSource> data)
+        {
+            var totalRecords = data.Count(); // annoying this, as it causes an extra evaluation..
+
+            var filters = new DataTablesFiltering();
+
+            var outputProperties = DataTablesTypeInfo<TSource>.Properties;
+
+            var filteredData = filters.ApplyFiltersAndSort(this, data, outputProperties);
+            var totalDisplayRecords = filteredData.Count();
+
+            var skipped = filteredData.Skip(this.iDisplayStart);
+            var page = (this.iDisplayLength <= 0 ? skipped : skipped.Take(this.iDisplayLength)).ToArray();
+
+            var result = new DataTablesResponseData()
+            {
+                iTotalRecords = totalRecords,
+                iTotalDisplayRecords = totalDisplayRecords,
+                sEcho = this.sEcho,
+                aaData = page.Cast<object>().ToArray(),
+            };
+
+            return result;
         }
     }
     //public enum DataType

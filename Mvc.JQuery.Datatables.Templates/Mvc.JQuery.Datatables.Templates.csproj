@@ -130,12 +130,6 @@
     <Content Include="Content\jquery-datatables-column-filter\media\js\jquery.multiselect.js" />
     <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj">
-      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
-      <Name>Mvc.JQuery.Datatables</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

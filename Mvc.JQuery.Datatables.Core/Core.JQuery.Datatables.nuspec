@@ -10,12 +10,9 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
 		<copyright>Copyright 2011</copyright>
-		<tags>jquery datatables iqueryable razor asp mvc mvc5</tags>
+		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
   <!--files>
     <file src="RegisterDatatablesModelBinder.cs.pp" target="Content" />
   </files-->
-  <dependencies>
-  <dependency id="Mvc.JQuery.Datatables.Crore" version="$version$" />
-</dependencies>
 </package>

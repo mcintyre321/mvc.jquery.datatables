@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Mvc.JQuery.Datatables.Models
 {
-    public class DataTablesData
+    public class DataTablesResponseData
     {
         public int iTotalRecords { get; set; }
         public int iTotalDisplayRecords { get; set; }
@@ -11,9 +11,9 @@ namespace Mvc.JQuery.Datatables.Models
         public object[] aaData { get; set; }
 
      
-        public DataTablesData Transform<TData, TTransform>(Func<TData, TTransform> transformRow, ResponseOptions responseOptions = null)
+        public DataTablesResponseData Transform<TData, TTransform>(Func<TData, TTransform> transformRow, ResponseOptions responseOptions = null)
         {
-            var data = new DataTablesData 
+            var data = new DataTablesResponseData 
             {
                 aaData = aaData.Cast<TData>().Select(transformRow).Cast<object>().ToArray(),
                 iTotalDisplayRecords = iTotalDisplayRecords,

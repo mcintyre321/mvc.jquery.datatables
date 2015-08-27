@@ -1,14 +1,15 @@
-using Mvc.JQuery.Datatables.Models;
-using Mvc.JQuery.Datatables.Reflection;
-using Mvc.JQuery.Datatables.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
+using Mvc.JQuery.Datatables;
+using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.Datatables.Util;
+using Newtonsoft.Json;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public abstract class DataTablesResult : ActionResult
     {
@@ -17,7 +18,7 @@ namespace Mvc.JQuery.Datatables
         /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
         /// <param name="dataTableParam"></param>
         /// <returns></returns>
-     
+
         public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
             ArrayOutputType? arrayOutput = null)
         {
@@ -59,10 +60,10 @@ namespace Mvc.JQuery.Datatables
             return result;
         }
 
-        private static DataTablesData ApplyOutputRules<TSource>(DataTablesData sourceData, ResponseOptions<TSource> responseOptions)
+        private static DataTablesResponseData ApplyOutputRules<TSource>(DataTablesResponseData sourceData, ResponseOptions<TSource> responseOptions)
         {
-            responseOptions = responseOptions ?? new ResponseOptions<TSource>() {ArrayOutputType = ArrayOutputType.BiDimensionalArray};
-            DataTablesData outputData = sourceData;
+            responseOptions = responseOptions ?? new ResponseOptions<TSource>() { ArrayOutputType = ArrayOutputType.BiDimensionalArray };
+            DataTablesResponseData outputData = sourceData;
 
             switch (responseOptions.ArrayOutputType)
             {
@@ -109,13 +110,13 @@ namespace Mvc.JQuery.Datatables
 
     public class DataTablesResult<TSource> : DataTablesResult
     {
-        public DataTablesData Data { get; set; }
+        public DataTablesResponseData Data { get; set; }
 
-        internal DataTablesResult(IQueryable<TSource> q, DataTablesParam dataTableParam)
+        public DataTablesResult(IQueryable<TSource> q, DataTablesParam dataTableParam)
         {
-            this.Data = GetResults(q, dataTableParam);
+            this.Data = dataTableParam.GetDataTablesResponse(q);
         }
-        internal DataTablesResult(DataTablesData data)
+        public DataTablesResult(DataTablesResponseData data)
         {
             this.Data = data;
         }
@@ -126,38 +127,10 @@ namespace Mvc.JQuery.Datatables
                 throw new ArgumentNullException("context");
 
             HttpResponseBase response = context.HttpContext.Response;
+ 
 
-            var scriptSerializer = new JavaScriptSerializer()
-            {
-                MaxJsonLength = int.MaxValue
-            };
-
-            response.Write(scriptSerializer.Serialize(this.Data));
+            response.Write(JsonConvert.SerializeObject(this.Data));
         }
 
-        DataTablesData GetResults(IQueryable<TSource> data, DataTablesParam param)
-        {
-            var totalRecords = data.Count(); // annoying this, as it causes an extra evaluation..
-
-            var filters = new DataTablesFiltering();
-
-            var outputProperties = DataTablesTypeInfo<TSource>.Properties;
-
-            var filteredData = filters.ApplyFiltersAndSort(param, data, outputProperties);
-            var totalDisplayRecords = filteredData.Count();
-
-            var skipped = filteredData.Skip(param.iDisplayStart);
-            var page = (param.iDisplayLength <= 0 ? skipped : skipped.Take(param.iDisplayLength)).ToArray();
-
-            var result = new DataTablesData
-            {
-                iTotalRecords = totalRecords,
-                iTotalDisplayRecords = totalDisplayRecords,
-                sEcho = param.sEcho,
-                aaData = page.Cast<object>().ToArray(),
-            };
-
-            return result;
-        }
     }
 }

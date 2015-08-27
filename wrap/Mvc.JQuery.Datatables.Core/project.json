@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Mvc.JQuery.Datatables.Core/Mvc.JQuery.Datatables.Core.csproj",
+      "bin": {
+        "assembly": "../../Mvc.JQuery.Datatables.Core/obj/{configuration}/Mvc.JQuery.Datatables.Core.dll",
+        "pdb": "../../Mvc.JQuery.Datatables.Core/obj/{configuration}/Mvc.JQuery.Datatables.Core.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "7.0.1"
+      }
+    }
+  }
+}

@@ -1,14 +1,12 @@
-﻿using Mvc.JQuery.Datatables;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables.Tests.TestingUtilities;
+using Mvc.JQuery.Datatables;
+using Mvc.JQuery.Datatables.Example;
+using Mvc.JQuery.DataTables.Tests.TestingUtilities;
+using NUnit.Framework;
 
-namespace Mvc.JQuery.Datatables.Tests
+namespace Mvc.JQuery.DataTables.Tests.Fixtures
 {
     [TestFixture]
     public class ModelBinding
@@ -16,7 +14,7 @@ namespace Mvc.JQuery.Datatables.Tests
         [Test]
         public void TestDataTablesIModelBinder()
         {
-            Mvc.JQuery.Datatables.Example.RegisterDatatablesModelBinder.Start();
+            RegisterDatatablesModelBinder.Start();
             IModelBinder dataTablesBinder = ModelBinders.Binders.GetBinder(typeof(DataTablesParam), false);
             Assert.That(dataTablesBinder, Is.Not.Null, "DataTablesParam model binder not found in ModelBindersDictionary");
 

@@ -1,12 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
-using NUnit.Framework;
-using System;
 using System.Linq;
 using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables.Tests.DummyPocos;
+using NUnit.Framework;
 
-namespace Mvc.JQuery.Datatables.Tests
+namespace Mvc.JQuery.DataTables.Tests.Fixtures
 {
     public class EntityFramework : Linq, IDisposable
     {

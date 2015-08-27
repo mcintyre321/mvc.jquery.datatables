@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Mvc.JQuery.Datatables.Tests.TestingUtilities
+namespace Mvc.JQuery.DataTables.Tests.TestingUtilities
 {
     static class LinqExtensions
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mvc.JQuery.Datatables")]
-[assembly: AssemblyDescription("Strongly type html helpers for rendering jquery.datatables tables from IQueryables")]
+[assembly: AssemblyTitle("Mvc.JQuery.DataTables")]
+[assembly: AssemblyDescription("Popular wrapper lib for working with JQuery Datatables. Install this for MVC5")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Harry McIntyre")]
-[assembly: AssemblyProduct("Mvc.JQuery.Datatables")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Mvc.JQuery.DataTables")]
 [assembly: AssemblyCopyright("Harry McIntyre")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6dea16f9-9141-4b3f-8ce3-69757b9f63c5")]
+[assembly: Guid("608e2574-4eb7-455c-8ab7-aaa66cb3642d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,6 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("Mvc.JQuery.DataTables.Tests")]

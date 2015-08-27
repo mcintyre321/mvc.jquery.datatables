@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Mvc.JQuery.Datatables;
 using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables.Tests.DummyPocos;
 using NUnit.Framework;
 
-namespace Mvc.JQuery.Datatables.Tests
+namespace Mvc.JQuery.DataTables.Tests
 {
     public class FilterTests
     {

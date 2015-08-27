@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mvc.JQuery.Datatables.Tests
+namespace Mvc.JQuery.DataTables.Tests.DummyPocos
 {
     public class SomeModel
     {

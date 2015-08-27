@@ -45,9 +45,6 @@
     <Reference Include="EntityFramework.SqlServerCompact">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.1\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -110,13 +107,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.Datatables.Core.csproj">
+      <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
+      <Name>Mvc.JQuery.Datatables.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj">
-      <Project>{476d3266-8699-4e89-a528-646c1235eeb1}</Project>
+      <Project>{476D3266-8699-4E89-A528-646C1235EEB1}</Project>
       <Name>Mvc.JQuery.Datatables.Example</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables.csproj">
-      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
-      <Name>Mvc.JQuery.Datatables</Name>
+    <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">
+      <Project>{608E2574-4EB7-455C-8AB7-AAA66CB3642D}</Project>
+      <Name>Mvc.JQuery.DataTables</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

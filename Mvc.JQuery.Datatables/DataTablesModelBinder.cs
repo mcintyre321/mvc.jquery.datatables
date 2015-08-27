@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     /// <summary>
     /// Model binder for datatables.js parameters a la http://geeksprogramando.blogspot.com/2011/02/jquery-datatables-plug-in-with-asp-mvc.html

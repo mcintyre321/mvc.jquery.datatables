@@ -1,12 +1,13 @@
-﻿using Mvc.JQuery.Datatables;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables.Tests.DummyPocos;
+using NUnit.Framework;
 
-namespace Mvc.JQuery.Datatables.Tests
+namespace Mvc.JQuery.DataTables.Tests.Fixtures
 {
     [TestFixture]
     public class Linq

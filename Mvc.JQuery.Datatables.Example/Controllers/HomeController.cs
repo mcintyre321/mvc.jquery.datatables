@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables.Example.App_GlobalResources;
 using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.DataTables;
 using Newtonsoft.Json.Linq;
-using Resources;
 
 namespace Mvc.JQuery.Datatables.Example.Controllers
 {

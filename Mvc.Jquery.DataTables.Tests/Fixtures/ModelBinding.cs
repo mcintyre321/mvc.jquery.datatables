@@ -91,7 +91,7 @@ namespace Mvc.JQuery.Datatables.Tests
             Assert.That(res.iSortingCols, Is.EqualTo(1), "iSortingCols");
             Assert.That(res.sEcho, Is.EqualTo(1), "sEcho");
             Assert.That(res.sSearch,Is.EqualTo(""),"sSearch");
-            Assert.That(res.sSearchColumns, Is.EqualTo(Enumerable.Repeat("", 9)), "sSearchColumns");
+            Assert.That(res.sSearchValues, Is.EqualTo(Enumerable.Repeat("", 9)), "sSearchColumns");
             Assert.That(res.sSortDir, Is.EqualTo(Enumerable.Repeat<string>(null, 9).ReplaceAtIndex("asc", 0)), "sSortDir");
             Assert.That(res.bEscapeRegex, Is.EqualTo(false), "bEscapeRegex");
         }

@@ -33,7 +33,7 @@ namespace Mvc.JQuery.Datatables.Tests
             dataTablesParam = new DataTablesParam();
             columns = DataTablesTypeInfo<SomeModel>.Properties.Select((p, i) =>
                 Tuple.Create(i, new DataTablesPropertyInfo(p.PropertyInfo, new DataTablesAttributeBase[]{}))).ToArray();
-            dataTablesParam.sSearchColumns = new List<string>(columns.Select(c => null as string));
+            dataTablesParam.sSearchValues = new List<string>(columns.Select(c => null as string));
             dataTablesParam.bSearchable = new List<bool>(columns.Select(c => true));
 
         }
@@ -58,7 +58,7 @@ namespace Mvc.JQuery.Datatables.Tests
         {
             var col = columns.First(c => c.Item2.Type == colType).Item1;
 
-            dataTablesParam.sSearchColumns[col] = searchString;
+            dataTablesParam.sSearchValues[col] = searchString;
             var result = new DataTablesResult<SomeModel>(queryable, dataTablesParam);
 
             var data = result.Data;

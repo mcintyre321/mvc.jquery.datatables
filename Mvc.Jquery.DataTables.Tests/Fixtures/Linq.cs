@@ -87,7 +87,7 @@ namespace Mvc.JQuery.Datatables.Tests
                 dataTablesParam = GetEmptyParam(propertyCount);
                 dataTablesParam.iSortingCols = 1;
                 dataTablesParam.iSortCol[0] = 2;
-                dataTablesParam.sSearchColumns[3] = "25~35";
+                dataTablesParam.sSearchValues[3] = "25~35";
                 dataTablesParam.iDisplayStart = 6;
                 yield return new TestCaseData(dataTablesParam)
                     .Returns(new int[] { 17, 21, 25, 77, 81 })
@@ -107,7 +107,7 @@ namespace Mvc.JQuery.Datatables.Tests
             returnVar.bSearchable.AddRange(Enumerable.Repeat(true, columns));
             returnVar.bSortable.AddRange(Enumerable.Repeat(true, columns));
             returnVar.iSortCol.AddRange(Enumerable.Repeat(0, columns));
-            returnVar.sSearchColumns.AddRange(Enumerable.Repeat("", columns));
+            returnVar.sSearchValues.AddRange(Enumerable.Repeat("", columns));
             returnVar.sSortDir.AddRange(Enumerable.Repeat<string>(null, columns));
 
             return returnVar;

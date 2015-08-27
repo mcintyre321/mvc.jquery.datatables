@@ -16,14 +16,8 @@ namespace Mvc.JQuery.Datatables
         /// <typeparam name="TTransform"></typeparam>
         /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
         /// <param name="dataTableParam"></param>
-        /// <param name="transform">//a transform for custom column rendering e.g. to do a custom date row => new { CreatedDate = row.CreatedDate.ToString("dd MM yy") } </param>
         /// <returns></returns>
-        public static DataTablesResult<TSource> Create<TSource, TTransform>(IQueryable<TSource> q, DataTablesParam dataTableParam,
-            Func<TSource, TTransform> transform, ArrayOutputType? arrayOutput = null)
-        {
-            return Create(q, dataTableParam, transform, new ResponseOptions<TSource>() { ArrayOutputType = arrayOutput });
-        }
-
+     
         public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
             ArrayOutputType? arrayOutput = null)
         {
@@ -67,6 +61,7 @@ namespace Mvc.JQuery.Datatables
 
         private static DataTablesData ApplyOutputRules<TSource>(DataTablesData sourceData, ResponseOptions<TSource> responseOptions)
         {
+            responseOptions = responseOptions ?? new ResponseOptions<TSource>() {ArrayOutputType = ArrayOutputType.BiDimensionalArray};
             DataTablesData outputData = sourceData;
 
             switch (responseOptions.ArrayOutputType)

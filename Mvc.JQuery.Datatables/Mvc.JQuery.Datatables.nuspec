@@ -12,7 +12,7 @@
 		<copyright>Copyright 2011</copyright>
 		<tags>jquery datatables iqueryable razor asp mvc mvc5</tags>
     <dependencies>
-      <dependency id="Mvc.JQuery.Datatables.Crore" version="$version$" />
+      <dependency id="Mvc.JQuery.Datatables.Core" version="$version$" />
     </dependencies>	
   </metadata>
   <!--files>

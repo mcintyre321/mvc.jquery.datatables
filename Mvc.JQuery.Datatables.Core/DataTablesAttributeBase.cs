@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.DataTables.Models;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public abstract class DataTablesAttributeBase : Attribute
     {

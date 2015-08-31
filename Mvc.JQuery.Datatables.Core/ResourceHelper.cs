@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public class ResourceHelper
     {

@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mvc.JQuery.Datatables.Example</RootNamespace>
-    <AssemblyName>Mvc.JQuery.Datatables.Example</AssemblyName>
+    <RootNamespace>Mvc.JQuery.DataTables.Example</RootNamespace>
+    <AssemblyName>Mvc.JQuery.DataTables.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -623,7 +623,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Error.cshtml" />
@@ -665,12 +667,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.Datatables.Core.csproj">
-      <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
-      <Name>Mvc.JQuery.Datatables.Core</Name>
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj">
+      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
+      <Name>Mvc.JQuery.DataTables.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">
-      <Project>{608E2574-4EB7-455C-8AB7-AAA66CB3642D}</Project>
+      <Project>{608e2574-4eb7-455c-8ab7-aaa66cb3642d}</Project>
       <Name>Mvc.JQuery.DataTables</Name>
     </ProjectReference>
   </ItemGroup>

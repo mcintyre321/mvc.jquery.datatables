@@ -1,6 +1,6 @@
 using System.Web.Script.Serialization;
 
-namespace Mvc.JQuery.Datatables.Models
+namespace Mvc.JQuery.DataTables.Models
 {
     public class Language
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public static class StringTransformers
     {

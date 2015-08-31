@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     internal class DynamicOrdering
     {

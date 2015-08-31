@@ -1,4 +1,4 @@
-﻿namespace Mvc.JQuery.Datatables.Models
+﻿namespace Mvc.JQuery.DataTables.Models
 {
     /// <summary>
     /// Sets the default sort direction for the column

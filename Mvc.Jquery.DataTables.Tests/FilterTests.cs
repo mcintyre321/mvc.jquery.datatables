@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mvc.JQuery.Datatables;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables;
+using Mvc.JQuery.DataTables.Reflection;
 using Mvc.JQuery.DataTables.Tests.DummyPocos;
 using NUnit.Framework;
 

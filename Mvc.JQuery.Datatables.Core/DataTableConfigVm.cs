@@ -3,12 +3,12 @@ using System.Linq;
 using System.Net.Mime;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using Mvc.JQuery.Datatables.Models;
-using Mvc.JQuery.Datatables.Serialization;
+using Mvc.JQuery.DataTables.Models;
+using Mvc.JQuery.DataTables.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public class DataTableConfigVm
     {

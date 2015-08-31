@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Mvc.JQuery.Datatables.Reflection
+namespace Mvc.JQuery.DataTables.Reflection
 {
     public static class StaticReflectionHelper
     {

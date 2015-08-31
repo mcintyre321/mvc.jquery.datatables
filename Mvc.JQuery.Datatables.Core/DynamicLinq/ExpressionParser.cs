@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     internal class ExpressionParser
     {

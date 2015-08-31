@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables.Reflection;
 
-namespace Mvc.JQuery.Datatables.Util
+namespace Mvc.JQuery.DataTables.Util
 {
     public class TransformTypeInfo 
     {

@@ -107,13 +107,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.Datatables.Core.csproj">
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj">
       <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
-      <Name>Mvc.JQuery.Datatables.Core</Name>
+      <Name>Mvc.JQuery.DataTables.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj">
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Example\Mvc.JQuery.DataTables.Example.csproj">
       <Project>{476D3266-8699-4E89-A528-646C1235EEB1}</Project>
-      <Name>Mvc.JQuery.Datatables.Example</Name>
+      <Name>Mvc.JQuery.DataTables.Example</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">
       <Project>{608E2574-4EB7-455C-8AB7-AAA66CB3642D}</Project>

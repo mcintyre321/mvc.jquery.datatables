@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables;
 using Mvc.JQuery.DataTables.Tests.DummyPocos;
 using NUnit.Framework;
 

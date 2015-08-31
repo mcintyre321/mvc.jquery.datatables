@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mvc.JQuery.Datatables.Models
+namespace Mvc.JQuery.DataTables.Models
 {
     public class ResponseOptions
     {

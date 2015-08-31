@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Mvc.JQuery.Datatables.Example.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Mvc.JQuery.DataTables.Example.MvcApplication" Language="C#" %>

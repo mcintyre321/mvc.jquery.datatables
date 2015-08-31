@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
-using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables;
 using Mvc.JQuery.DataTables.Tests.DummyPocos;
 using NUnit.Framework;
 

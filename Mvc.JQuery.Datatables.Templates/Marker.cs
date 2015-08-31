@@ -1,4 +1,4 @@
-﻿namespace Mvc.JQuery.Datatables.Templates
+﻿namespace Mvc.JQuery.DataTables.Templates
 {
     public class Marker
     {

@@ -1,4 +1,4 @@
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     static class Res
     {

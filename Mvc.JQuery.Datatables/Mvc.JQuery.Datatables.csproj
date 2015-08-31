@@ -87,9 +87,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.Datatables.Core.csproj">
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj">
       <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
-      <Name>Mvc.JQuery.Datatables.Core</Name>
+      <Name>Mvc.JQuery.DataTables.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mvc.JQuery.Datatables.Example.Controllers
+namespace Mvc.JQuery.DataTables.Example.Controllers
 {
     static class FakeDatabase
     {

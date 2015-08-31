@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     public class ClassFactory
     {

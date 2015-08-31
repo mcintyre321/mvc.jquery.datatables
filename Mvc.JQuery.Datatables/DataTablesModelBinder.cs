@@ -1,6 +1,6 @@
 using System;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables;
+using Mvc.JQuery.DataTables;
 
 namespace Mvc.JQuery.DataTables
 {

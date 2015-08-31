@@ -1,4 +1,4 @@
-﻿namespace Mvc.JQuery.Datatables.Serialization
+﻿namespace Mvc.JQuery.DataTables.Serialization
 {
     public class Raw
     {

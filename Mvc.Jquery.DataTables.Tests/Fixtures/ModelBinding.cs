@@ -1,8 +1,8 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables;
-using Mvc.JQuery.Datatables.Example;
+using Mvc.JQuery.DataTables;
+using Mvc.JQuery.DataTables.Example;
 using Mvc.JQuery.DataTables.Tests.TestingUtilities;
 using NUnit.Framework;
 

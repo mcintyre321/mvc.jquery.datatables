@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A659A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Templates", "Mvc.JQuery.Datatables.Templates\Mvc.JQuery.Datatables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Templates", "Mvc.JQuery.Datatables.Templates\Mvc.JQuery.DataTables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Tests", "Mvc.Jquery.DataTables.Tests\Mvc.JQuery.DataTables.Tests.csproj", "{53671C41-666D-4269-A12A-BA6C2F209E7A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables", "Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj", "{608E2574-4EB7-455C-8AB7-AAA66CB3642D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Core", "Mvc.JQuery.Datatables.Core\Mvc.JQuery.Datatables.Core.csproj", "{389ADE94-7C32-4885-812E-68A2A74C82D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Core", "Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj", "{389ADE94-7C32-4885-812E-68A2A74C82D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Example", "Mvc.JQuery.Datatables.Example\Mvc.JQuery.Datatables.Example.csproj", "{476D3266-8699-4E89-A528-646C1235EEB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Example", "Mvc.JQuery.Datatables.Example\Mvc.JQuery.DataTables.Example.csproj", "{476D3266-8699-4E89-A528-646C1235EEB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60245A6D-92C5-4361-A82D-A6DD53B9A2D8}"
 	ProjectSection(SolutionItems) = preProject

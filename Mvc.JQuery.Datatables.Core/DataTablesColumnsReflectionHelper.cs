@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mvc.JQuery.Datatables.Models;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables.Models;
+using Mvc.JQuery.DataTables.Reflection;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public static class DataTablesColumnsReflectionHelper{
         public static ColDef[] ColDefs (this Type t)

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables;
-using Mvc.JQuery.Datatables.Models;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables;
+using Mvc.JQuery.DataTables.Models;
+using Mvc.JQuery.DataTables.Reflection;
 
 namespace Mvc.JQuery.DataTables
 {

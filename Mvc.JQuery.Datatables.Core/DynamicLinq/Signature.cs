@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     internal class Signature : IEquatable<Signature>
     {

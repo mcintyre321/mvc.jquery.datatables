@@ -1,7 +1,7 @@
 using System;
 using System.Reflection.Emit;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     public class DynamicProperty
     {

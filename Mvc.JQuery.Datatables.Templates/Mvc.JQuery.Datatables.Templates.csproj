@@ -8,8 +8,8 @@
     <ProjectGuid>{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mvc.JQuery.Datatables.Templates</RootNamespace>
-    <AssemblyName>Mvc.JQuery.Datatables.Templates</AssemblyName>
+    <RootNamespace>Mvc.JQuery.DataTables.Templates</RootNamespace>
+    <AssemblyName>Mvc.JQuery.DataTables.Templates</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -129,6 +129,16 @@
     <Content Include="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" />
     <Content Include="Content\jquery-datatables-column-filter\media\js\jquery.multiselect.js" />
     <Content Include="Views\Shared\DataTable.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj">
+      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
+      <Name>Mvc.JQuery.DataTables.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">
+      <Project>{608e2574-4eb7-455c-8ab7-aaa66cb3642d}</Project>
+      <Name>Mvc.JQuery.DataTables</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

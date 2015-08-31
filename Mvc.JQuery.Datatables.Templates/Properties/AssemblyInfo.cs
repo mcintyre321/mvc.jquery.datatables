@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mvc.JQuery.Datatables.Templates")]
+[assembly: AssemblyTitle("Mvc.JQuery.DataTables.Templates")]
 [assembly: AssemblyDescription("Install this project to customise the cshtml templates, or if you don't want to use the EmbeddedResourceVirtualPathProvider ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Harry McIntyre")]
-[assembly: AssemblyProduct("Mvc.JQuery.Datatables.Templates")]
+[assembly: AssemblyProduct("Mvc.JQuery.DataTables.Templates")]
 [assembly: AssemblyCopyright("Harry McIntyre")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

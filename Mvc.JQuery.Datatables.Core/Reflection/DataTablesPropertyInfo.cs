@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Mvc.JQuery.Datatables.Reflection
+namespace Mvc.JQuery.DataTables.Reflection
 {
     class DataTablesPropertyInfo
     {

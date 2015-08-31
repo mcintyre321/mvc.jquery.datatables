@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     public abstract class DynamicClass
     {

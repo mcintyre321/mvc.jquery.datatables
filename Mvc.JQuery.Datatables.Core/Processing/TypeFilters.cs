@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables.Reflection;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     static class TypeFilters
     {

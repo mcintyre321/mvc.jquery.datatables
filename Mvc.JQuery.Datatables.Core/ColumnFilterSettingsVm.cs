@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     public class ColumnFilterSettingsVm : Hashtable
     {

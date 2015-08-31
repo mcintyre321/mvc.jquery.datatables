@@ -1,4 +1,4 @@
-namespace Mvc.JQuery.Datatables.Reflection
+namespace Mvc.JQuery.DataTables.Reflection
 {
     internal static class DataTablesTypeInfoHelper
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Mvc.JQuery.Datatables.DynamicLinq
+namespace Mvc.JQuery.DataTables.DynamicLinq
 {
     public sealed class ParseException : Exception
     {

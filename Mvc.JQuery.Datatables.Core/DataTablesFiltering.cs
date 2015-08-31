@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mvc.JQuery.Datatables.DynamicLinq;
-using Mvc.JQuery.Datatables.Reflection;
+using Mvc.JQuery.DataTables.DynamicLinq;
+using Mvc.JQuery.DataTables.Reflection;
 
-namespace Mvc.JQuery.Datatables
+namespace Mvc.JQuery.DataTables
 {
     internal class DataTablesFiltering
     {

@@ -6,16 +6,10 @@ namespace Mvc.JQuery.DataTables.Example.App_Code
     {
         public static void AppInitialize()
         {
-			//By default, we scan all non system assemblies for embedded resources
-            var assemblies = System.Web.Compilation.BuildManager.GetReferencedAssemblies()
-                .Cast<Assembly>()
-                .Where(a => a.GetName().Name.StartsWith("Mvc.JQuery.DataTables"))
-                .ToArray();
-           System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp(assemblies.ToArray())
+            System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp()
             {
-				//you can do a specific assembly registration too. If you provide the assemly source path, it can read
-				//from the source file so you can change the content while the app is running without needing to rebuild
-				//{typeof(SomeAssembly.SomeClass).Assembly, @"..\SomeAssembly"} 
+                {typeof(Mvc.JQuery.DataTables.DataTablesHelper).Assembly, @"..\Mvc.JQuery.DataTables"},
+                {typeof(Mvc.JQuery.DataTables.DataTableConfigVm).Assembly, @"..\Mvc.JQuery.DataTables.Core"}
             });
         }
     }

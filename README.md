@@ -1,6 +1,8 @@
 turn IQueryables into datagrids
 ----------------------------------
 
+[![Join the chat at https://gitter.im/mcintyre321/mvc.jquery.datatables](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mcintyre321/mvc.jquery.datatables?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > Install-Package Mvc.JQuery.Datatables
 
 > Install-Package Mvc.JQuery.Datatables.Templates *

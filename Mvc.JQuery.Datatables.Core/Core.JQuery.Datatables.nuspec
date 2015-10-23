@@ -13,6 +13,6 @@
 		<tags>jquery datatables iqueryable razor</tags>
 	</metadata>
   <!--files>
-    <file src="RegisterDatatablesModelBinder.cs.pp" target="Content" />
+    <file src="RegisterDataTablesModelBinder.cs.pp" target="Content" />
   </files-->
 </package>

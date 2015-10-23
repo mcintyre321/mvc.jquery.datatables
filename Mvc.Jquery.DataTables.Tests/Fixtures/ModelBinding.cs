@@ -14,7 +14,7 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
         [Test]
         public void TestDataTablesIModelBinder()
         {
-            RegisterDatatablesModelBinder.Start();
+            RegisterDataTablesModelBinder.Start();
             IModelBinder dataTablesBinder = ModelBinders.Binders.GetBinder(typeof(DataTablesParam), false);
             Assert.That(dataTablesBinder, Is.Not.Null, "DataTablesParam model binder not found in ModelBindersDictionary");
 

@@ -3,12 +3,12 @@ using System.Web.Mvc;
 using Mvc.JQuery.DataTables.Example;
 using Mvc.JQuery.DataTables;
 
-[assembly: PreApplicationStartMethod(typeof(RegisterDatatablesModelBinder), "Start")]
+[assembly: PreApplicationStartMethod(typeof(RegisterDataTablesModelBinder), "Start")]
 
 namespace Mvc.JQuery.DataTables.Example
 {
 
-    public static class RegisterDatatablesModelBinder
+    public static class RegisterDataTablesModelBinder
     {
         public static void Start()
         {

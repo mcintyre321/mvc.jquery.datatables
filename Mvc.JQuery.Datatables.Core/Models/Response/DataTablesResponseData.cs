@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Linq;
 
-namespace Mvc.JQuery.Datatables.Models
+namespace Mvc.JQuery.DataTables.Models
 {
     public class DataTablesResponseData
     {

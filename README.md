@@ -1,11 +1,11 @@
-turn IQueryables into datagrids
+﻿turn IQueryables into datagrids
 ----------------------------------
 
 [![Join the chat at https://gitter.im/mcintyre321/mvc.jquery.datatables](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mcintyre321/mvc.jquery.datatables?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-> Install-Package Mvc.JQuery.Datatables
+> Install-Package Mvc.JQuery.DataTables
 
-> Install-Package Mvc.JQuery.Datatables.Templates *
+> Install-Package Mvc.JQuery.DataTables.Templates *
 
 
 [Demo site](http://aspdatatables.azurewebsites.net/)
@@ -31,7 +31,7 @@ turn IQueryables into datagrids
 
 See the test page and example project for info on how to use
 
-http://nuget.org/packages/Mvc.JQuery.Datatables
+http://nuget.org/packages/Mvc.JQuery.DataTables
 
 The code here is based on code from http://code.google.com/p/datatables-asp-mvc/
 

@@ -131,7 +131,7 @@
     <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mvc.JQuery.Datatables.Core\Mvc.JQuery.DataTables.Core.csproj">
+    <ProjectReference Include="..\Mvc.JQuery.DataTables.Core\Mvc.JQuery.DataTables.Core.csproj">
       <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
       <Name>Mvc.JQuery.DataTables.Core</Name>
     </ProjectReference>

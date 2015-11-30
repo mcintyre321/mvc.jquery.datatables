@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Mvc.JQuery.Datatables.Models;
+using Mvc.JQuery.DataTables.Models;
 
-namespace Mvc.JQuery.Datatables.Models.Init
+namespace Mvc.JQuery.DataTables.Models.Init
 {
     public class DataTablesRowIdAttribute : DataTablesAttributeBase
     {

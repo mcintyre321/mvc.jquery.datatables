@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace Mvc.JQuery.Datatables.Models.Init
+namespace Mvc.JQuery.DataTables.Models.Init
 {
     public class ColDef
     {

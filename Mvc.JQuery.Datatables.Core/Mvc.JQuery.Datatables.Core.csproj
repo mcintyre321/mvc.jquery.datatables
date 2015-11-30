@@ -93,23 +93,23 @@
     <Compile Include="Processing\TypeFilters.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml">
+    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Views\Shared\DataTable.cshtml">
       <Link>Views\Shared\DataTable.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js">
+    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js">
       <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css">
+    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css">
       <Link>Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js">
+    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js">
       <Link>Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css">
+    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css">
       <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css</Link>
     </EmbeddedResource>
-    <Content Include="RegisterDatatablesModelBinder.cs.pp" />
-    <None Include="Core.JQuery.Datatables.nuspec" />
+    <Content Include="RegisterDataTablesModelBinder.cs.pp" />
+    <None Include="Core.JQuery.DataTables.nuspec" />
     <None Include="packages.config" />
     <None Include="Views\Web.config" />
   </ItemGroup>

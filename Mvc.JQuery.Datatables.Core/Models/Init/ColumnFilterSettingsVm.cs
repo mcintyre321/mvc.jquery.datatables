@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace Mvc.JQuery.Datatables.Models.Init
+namespace Mvc.JQuery.DataTables.Models.Init
 {
     public class ColumnFilterSettingsVm : Hashtable
     {

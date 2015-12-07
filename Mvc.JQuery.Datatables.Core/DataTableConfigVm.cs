@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Web.Routing;
@@ -255,44 +256,45 @@ namespace Mvc.JQuery.DataTables
 
         private static string ConvertColumnDefsToJson(ColDef[] columns)
         {
-            var nonSortableColumns = columns.Select((x, idx) => x.Sortable ? -1 : idx).Where( x => x > -1).ToArray();
-            var nonVisibleColumns = columns.Select((x, idx) => x.Visible ? -1 : idx).Where(x => x > -1).ToArray();
-            var nonSearchableColumns = columns.Select((x, idx) => x.Searchable ? -1 : idx).Where(x => x > -1).ToArray();
-            var mRenderColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.MRenderFunction) ? new { x.MRenderFunction, Index = -1 } : new { x.MRenderFunction, Index = idx }).Where(x => x.Index > -1).ToArray();
-            var CssClassColumns = columns.Select((x, idx) => string.IsNullOrEmpty(x.CssClass) ? new { x.CssClass, Index = -1 } : new { x.CssClass, Index = idx }).Where(x => x.Index > -1).ToArray();
-            
-
+            Func<bool, bool> isFalse = x => x == false;
+            Func<string, bool> isNonEmptyString = x => !string.IsNullOrEmpty(x);
 
             var defs = new List<dynamic>();
 
-            if (nonSortableColumns.Any())
-                defs.Add(new { bSortable = false, aTargets = nonSortableColumns });
-            if (nonVisibleColumns.Any())
-                defs.Add(new { bVisible = false, aTargets = nonVisibleColumns });
-            if (nonSearchableColumns.Any())
-                defs.Add(new { bSearchable = false, aTargets = nonSearchableColumns }); 
-            if (mRenderColumns.Any())
-                foreach (var mRenderColumn in mRenderColumns)
-                {
-                    defs.Add(new { mRender = "%" + mRenderColumn.MRenderFunction + "%", aTargets = new[] {mRenderColumn.Index} });
-                }
-            if (CssClassColumns.Any())
-                foreach (var CssClassColumn in CssClassColumns)
-                {
-                    defs.Add(new { className = CssClassColumn.CssClass, aTargets = new[] { CssClassColumn.Index } });
-                }
-
-            for(var i=0;i<columns.Length;i++)
-            {
-                if (columns[i].Width != null)
-                {
-                    defs.Add(new { width = columns[i].Width, aTargets = new[] { i} });
-                }
-            }
-             
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "bSortable",
+                propertySelector: column => column.Sortable,
+                propertyPredicate: isFalse,
+                columns: columns));
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "bVisible",
+                propertySelector: column => column.Visible,
+                propertyPredicate: isFalse,
+                columns: columns));
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "bSearchable",
+                propertySelector: column => column.Searchable,
+                propertyPredicate: isFalse,
+                columns: columns));
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "mRender",
+                propertySelector: column => column.MRenderFunction,
+                propertyConverter: x => new JRaw(x),
+                propertyPredicate: isNonEmptyString,
+                columns: columns));
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "className",
+                propertySelector: column => column.CssClass,
+                propertyPredicate: isNonEmptyString,
+                columns: columns));
+            defs.AddRange(ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName: "width",
+                propertySelector: column => column.Width,
+                propertyPredicate: isNonEmptyString,
+                columns: columns));
 
             if (defs.Count > 0)
-                return new JavaScriptSerializer().Serialize(defs).Replace("\"%", "").Replace("%\"", "");
+                return JsonConvert.SerializeObject(defs);
 
             return "[]";
         }
@@ -311,6 +313,43 @@ namespace Mvc.JQuery.DataTables
         {
             // Doing this way because RouteValueDictionary converts to Json in wrong format
             return new Dictionary<string, object>(new RouteValueDictionary(obj));
+        }
+
+        private static IEnumerable<JObject> ConvertColumnDefsToTargetedProperty<TProperty>(
+            string jsonPropertyName,
+            Func<ColDef, TProperty> propertySelector,
+            Func<TProperty, bool> propertyPredicate,
+            IEnumerable<ColDef> columns)
+        {
+            return ConvertColumnDefsToTargetedProperty(
+                jsonPropertyName,
+                propertySelector,
+                propertyPredicate,
+                x => x,
+                columns);
+        }
+
+        private static IEnumerable<JObject> ConvertColumnDefsToTargetedProperty<TProperty, TResult>(
+            string jsonPropertyName,
+            Func<ColDef, TProperty> propertySelector,
+            Func<TProperty, bool> propertyPredicate,
+            Func<TProperty, TResult> propertyConverter,
+            IEnumerable<ColDef> columns)
+        {
+            return columns
+                .Select((x, idx) => new { rawPropertyValue = propertySelector(x), idx })
+                .Where(x => propertyPredicate(x.rawPropertyValue))
+                .GroupBy(
+                    x => x.rawPropertyValue,
+                    (rawPropertyValue, groupedItems) => new
+                    {
+                        rawPropertyValue,
+                        indices = groupedItems.Select(x => x.idx)
+                    })
+                .Select(x => new JObject(
+                    new JProperty(jsonPropertyName, propertyConverter(x.rawPropertyValue)),
+                    new JProperty("aTargets", new JArray(x.indices))
+                    ));
         }
     }
 }

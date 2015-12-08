@@ -52,8 +52,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EmbeddedResourceVirtualPathProvider, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\EmbeddedResourceVirtualPathProvider\EmbeddedResourceVirtualPathProvider\bin\Debug\EmbeddedResourceVirtualPathProvider.dll</HintPath>
+      <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.3.2\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>

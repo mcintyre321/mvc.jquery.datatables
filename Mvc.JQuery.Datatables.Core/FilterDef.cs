@@ -23,7 +23,7 @@ namespace Mvc.JQuery.DataTables
         {
             if (t==null)
             {
-                type = "null";
+                this.Remove("type");
             }
             else if (DateTypes.Contains(t))
             {

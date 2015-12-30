@@ -20,11 +20,11 @@ namespace Mvc.JQuery.DataTables
 
         public override string ToString()
         {
-            var noColumnFilter = new FilterDef(null);
+            var noColumnFilter = null as FilterDef;
             this["bUseColVis"] = _vm.ColVis;
             this["aoColumns"] = _vm.Columns
                 //.Where(c => c.Visible || c.Filter["sSelector"] != null)
-                .Select(c => c.Searchable?c.Filter:noColumnFilter).ToArray();
+                .Select(c => c.Searchable && c.Filter != null ? c.Filter : noColumnFilter).ToArray();
             return new JavaScriptSerializer().Serialize(this);
         }
     }

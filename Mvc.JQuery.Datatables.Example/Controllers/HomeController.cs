@@ -89,6 +89,7 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
         [DataTablesExclude]
         public string ThisColumnIsExcluded { get { return "asdf"; } }
 
+        [DataTables(Sortable = false, Searchable = false)]
         [DataTablesFilter(DataTablesFilterType.None)]
         public string Thumb { get; set; }
     }

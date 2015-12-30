@@ -34,14 +34,22 @@ namespace Mvc.JQuery.DataTables
         public override void ApplyTo(ColDef colDef, System.Reflection.PropertyInfo pi)
         {
             colDef.Filter = new FilterDef(pi.GetType());
-            if (filterType != null) colDef.Filter.type = filterType;
-            if (options != null && options.Any()) colDef.Filter.values = options;
+            if (filterType == "none")
+            {
+                colDef.Filter = null;
+            }
+            else
+            {
+                if (filterType != null) colDef.Filter.type = filterType;
+                if (options != null && options.Any()) colDef.Filter.values = options;
+            }
         }
-        
+
     }
 
     public enum DataTablesFilterType
     {
+        None,
         Select,
         NumberRange,
         DateRange,

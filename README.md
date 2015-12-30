@@ -45,3 +45,9 @@ If you have a feature request, bug, or a patch, please could you add an example 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=mcintyre321&url=https://github.com/mcintyre321/mvc.jquery.datatables&title=Mvc.JQuery.DataTables&language=&tags=github&category=software)
 
 > If you have found this project useful, please consider contributing some documentation - it's the biggest weakness!
+
+
+THANKS
+------
+
+To https://randomuser.me/ for the image thumbnails used in the example site

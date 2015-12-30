@@ -32,12 +32,14 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
                 Number = user.Number,
                 Hired = user.Hired,
                 IsAdmin = user.IsAdmin,
-                Salary = user.Salary
+                Salary = user.Salary,
+                Thumb = "https://randomuser.me/api/portraits/thumb/men/" + user.Id + ".jpg"
             }), dataTableParam,
             uv => new 
             {
                 Name = "<b>" + uv.Name + "</b>",
-                Hired = uv.Hired == null ? "&lt;pending&gt;" : uv.Hired.Value.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired.Value) + ") "
+                Hired = uv.Hired == null ? "&lt;pending&gt;" : uv.Hired.Value.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired.Value) + ") ",
+                Thumb = "<img src='" + uv.Thumb + "' />"
             });
         }
 
@@ -87,7 +89,8 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
         [DataTablesExclude]
         public string ThisColumnIsExcluded { get { return "asdf"; } }
 
-        
+        [DataTablesFilter(DataTablesFilterType.None)]
+        public string Thumb { get; set; }
     }
 
     public class DefaultToStartOf2014Attribute : DataTablesAttributeBase

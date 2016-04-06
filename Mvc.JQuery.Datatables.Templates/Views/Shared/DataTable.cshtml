@@ -15,7 +15,7 @@
                 }
             </tr>
         }
-        @if (!Model.HideHeaders)
+        else if (!Model.HideHeaders)
         {
             <tr>
                 @foreach (var column in Model.Columns)

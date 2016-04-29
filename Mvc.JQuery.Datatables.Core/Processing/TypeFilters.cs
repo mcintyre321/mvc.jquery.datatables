@@ -101,11 +101,11 @@ namespace Mvc.JQuery.DataTables
         public static string DateTimeOffsetFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
+            var filterString = null as string;
+
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
-
-                var filterString = null as string;
 
                 DateTimeOffset start, end;
                 if (DateTimeOffset.TryParse(parts[0] ?? "", out start))
@@ -124,18 +124,35 @@ namespace Mvc.JQuery.DataTables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, propertyInfo.Type), columnname);
+                DateTimeOffset dateTime;
+                if (DateTimeOffset.TryParse(query, out dateTime))
+                {
+                    if (dateTime.Date == dateTime)
+                    {
+
+                        filterString = string.Format("{1}.Date == @" + parametersForLinqQuery.Count, columnname);
+                        parametersForLinqQuery.Add(dateTime);
+
+                    }
+                    else
+                    {
+                        filterString = string.Format("{1} == @" + parametersForLinqQuery.Count, columnname);
+                        parametersForLinqQuery.Add(dateTime);
+                    }
+                }
+                return filterString;
             }
         }
 
         public static string DateTimeFilter(string query, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
             if (query == "~") return string.Empty;
+            var filterString = null as string;
+
             if (query.Contains("~"))
             {
                 var parts = query.Split('~');
 
-                var filterString = null as string;
 
                 DateTime start, end;
                 if (DateTime.TryParse(parts[0] ?? "", out start))
@@ -154,7 +171,23 @@ namespace Mvc.JQuery.DataTables
             }
             else
             {
-                return string.Format("{1}.ToLocalTime().ToString(\"g\").{0}", FilterMethod(query, parametersForLinqQuery, propertyInfo.Type), columnname);
+                DateTimeOffset dateTime;
+                if (DateTimeOffset.TryParse(query, out dateTime))
+                {
+                    if (dateTime.Date == dateTime)
+                    {
+
+                        filterString = string.Format("{1}.Date == @" + parametersForLinqQuery.Count, columnname);
+                        parametersForLinqQuery.Add(dateTime);
+
+                    }
+                    else
+                    {
+                        filterString = string.Format("{1} == @" + parametersForLinqQuery.Count, columnname);
+                        parametersForLinqQuery.Add(dateTime);
+                    }
+                }
+                return filterString;
             }
         }
 

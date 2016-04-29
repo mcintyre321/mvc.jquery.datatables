@@ -17,7 +17,7 @@ namespace Mvc.JQuery.DataTables
         static StringTransformers()
         {
             RegisterFilter<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g"));
-            RegisterFilter<DateTime>(dateTime => dateTime.ToString("g"));
+            RegisterFilter<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g"));
             RegisterFilter<IHtmlString>(s => s.ToHtmlString());
             RegisterFilter<IEnumerable<string>>(s => s.ToArray());
             RegisterFilter<IEnumerable<int>>(s => s.ToArray());

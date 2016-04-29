@@ -127,16 +127,16 @@ namespace Mvc.JQuery.DataTables
                 DateTimeOffset dateTime;
                 if (DateTimeOffset.TryParse(query, out dateTime))
                 {
+                    dateTime = dateTime.ToUniversalTime();
                     if (dateTime.Date == dateTime)
                     {
-
-                        filterString = string.Format("{1}.Date == @" + parametersForLinqQuery.Count, columnname);
                         parametersForLinqQuery.Add(dateTime);
-
+                        parametersForLinqQuery.Add(dateTime.AddDays(1));
+                        filterString = string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
                     }
                     else
                     {
-                        filterString = string.Format("{1} == @" + parametersForLinqQuery.Count, columnname);
+                        filterString = string.Format("{0} == @" + parametersForLinqQuery.Count, columnname);
                         parametersForLinqQuery.Add(dateTime);
                     }
                 }
@@ -171,19 +171,19 @@ namespace Mvc.JQuery.DataTables
             }
             else
             {
-                DateTimeOffset dateTime;
-                if (DateTimeOffset.TryParse(query, out dateTime))
+                DateTime dateTime;
+                if (DateTime.TryParse(query, out dateTime))
                 {
+                    dateTime = dateTime.ToUniversalTime();
                     if (dateTime.Date == dateTime)
                     {
-
-                        filterString = string.Format("{1}.Date == @" + parametersForLinqQuery.Count, columnname);
                         parametersForLinqQuery.Add(dateTime);
-
+                        parametersForLinqQuery.Add(dateTime.AddDays(1));
+                        filterString = string.Format("{0} >= @{1} and {0} < @{2}", columnname, parametersForLinqQuery.Count - 2, parametersForLinqQuery.Count - 1);
                     }
                     else
                     {
-                        filterString = string.Format("{1} == @" + parametersForLinqQuery.Count, columnname);
+                        filterString = string.Format("{0} == @" + parametersForLinqQuery.Count, columnname);
                         parametersForLinqQuery.Add(dateTime);
                     }
                 }

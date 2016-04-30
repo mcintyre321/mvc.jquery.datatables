@@ -14,26 +14,15 @@ namespace Mvc.JQuery.DataTables
     public abstract class DataTablesResult : ActionResult
     {
         /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TTransform"></typeparam>
-        /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
-        /// <param name="dataTableParam"></param>
-        /// <returns></returns>
-
-        public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
-            ArrayOutputType? arrayOutput = null)
-        {
-            return Create(q, dataTableParam, new ResponseOptions<TSource>() { ArrayOutputType = arrayOutput });
-        }
-
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TTransform"></typeparam>
         /// <param name="q">A queryable for the data. The properties of this can be marked up with [DataTablesAttribute] to control sorting/searchability/visibility</param>
         /// <param name="dataTableParam"></param>
         /// <param name="transform">//a transform for custom column rendering e.g. to do a custom date row => new { CreatedDate = row.CreatedDate.ToString("dd MM yy") } </param>
+        /// <param name="responseOptions"></param>
         /// <returns></returns>
-        public static DataTablesResult<TSource> Create<TSource, TTransform>(IQueryable<TSource> q, DataTablesParam dataTableParam,
-            Func<TSource, TTransform> transform, ResponseOptions<TSource> responseOptions = null)
+        public static DataTablesResult<TSource> Create<TSource>(IQueryable<TSource> q, DataTablesParam dataTableParam,
+            Func<TSource, object> transform, ResponseOptions<TSource> responseOptions = null)
         {
+            transform = transform ?? (s => s);
             var result = new DataTablesResult<TSource>(q, dataTableParam);
 
             result.Data = result.Data
@@ -81,30 +70,13 @@ namespace Mvc.JQuery.DataTables
 
         /// <param name="transform">Should be a Func<T, TTransform></param>
         public static DataTablesResult Create(IQueryable queryable, DataTablesParam dataTableParam, object transform,
-            ArrayOutputType? arrayOutput = null)
-        {
-            var s = "Create";
-            var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 2);
-            var queryableType = queryable.GetType().GetGenericArguments()[0];
-            var transformType = transform.GetType().GetGenericArguments()[1];
-            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType, transformType);
-            return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam, transform, arrayOutput });
-        }
-
-        public static DataTablesResult Create(IQueryable queryable, DataTablesParam dataTableParam,
-            ArrayOutputType? arrayOutput = null)
+            ResponseOptions responseOptions = null)
         {
             var s = "Create";
             var openCreateMethod = typeof(DataTablesResult).GetMethods().Single(x => x.Name == s && x.GetGenericArguments().Count() == 1);
             var queryableType = queryable.GetType().GetGenericArguments()[0];
-            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-            return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam, arrayOutput });
-        }
-
-        public static DataTablesResult<T> CreateResultUsingEnumerable<T>(IEnumerable<T> q, DataTablesParam dataTableParam,
-            ArrayOutputType? arrayOutput = null)
-        {
-            return Create(q.AsQueryable(), dataTableParam, arrayOutput);
+            var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType, typeof(object));
+            return (DataTablesResult)closedCreateMethod.Invoke(null, new object[] { queryable, dataTableParam, transform, responseOptions });
         }
     }
 

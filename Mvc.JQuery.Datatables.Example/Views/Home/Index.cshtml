@@ -10,34 +10,52 @@
 Nuget install-package Mvc.JQuery.DataTables
     
 Nuget install-package <a href="https://github.com/mcintyre321/EmbeddedResourceVirtualPathProvider">EmbeddedResourceVirtualPathProvider</a> <i>or</i> Nuget install-package Mvc.JQuery.DataTables.Templates
-
 </pre>
 <p>
-    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">example</a>)
+    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">example</a>)
 </p>
 <pre class="highlight">
 public class SomeController : Controller 
 {
     ...
-    public DataTablesResult&lt;UserView> GetUsers(DataTablesParam dataTableParam)
+    public DataTablesResult&lt;UserTableRowViewModel> GetUsers(DataTablesParam dataTableParam)
     {
         IQueryable&lt;User> users = ... //take a queryable from your database...
-        var userViews = users.Select(u => new UserView(u)); //...transform it into a view object ...
+        var userViews = users.Select(u => new UserTableRowViewModel(u)); //...transform it into a view object ...
         return DataTablesResult.Create(userViews, dataTableParam)  //...and return a DataTablesResult
     }
+
+
 }
 </pre>
 
 <p>
-    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/Mvc.JQuery.DataTables.Example/Views/Home/Index.cshtml">example</a>)
+    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Views/Home/Index.cshtml">example</a>)
 
     <pre class="highlight">
-        //include these scripts
-        &lt;link type="text/css" href="@@Url.Content("~/Content/DataTables-1.8.2/media/css/demo_table.css")" rel="stylesheet"/>
-        &lt;script src="@@Url.Content("~/Scripts/DataTables-1.8.2/media/js/jquery.dataTables.js")" type="text/javascript">&lt;/script>
+        //include these scripts to use standard features
+        &lt;script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js">&lt;/script>
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
+        
+        //These ones if you want to use the column filters
+        &lt;link rel="stylesheet" href="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.css" />
+        &lt;script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js">&lt;/script>
+        //And these if you want date time pickers in the filters
+        &lt;script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js">&lt;/script>
+        &lt;link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
+        
+        //and these if you want to use  TableTools (export buttons)
+        &lt;script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js">&lt;/script>
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
+        
+        //And these if you want to use column visibility
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
+        &lt;script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js">&lt;/script>
+        
+        var dataTablesConfigVm = dataTablesConfigVmHtml.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
+        //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.Example/Views/Home/_ExampleTable.cshtml">example here</a>
 
-        @@Html.Partial("DataTable", Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null)))
-
+        @@Html.Partial("DataTable", dataTablesConfigVm)
     </pre>
 </p>
 

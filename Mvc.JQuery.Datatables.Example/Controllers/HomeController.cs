@@ -21,9 +21,9 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
             return View();
         }
 
-        public DataTablesResult<UserView> GetUsers(DataTablesParam dataTableParam)
+        public DataTablesResult<UserTableRowViewModel> GetUsers(DataTablesParam dataTableParam)
         {
-            return DataTablesResult.Create(FakeDatabase.Users.Select(user => new UserView()
+            return DataTablesResult.Create(FakeDatabase.Users.Select(user => new UserTableRowViewModel()
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -35,11 +35,11 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
                 Salary = user.Salary,
                 Thumb = "https://randomuser.me/api/portraits/thumb/men/" + user.Id + ".jpg"
             }), dataTableParam,
-            uv => new 
+            rowViewModel => new 
             {
-                Name = "<b>" + uv.Name + "</b>",
-                Hired = uv.Hired == null ? "&lt;pending&gt;" : uv.Hired.Value.ToShortDateString() + " (" + FriendlyDateHelper.GetPrettyDate(uv.Hired.Value) + ") ",
-                Thumb = "<img src='" + uv.Thumb + "' />"
+                Name = "<b>" + rowViewModel.Name + "</b>",
+                Hired = rowViewModel.Hired == null ? "&lt;pending&gt;" : rowViewModel.Hired.Value.ToShortDateString() + " " + rowViewModel.Hired.Value.ToShortTimeString() + " (" + FriendlyDateHelper.GetPrettyDate(rowViewModel.Hired.Value) + ") ",
+                Thumb = "<img src='" + rowViewModel.Thumb + "' />"
             });
         }
 
@@ -56,7 +56,7 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
 
    
 
-    public class UserView
+    public class UserTableRowViewModel
     {
        
         [DataTables(DisplayName = "Name", DisplayNameResourceType = typeof(UserViewResource), MRenderFunction = "encloseInEmTag")]

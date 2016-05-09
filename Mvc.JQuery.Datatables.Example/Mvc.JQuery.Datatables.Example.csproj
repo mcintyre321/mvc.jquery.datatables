@@ -119,9 +119,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserViewResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\DefaultToStartOf2014Attribute.cs" />
+    <Compile Include="Controllers\FacetController.cs" />
+    <Compile Include="Controllers\UserTableRowViewModel.cs" />
+    <Compile Include="Domain\Numbers.cs" />
+    <Compile Include="Domain\PositionTypes.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="RegisterDataTablesModelBinder.cs" />
-    <Compile Include="Controllers\FakeDatabase.cs" />
-    <Compile Include="Controllers\FriendlyDateHelper.cs" />
+    <Compile Include="Domain\FakeDatabase.cs" />
+    <Compile Include="Helpers\FriendlyDateHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -613,6 +619,8 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Home\JSUnitTests.cshtml" />
     <Content Include="Views\Home\_ExampleTable.cshtml" />
+    <None Include="Views\Facet\Index.cshtml" />
+    <Content Include="Views\Facet\FacetedTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

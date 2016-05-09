@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mvc.JQuery.DataTables.Example.Controllers
+namespace Mvc.JQuery.DataTables.Example.Helpers
 {
     static class FriendlyDateHelper
     {

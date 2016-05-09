@@ -29,19 +29,23 @@ namespace Mvc.JQuery.DataTables
             AjaxUrl = ajaxUrl;
             this.Id = id;
             this.Columns = columns;
-            this.ShowSearch = true;
+            this.Filter = true;
+            
             this.ShowPageSizes = true;
             this.TableTools = true;
             ColumnFilterVm = new ColumnFilterSettingsVm(this);
             AjaxErrorHandler = 
                 "function(jqXHR, textStatus, errorThrown)" + 
                 "{ " + 
-                    "window.alert('error loading data: ' + textStatus + ' - ' + errorThrown); " + 
+                    "console.log('error loading data: ' + textStatus + ' - ' + errorThrown); " + 
                     "console.log(arguments);" + 
                 "}";
         }
 
-        public bool ShowSearch { get; set; }
+        /// <summary>
+        /// Sets the bFilter properyt
+        /// </summary>
+        public bool Filter { get; set; }
 
         public string Id { get; private set; }
 
@@ -90,18 +94,34 @@ namespace Mvc.JQuery.DataTables
                     return _dom;
 
                 string str = "";
-                if (this.ColVis)
+                if (this.ShowVisibleColumnPicker)
                     str += "C";
                 if (this.TableTools)
                     str += "T<\"clear\">";
                 if (this.ShowPageSizes)
                     str += "l";
-                if (this.ShowSearch)
+                if (this.ShowFilterInput)
                     str += "f";
                 return str + "tipr";
             }
 
             set { _dom = value; }
+        }
+
+
+        public bool ShowVisibleColumnPicker { get; set; }
+
+        public bool ShowFilterInput { get; set; }
+
+        [Obsolete("Use .Filter and .ShowFilterInput")]
+        public bool ShowSearch
+        {
+            get { return ShowFilterInput && Filter; }
+            set
+            {
+                ShowFilterInput = value;
+                Filter = value;
+            }
         }
 
         public bool ColVis { get; set; }
@@ -202,9 +222,9 @@ namespace Mvc.JQuery.DataTables
             IDictionary<string, object> optionsDict = DataTableConfigVm.ConvertObjectToDictionary(jsOptions);
             return FilterOn<T>(optionsDict); 
         }
-        ////public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> jsOptions)
+        ////public _FilterOn<DataTableConfigVm> FilterOn<T>(IDictionary<string, object> filterOptions)
         ////{
-        ////    return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), jsOptions);
+        ////    return new _FilterOn<DataTableConfigVm>(this, this.FilterTypeRules, (c, t) => t == typeof(T), filterOptions);
         ////}
         public _FilterOn<DataTableConfigVm> FilterOn(string columnName)
         {
@@ -221,16 +241,16 @@ namespace Mvc.JQuery.DataTables
             IDictionary<string, object> initialSearchColsDict = ConvertObjectToDictionary(jsInitialSearchCols);
             return FilterOn(columnName, optionsDict, initialSearchColsDict);
         }
-        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions)
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> filterOptions)
         {
-            return FilterOn(columnName, jsOptions, null);
+            return FilterOn(columnName, filterOptions, null);
         }
-        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> jsOptions, IDictionary<string, object> jsInitialSearchCols)
+        public _FilterOn<DataTableConfigVm> FilterOn(string columnName, IDictionary<string, object> filterOptions, IDictionary<string, object> jsInitialSearchCols)
         {
             var colDef = this.Columns.Single(c => c.Name == columnName);
-            if (jsOptions != null)
+            if (filterOptions != null)
             {
-                foreach (var jsOption in jsOptions)
+                foreach (var jsOption in filterOptions)
                 {
                     colDef.Filter[jsOption.Key] = jsOption.Value;
                 }

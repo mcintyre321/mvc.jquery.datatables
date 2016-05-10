@@ -88,7 +88,6 @@
   <ItemGroup>
     <Content Include="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" />
-    <Content Include="Content\jquery-datatables-column-filter\media\css\bootstrap.min.css" />
     <Content Include="Content\jquery-datatables-column-filter\media\css\demo_page.css" />
     <Content Include="Content\jquery-datatables-column-filter\media\css\demo_table.css" />
     <Content Include="Content\jquery-datatables-column-filter\media\css\demo_table_jui.css" />

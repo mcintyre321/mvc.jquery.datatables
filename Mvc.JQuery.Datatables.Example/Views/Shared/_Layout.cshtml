@@ -49,17 +49,23 @@
             });
         </script>
     }
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
+    <!--[if lt IE 9]>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.ie.min.css" />
+    <![endif]-->
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
-
+    <a class="github-fork-ribbon left-top" href="http://url.to-your.repo" title="Fork me on GitHub">Fork me on GitHub</a>
   
     <div class="container">
         @RenderBody()
     </div>
     <footer>
     </footer>
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/bootstrap-overrides.css")" rel="stylesheet" type="text/css" />
 
 </body>
 </html>

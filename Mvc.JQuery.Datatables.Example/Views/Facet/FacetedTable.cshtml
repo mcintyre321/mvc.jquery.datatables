@@ -23,27 +23,29 @@
 <script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span2" id="facetControls">
+        <div class="col-md-2" id="facetControls">
                <div><div>Filter by IsAdmin:</div><span id="IsAdminFilter"> </span></div>
                <div><div>Filter by Hired:</div><span id="HiredFilter">   </span></div>
                <div><div>Filter by Email:</div><span id="EmailFilter">   </span></div>
                <div><div>Filter by Position:</div><span id="PositionFilter"></span></div>
 
         </div>
-        <div class="span10">
+        <div class="col-md-10">
 
             @{
                 var vm = Html.DataTableVm("table-id", (FacetController h) => h.GetFacetedUsers(null));
 
-                vm.ColumnFilter = true;
+                vm.UseColumnFilterPlugin = true;
                 vm.StateSave = true;
 
-                vm.PageLength = 25; //... and set a default
+                vm.PageLength = 5; //... and set a default
+                vm.ShowPageSizes = false;
                 vm.ColVis = true;
                 vm.ShowFilterInput = false;
                 vm.Filter = true;
                 vm.HideHeaders = false;
                 vm.TableTools = false;
+                vm.HideHeaders = true;
             }
 
             @Html.Partial("DataTable", vm)

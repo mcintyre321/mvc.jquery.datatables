@@ -3,10 +3,11 @@
 @using Mvc.JQuery.DataTables.Models
 @using Mvc.JQuery.DataTables.Serialization
 @using Mvc.JQuery.DataTables
-
+@model DataTableConfigVm
 <script type="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js" language="javascript"></script>
 
-<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
 <!-- table tools (csv export etc) https://datatables.net/extensions/tabletools -->
 <script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
@@ -22,54 +23,10 @@
 <script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
 
 @{
-    var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
-    //vm.JsOptions.Add("iDisplayLength", 25);
-    //vm.JsOptions.Add("aLengthMenu", new object[] { new[] {5, 10, 25, 250, -1} , new object[] { 5, 10, 25, 250, "All"} });
 
-    vm.JsOptions.Add("fnCreatedRow", new Raw(@"function( nRow, aData, iDataIndex ) {
-        $(nRow).attr('data-id', aData[0]);
-    }"));
-    vm.ColumnFilter = true;
-    vm
-        .FilterOn("Position", new { sSelector = "#custom-filter-placeholder-position" }, new { sSearch = "Tester" }).Select("Engineer", "Tester", "Manager")
-        .FilterOn("Id").NumberRange()
-        .FilterOn("Salary", new { sSelector = "#custom-filter-placeholder-salary" }).NumberRange();
-    //.FilterOn("Number").CheckBoxes(Enum.GetNames(typeof(Numbers)));
-    vm.StateSave = true;
-    //vm.DrawCallback = "drawCallback";
-
-    //you can change the page length options... 
-    vm.LengthMenu = LengthMenuVm.Default();
-    vm.LengthMenu.RemoveAll(t => t.Item2 == 5);
-    vm.PageLength = 25; //... and set a default
-
-    //Enable column visibility 
-    vm.ColVis = true; 
-    vm.ShowVisibleColumnPicker = true;
-
-    if (Request.QueryString["lang"] == "de")
-    {
-        //vm.Language = "{ 'sUrl': '" + Url.Content("~/Content/jquery.dataTables.lang.de-DE.txt") + "' }";
-        vm.Language = new Language
-        {
-            sProcessing = "Bitte warten...",
-            sLengthMenu = "_MENU_ Einträge anzeigen",
-            sZeroRecords = "Keine Einträge vorhanden.",
-            sInfo = "_START_ bis _END_ von _TOTAL_ Einträgen",
-            sInfoEmpty = "0 bis 0 von 0 Einträgen",
-            sInfoFiltered = "(gefiltert von _MAX_  Einträgen)",
-            sInfoPostFix = "",
-            sSearch = "Suchen",
-            sUrl = "",
-            oPaginate = new Paginate()
-            {
-                sFirst = "Erster",
-                sPrevious = "Zurück",
-                sNext = "Weiter",
-                sLast = "Letzter"
-            }
-        }.ToJsonString();
-    }
+    //var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    var vm = Model;
+  
 }
 
 <script type="text/javascript">

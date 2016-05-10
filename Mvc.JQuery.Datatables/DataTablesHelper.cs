@@ -27,12 +27,17 @@ namespace Mvc.JQuery.DataTables
             return new DataTableConfigVm(id, ajaxUrl, columns);
         }
 
-        public static DataTableConfigVm DataTableVm(this HtmlHelper html, Type t, string id, Uri uri)
+        public static DataTableConfigVm DataTableVm(this HtmlHelper html, Type t, string id, string uri)
         {
             return new DataTableConfigVm(id, uri.ToString(), t.ColDefs());
         }
+        public static DataTableConfigVm DataTableVm<T>(string id, string uri)
+        {
+            return new DataTableConfigVm(id, uri.ToString(), typeof(T).ColDefs());
+        }
 
-        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, Uri uri)
+
+        public static DataTableConfigVm DataTableVm<TResult>(this HtmlHelper html, string id, string uri)
         {
             return DataTableVm(html, typeof (TResult), id, uri);
         }
@@ -44,5 +49,7 @@ namespace Mvc.JQuery.DataTables
 
             }));
         }
+
+      
     }
 }

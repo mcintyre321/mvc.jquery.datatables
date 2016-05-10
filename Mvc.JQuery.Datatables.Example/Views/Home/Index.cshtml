@@ -1,11 +1,10 @@
-﻿@{
-    ViewBag.Title = "Mvc.JQuery.DataTables";
-}
+﻿@model Mvc.JQuery.DataTables.DataTableConfigVm
+@{ ViewBag.Title = "Mvc.JQuery.DataTables"; }
 
 <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
 <script type="text/javascript">    $.SyntaxHighlighter.init();</script>
 
-<h1>Strongly typed datatable example</h1>
+<h1>Grid example <small> See also <a href="/facet">Faceted search example</a></small></h1>
 <pre>
 Nuget install-package Mvc.JQuery.DataTables
     
@@ -17,6 +16,16 @@ Nuget install-package <a href="https://github.com/mcintyre321/EmbeddedResourceVi
 <pre class="highlight">
 public class SomeController : Controller 
 {
+      public ActionResult Index()
+        {
+            var getDataUrl = Url.Action(nameof(HomeController.GetUsers));
+            var vm = DataTablesHelper.DataTableVm<UserTableRowViewModel>("idForTableElement", getDataUrl);
+            
+            ... configure data table options  (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">HomeController.cs</a>)
+
+
+            return View(vm);
+        }
     ...
     public DataTablesResult&lt;UserTableRowViewModel> GetUsers(DataTablesParam dataTableParam)
     {
@@ -24,8 +33,6 @@ public class SomeController : Controller
         var userViews = users.Select(u => new UserTableRowViewModel(u)); //...transform it into a view object ...
         return DataTablesResult.Create(userViews, dataTableParam)  //...and return a DataTablesResult
     }
-
-
 }
 </pre>
 
@@ -55,19 +62,19 @@ public class SomeController : Controller
         var dataTablesConfigVm = dataTablesConfigVmHtml.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
         //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.Example/Views/Home/_ExampleTable.cshtml">example here</a>
 
-        @@Html.Partial("DataTable", dataTablesConfigVm)
+        @@Html.Partial("DataTable", Model)
     </pre>
 </p>
 
 <h1>Voila!</h1>
-<div style="padding: 5px; border: 1px solid grey">
+<div style="padding: 5px; border: 1px solid grey;width: 200px">
     Custom placement for Position filter:
     <div id="custom-filter-placeholder-position"></div>
     Custom placement for hidden Salary filter:
     <div id="custom-filter-placeholder-salary"></div>
 </div>
 
-@Html.Partial("_ExampleTable")
+@Html.Partial("_ExampleTable", Model)
 <br />
 
 <div>

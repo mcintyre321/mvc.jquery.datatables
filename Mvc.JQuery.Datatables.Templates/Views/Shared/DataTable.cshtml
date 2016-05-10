@@ -6,7 +6,7 @@
 @model DataTableConfigVm
 <table id="@Model.Id" class="display @(Model.TableClass ?? DataTableConfigVm.DefaultTableClass ?? "")" @Html.Raw(Model.FixedLayout ? "style='table-layout:fixed'":"")>
     <thead>
-        @if (Model.ColumnFilter)
+        @if (Model.UseColumnFilterPlugin)
         {
             <tr>
                 @foreach (var column in Model.Columns)
@@ -90,7 +90,7 @@
         }
 
         var dt = $table.dataTable(@Html.Raw(options.ToString(Formatting.Indented)));
-        @if (Model.ColumnFilter)
+        @if (Model.UseColumnFilterPlugin)
         {
             @Html.Raw("dt.columnFilter(" + Model.ColumnFilterVm + ");")
         }

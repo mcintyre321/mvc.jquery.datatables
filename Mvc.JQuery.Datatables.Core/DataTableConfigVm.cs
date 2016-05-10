@@ -43,7 +43,7 @@ namespace Mvc.JQuery.DataTables
         }
 
         /// <summary>
-        /// Sets the bFilter properyt
+        /// Enables searching of columns
         /// </summary>
         public bool Filter { get; set; }
 
@@ -64,7 +64,7 @@ namespace Mvc.JQuery.DataTables
                 return ConvertColumnDefsToJson(Columns.ToArray());
             }
         }
-        public bool ColumnFilter { get; set; }
+        public bool UseColumnFilterPlugin { get; set; }
 
         public ColumnFilterSettingsVm ColumnFilterVm { get; set; }
 

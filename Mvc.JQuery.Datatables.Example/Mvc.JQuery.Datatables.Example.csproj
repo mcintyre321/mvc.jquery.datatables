@@ -611,7 +611,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Home\JSUnitTests.cshtml" />
     <Content Include="Views\Home\_ExampleTable.cshtml" />
-    <None Include="Views\Facet\Index.cshtml" />
+    <Content Include="Views\Facet\Index.cshtml" />
     <Content Include="Views\Facet\FacetedTable.cshtml" />
   </ItemGroup>
   <ItemGroup>

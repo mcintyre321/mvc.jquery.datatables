@@ -85,6 +85,7 @@
     </EmbeddedResource>
     <None Include="Mvc.JQuery.DataTables.nuspec" />
     <None Include="packages.config" />
+    <Content Include="RegisterDatatablesModelBinder.cs.pp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mvc.JQuery.DataTables.Core\Mvc.JQuery.DataTables.Core.csproj">

@@ -20,3 +20,4 @@ LPRun.5.1.ReSharper.user
 packages/*
 /packages
 /*.user
+.vs

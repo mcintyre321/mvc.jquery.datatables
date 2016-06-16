@@ -108,7 +108,6 @@
     <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css">
       <Link>Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css</Link>
     </EmbeddedResource>
-    <Content Include="RegisterDataTablesModelBinder.cs.pp" />
     <None Include="Core.JQuery.DataTables.nuspec" />
     <None Include="packages.config" />
     <None Include="Views\Web.config" />

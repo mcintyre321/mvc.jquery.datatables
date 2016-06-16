@@ -15,8 +15,8 @@
       <dependency id="Mvc.JQuery.DataTables.Core" version="[$version$]" />
     </dependencies>	
   </metadata>
-  <!--files>
+  <files>
     <file src="RegisterDataTablesModelBinder.cs.pp" target="Content" />
-  </files-->
+  </files>
 
 </package>

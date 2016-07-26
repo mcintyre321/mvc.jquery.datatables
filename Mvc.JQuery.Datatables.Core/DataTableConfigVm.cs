@@ -47,11 +47,11 @@ namespace Mvc.JQuery.DataTables
         /// </summary>
         public bool Filter { get; set; }
 
-        public string Id { get; private set; }
+        public string Id { get; set; }
 
-        public string AjaxUrl { get; private set; }
+        public string AjaxUrl { get; set; }
 
-        public IEnumerable<ColDef> Columns { get; private set; }
+        public IEnumerable<ColDef> Columns { get; set; }
 
         public IDictionary<string, object> JsOptions { get { return m_JsOptions; } }
 

@@ -19,7 +19,7 @@ public class SomeController : Controller
       public ActionResult Index()
         {
             var getDataUrl = Url.Action(nameof(HomeController.GetUsers));
-            var vm = DataTablesHelper.DataTableVm<UserTableRowViewModel>("idForTableElement", getDataUrl);
+            var vm = DataTablesHelper.DataTableVm&ltUserTableRowViewModel>("idForTableElement", getDataUrl);
             
             ... configure data table options  (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">HomeController.cs</a>)
 

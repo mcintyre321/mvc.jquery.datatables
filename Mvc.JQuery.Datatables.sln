@@ -1,15 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A659A82-DD26-4E17-B90E-6D082848FC1A}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Templates", "Mvc.JQuery.DataTables.Templates\Mvc.JQuery.DataTables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Tests", "Mvc.Jquery.DataTables.Tests\Mvc.JQuery.DataTables.Tests.csproj", "{53671C41-666D-4269-A12A-BA6C2F209E7A}"
@@ -22,11 +15,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Core", "Mvc.JQuery.DataTables.Core\Mvc.JQuery.DataTables.Core.csproj", "{389ADE94-7C32-4885-812E-68A2A74C82D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Example", "Mvc.JQuery.DataTables.Example\Mvc.JQuery.DataTables.Example.csproj", "{476D3266-8699-4E89-A528-646C1235EEB1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60245A6D-92C5-4361-A82D-A6DD53B9A2D8}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

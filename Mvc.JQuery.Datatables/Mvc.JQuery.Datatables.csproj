@@ -79,9 +79,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Views\Shared\DataTable.cshtml">
-      <Link>Views\Shared\DataTable.cshtml</Link>
-    </EmbeddedResource>
     <None Include="Mvc.JQuery.DataTables.nuspec" />
     <None Include="packages.config" />
     <Content Include="RegisterDatatablesModelBinder.cs.pp" />

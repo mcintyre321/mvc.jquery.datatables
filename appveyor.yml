@@ -10,7 +10,7 @@ environment:
   VisualStudioVersion: 15
 build_script:
 - cmd: >-
-    set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+    set PATH=C:\Program Files (x86)\MSBuild\15.0\Bin;%PATH%
 
 
     git submodule update --init --recursive
@@ -18,8 +18,7 @@ build_script:
 
     nuget restore
 
-
-    dotnet build
+    msbuild
 after_test:
 - cmd: >-
     nuget pack %appveyor_project_name%.Core/%appveyor_project_name%.Core.csproj -version %appveyor_build_version%  -Symbols

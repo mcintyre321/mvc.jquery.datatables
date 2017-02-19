@@ -668,10 +668,6 @@
       <Project>{BFD9EA5A-FE3A-4CE2-9C09-B9E78CE208EE}</Project>
       <Name>Mvc.JQuery.DataTables.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mvc.JQuery.DataTables.Core\Mvc.JQuery.DataTables.Core.csproj">
-      <Project>{389ade94-7c32-4885-812e-68a2a74c82d8}</Project>
-      <Name>Mvc.JQuery.DataTables.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">
       <Project>{608e2574-4eb7-455c-8ab7-aaa66cb3642d}</Project>
       <Name>Mvc.JQuery.DataTables</Name>

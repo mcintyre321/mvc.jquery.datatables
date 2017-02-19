@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Linq;
-using Mvc.JQuery.DataTables.Core;
 
 namespace Mvc.JQuery.DataTables.Example.App_Code
 {
@@ -11,7 +10,7 @@ namespace Mvc.JQuery.DataTables.Example.App_Code
             System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp()
             {
                 {typeof(Mvc.JQuery.DataTables.DataTablesHelper).Assembly, @"..\Mvc.JQuery.DataTables"},
-                {typeof(Marker).Assembly, @"..\Mvc.JQuery.DataTables.Core"},
+                {typeof(Mvc.JQuery.DataTables.DataTableConfigVm).Assembly, @"..\Mvc.JQuery.DataTables.Common"},
 
             });
         }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<copyright>Copyright 2011</copyright>
+		<tags>jquery datatables iqueryable razor</tags>
+	</metadata>
+  <files>
+    <file src="tools\install.ps1" target="Tools" />
+    <file src="tools\uninstall.ps1" target="Tools" />
+  </files>
+</package>

@@ -30,4 +30,20 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" Link="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css" Link="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\jquery-datatables-column-filter\media\js\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" Link="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" Link="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml" Link="Views\Shared\DataTable.cshtml" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Linq;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Mvc.JQuery.DataTables
@@ -25,7 +25,7 @@ namespace Mvc.JQuery.DataTables
             this["aoColumns"] = _vm.Columns
                 //.Where(c => c.Visible || c.Filter["sSelector"] != null)
                 .Select(c => c.Searchable && c.Filter != null ? c.Filter : noColumnFilter).ToArray();
-            return new JavaScriptSerializer().Serialize(this);
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

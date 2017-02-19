@@ -27,7 +27,7 @@ namespace Mvc.JQuery.DataTables.Reflection
     }
     public static class DataTablesTypeInfo<T>
     {
-        internal static DataTablesPropertyInfo[] Properties { get; private set; }
+        public static DataTablesPropertyInfo[] Properties { get; private set; }
         internal static DataTablesPropertyInfo RowID { get; private set; }
 
         static DataTablesTypeInfo()

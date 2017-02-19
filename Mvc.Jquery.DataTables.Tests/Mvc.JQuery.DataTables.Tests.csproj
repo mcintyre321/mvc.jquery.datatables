@@ -45,9 +45,8 @@
     <Reference Include="EntityFramework.SqlServerCompact">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.1\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
@@ -107,6 +106,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.DataTables.Common\Mvc.JQuery.DataTables.Common.csproj">
+      <Project>{BFD9EA5A-FE3A-4CE2-9C09-B9E78CE208EE}</Project>
+      <Name>Mvc.JQuery.DataTables.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.DataTables.Core\Mvc.JQuery.DataTables.Core.csproj">
       <Project>{389ADE94-7C32-4885-812E-68A2A74C82D8}</Project>
       <Name>Mvc.JQuery.DataTables.Core</Name>

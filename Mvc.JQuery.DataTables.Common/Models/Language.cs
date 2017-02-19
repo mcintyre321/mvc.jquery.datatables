@@ -1,4 +1,4 @@
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Mvc.JQuery.DataTables.Models
 {
@@ -17,7 +17,7 @@ namespace Mvc.JQuery.DataTables.Models
 
         public string ToJsonString()
         {
-            return new JavaScriptSerializer().Serialize(this);
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Mvc.JQuery.DataTables
         {
             RegisterFilter<DateTimeOffset>(dateTimeOffset => dateTimeOffset.ToLocalTime().ToString("g"));
             RegisterFilter<DateTime>(dateTime => dateTime.ToLocalTime().ToString("g"));
-            RegisterFilter<IHtmlString>(s => s.ToHtmlString());
+            //TODO: Upgeade work RegisterFilter<IHtmlString>(s => s.ToHtmlString());
             RegisterFilter<IEnumerable<string>>(s => s.ToArray());
             RegisterFilter<IEnumerable<int>>(s => s.ToArray());
             RegisterFilter<IEnumerable<long>>(s => s.ToArray());

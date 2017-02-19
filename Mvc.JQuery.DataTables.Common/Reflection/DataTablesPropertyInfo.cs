@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Mvc.JQuery.DataTables.Reflection
 {
-    class DataTablesPropertyInfo
+    public class DataTablesPropertyInfo
     {
         public DataTablesPropertyInfo(System.Reflection.PropertyInfo propertyInfo, DataTablesAttributeBase[] attributeses)
         {

@@ -37,9 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -51,46 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTablesColumnsReflectionHelper.cs" />
-    <Compile Include="DataTablesExcludeAttribute.cs" />
-    <Compile Include="DataTablesFiltering.cs" />
-    <Compile Include="DataTablesFilterAttribute.cs" />
-    <Compile Include="DataTablesRowIdAttribute.cs" />
-    <Compile Include="LengthMenuVm.cs" />
-    <Compile Include="Models\ArrayOutputType.cs" />
-    <Compile Include="Models\ColDef.cs" />
-    <Compile Include="ColumnFilterSettingsVm.cs" />
-    <Compile Include="DataTablesAttribute.cs" />
-    <Compile Include="DataTablesAttributeBase.cs" />
-    <Compile Include="Models\DataTablesResponseData.cs" />
-    <Compile Include="DataTablesParam.cs" />
-    <Compile Include="DataTableConfigVm.cs" />
-    <Compile Include="DynamicLinq\ClassFactory.cs" />
-    <Compile Include="DynamicLinq\DynamicClass.cs" />
-    <Compile Include="DynamicLinq\DynamicExpression.cs" />
-    <Compile Include="DynamicLinq\DynamicOrdering.cs" />
-    <Compile Include="DynamicLinq\DynamicProperty.cs" />
-    <Compile Include="DynamicLinq\ExpressionParser.cs" />
-    <Compile Include="DynamicLinq\ParseException.cs" />
-    <Compile Include="DynamicLinq\Res.cs" />
-    <Compile Include="DynamicLinq\Signature.cs" />
-    <Compile Include="FilterDef.cs" />
-    <Compile Include="Models\Language.cs" />
-    <Compile Include="Models\ResponseOptions.cs" />
-    <Compile Include="Reflection\DataTablesPropertyInfo.cs" />
-    <Compile Include="Reflection\DataTablesTypeInfo.cs" />
-    <Compile Include="Reflection\DataTablesTypeInfoHelper.cs" />
-    <Compile Include="Models\SortDirection.cs" />
-    <Compile Include="ResourceHelper.cs" />
-    <Compile Include="DynamicLinq\DynamicQueryable.cs" />
-    <Compile Include="Models\Paginate.cs" />
+    <Compile Include="Marker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\Raw.cs" />
-    <Compile Include="Serialization\RawConverter.cs" />
-    <Compile Include="Reflection\StaticReflectionHelper.cs" />
-    <Compile Include="Processing\StringTransformers.cs" />
-    <Compile Include="Util\TransformTypeInfo.cs" />
-    <Compile Include="Processing\TypeFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Mvc.JQuery.DataTables.Templates\Views\Shared\DataTable.cshtml">

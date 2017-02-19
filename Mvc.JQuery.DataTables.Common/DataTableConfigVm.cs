@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using System.Web.Routing;
-using System.Web.Script.Serialization;
 using Mvc.JQuery.DataTables.Models;
 using Mvc.JQuery.DataTables.Serialization;
 using Newtonsoft.Json;
@@ -324,15 +321,19 @@ namespace Mvc.JQuery.DataTables
             var sortList = columns.Select((c, idx) => c.SortDirection == SortDirection.None ? new dynamic[] { -1, "" } : (c.SortDirection == SortDirection.Ascending ? new dynamic[] { idx, "asc" } : new dynamic[] { idx, "desc" })).Where(x => x[0] > -1).ToArray();
 
             if (sortList.Length > 0) 
-                return new JavaScriptSerializer().Serialize(sortList);
+                return JsonConvert.SerializeObject(sortList);
 
             return "[]";
         }
 
         private static IDictionary<string, object> ConvertObjectToDictionary(object obj)
         {
-            // Doing this way because RouteValueDictionary converts to Json in wrong format
-            return new Dictionary<string, object>(new RouteValueDictionary(obj));
+            var d = new Dictionary<string, object>();
+            foreach (var propertyInfo in obj.GetType().GetProperties())
+            {
+                d[propertyInfo.Name] = propertyInfo.GetValue(obj);
+            }
+            return d;
         }
 
         private static IEnumerable<JObject> ConvertColumnDefsToTargetedProperty<TProperty>(

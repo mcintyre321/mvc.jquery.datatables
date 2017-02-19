@@ -75,15 +75,15 @@ namespace Mvc.JQuery.DataTables.Reflection
             }
         }
 
-        public static OrderedDictionary ToOrderedDictionary(T row)
-        {
-            var dictionary = new OrderedDictionary();
-            foreach (var pi in Properties)
-            {
-                dictionary[pi.PropertyInfo.Name] = pi.PropertyInfo.GetValue(row, null);
-            }
-            return dictionary;
-        }
+        //public static OrderedDictionary ToOrderedDictionary(T row)
+        //{
+        //    var dictionary = new OrderedDictionary();
+        //    foreach (var pi in Properties)
+        //    {
+        //        dictionary[pi.PropertyInfo.Name] = pi.PropertyInfo.GetValue(row, null);
+        //    }
+        //    return dictionary;
+        //}
 
 
     }

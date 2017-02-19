@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Mvc.JQuery.DataTables.Reflection;
+using System.Reflection;
 
 namespace Mvc.JQuery.DataTables.Util
 {
@@ -15,7 +16,7 @@ namespace Mvc.JQuery.DataTables.Util
             var transform = transformInput(tInput);
             if (transform != null)
             {
-                foreach (var propertyInfo in transform.GetType().GetProperties())
+                foreach (var propertyInfo in transform.GetType().GetTypeInfo().GetProperties())
                 {
                     dict[propertyInfo.Name] = propertyInfo.GetValue(transform, null);
                 }

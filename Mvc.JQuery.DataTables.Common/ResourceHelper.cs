@@ -37,7 +37,7 @@ namespace Mvc.JQuery.DataTables
             var enumValue = Enum.GetName(enumType, value);
             MemberInfo member = enumType.GetMember(enumValue)[0];
 
-            var attrs = member.GetCustomAttributes(typeof(DisplayAttribute), false);
+            var attrs = member.GetCustomAttributes(typeof(DisplayAttribute), false).ToArray();
             var outString = member.Name;
             if (attrs.Length > 0)
             {

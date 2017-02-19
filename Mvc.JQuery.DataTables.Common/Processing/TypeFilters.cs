@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using Mvc.JQuery.DataTables.Reflection;
 
 namespace Mvc.JQuery.DataTables
@@ -8,7 +9,7 @@ namespace Mvc.JQuery.DataTables
     static class TypeFilters
     {
         private static readonly Func<string, Type, object> ParseValue =
-            (input, t) => t.IsEnum ? Enum.Parse(t, input) : Convert.ChangeType(input, t);
+            (input, t) => t.GetTypeInfo().IsEnum ? Enum.Parse(t, input) : Convert.ChangeType(input, t);
 
         internal static string FilterMethod(string q, List<object> parametersForLinqQuery, Type type)
         {
@@ -87,7 +88,7 @@ namespace Mvc.JQuery.DataTables
 
         private static object ChangeType(DataTablesPropertyInfo propertyInfo, string query)
         {
-            if (propertyInfo.PropertyInfo.PropertyType.IsGenericType && propertyInfo.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (propertyInfo.PropertyInfo.PropertyType.GetTypeInfo().IsGenericType && propertyInfo.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 Type u = Nullable.GetUnderlyingType(propertyInfo.Type);
                 return Convert.ChangeType(query, u);

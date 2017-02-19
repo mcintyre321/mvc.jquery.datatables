@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Reflection;
 
 namespace Mvc.JQuery.DataTables
 {
@@ -48,7 +48,7 @@ namespace Mvc.JQuery.DataTables
         {
             return (t, v) =>
             {
-                if (!typeof(TVal).IsAssignableFrom(t))
+                if (!typeof(TVal).GetTypeInfo().IsAssignableFrom(t))
                 {
                     return null;
                 }

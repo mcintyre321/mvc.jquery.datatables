@@ -5,6 +5,7 @@ using Mvc.JQuery.DataTables.Models;
 using Mvc.JQuery.DataTables.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace Mvc.JQuery.DataTables
 {
@@ -163,7 +164,7 @@ namespace Mvc.JQuery.DataTables
             {
                 _colDef.Filter.type = "select";
                 _colDef.Filter.values = options.Cast<object>().ToArray();
-                if (_colDef.Type.IsEnum)
+                if (_colDef.Type.GetTypeInfo().IsEnum)
                 {
                     _colDef.Filter.values = _colDef.Type.EnumValLabPairs();
                 }
@@ -191,7 +192,7 @@ namespace Mvc.JQuery.DataTables
             {
                 _colDef.Filter.type = "checkbox";
                 _colDef.Filter.values = options.Cast<object>().ToArray();
-                if (_colDef.Type.IsEnum)
+                if (_colDef.Type.GetTypeInfo().IsEnum)
                 {
                     _colDef.Filter.values = _colDef.Type.EnumValLabPairs();
                 }

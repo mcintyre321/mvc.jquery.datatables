@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Mvc.JQuery.DataTables.Reflection;
 using System.Linq.Dynamic.Core;
+using System.Reflection;
+
 namespace Mvc.JQuery.DataTables
 {
     internal class DataTablesFiltering
@@ -139,7 +141,7 @@ namespace Mvc.JQuery.DataTables
 
         private static bool IsNumericType(Type type)
         {
-            if (type == null || type.IsEnum)
+            if (type == null || type.GetTypeInfo().IsEnum)
             {
                 return false;
             }
@@ -159,7 +161,7 @@ namespace Mvc.JQuery.DataTables
                 case TypeCode.UInt64:
                     return true;
                 case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>))
+                    if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>))
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
@@ -170,7 +172,7 @@ namespace Mvc.JQuery.DataTables
 
         public static bool IsEnumType(DataTablesPropertyInfo propertyInfo)
         {
-            return propertyInfo.Type.IsEnum;
+            return propertyInfo.Type.GetTypeInfo().IsEnum;
         }
 
         public static bool IsBoolType(DataTablesPropertyInfo propertyInfo)

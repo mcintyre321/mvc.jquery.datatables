@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Mvc.JQuery.DataTables
 {
@@ -39,7 +40,7 @@ namespace Mvc.JQuery.DataTables
                 type = "select";
                 values = new object[] {"True", "False", "null"};
             }
-            else if (t.IsEnum)
+            else if (t.GetTypeInfo().IsEnum)
             {
                 type = "checkbox";
                 //values = Enum.GetNames(t).Cast<object>().ToArray();

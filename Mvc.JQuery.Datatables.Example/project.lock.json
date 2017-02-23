@@ -1,0 +1,1012 @@
+{
+  "version": 2,
+  "targets": {
+    ".NETFramework,Version=v4.5.1": {
+      "AristojQueryUITheme/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "jQuery.UI.Combined": "1.8.11"
+        }
+      },
+      "EmbeddedResourceVirtualPathProvider/1.3.2": {
+        "type": "package",
+        "compile": {
+          "lib/net40/EmbeddedResourceVirtualPathProvider.dll": {}
+        },
+        "runtime": {
+          "lib/net40/EmbeddedResourceVirtualPathProvider.dll": {}
+        }
+      },
+      "EntityFramework/6.1.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        }
+      },
+      "jQuery/2.1.4": {
+        "type": "package"
+      },
+      "jquery-globalize/0.1.1": {
+        "type": "package"
+      },
+      "jQuery.UI.Combined/1.11.4": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.6.4"
+        }
+      },
+      "jQuery.UI.i18n/1.10.2": {
+        "type": "package",
+        "dependencies": {
+          "jQuery.UI.Combined": "1.10.2"
+        }
+      },
+      "jQuery.Validation/1.8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.3.2"
+        }
+      },
+      "jQuery.vsdoc/1.6.0": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "(, )"
+        }
+      },
+      "Microsoft.AspNet.Mvc/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.AspNet.WebPages": "[3.2.3, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/System.Web.Razor.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Modernizr/2.0.6": {
+        "type": "package"
+      },
+      "Newtonsoft.Json/9.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "System.Linq.Dynamic.Core/1.0.6.10": {
+        "type": "package",
+        "compile": {
+          "lib/net451/System.Linq.Dynamic.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net451/System.Linq.Dynamic.Core.dll": {}
+        }
+      },
+      "Mvc.JQuery.DataTables/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.2.3",
+          "Mvc.JQuery.DataTables.Common": "1.0.0"
+        }
+      },
+      "Mvc.JQuery.DataTables.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "System.Linq.Dynamic.Core": "1.0.6.10"
+        }
+      }
+    },
+    ".NETFramework,Version=v4.5.1/win": {
+      "AristojQueryUITheme/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "jQuery.UI.Combined": "1.8.11"
+        }
+      },
+      "EmbeddedResourceVirtualPathProvider/1.3.2": {
+        "type": "package",
+        "compile": {
+          "lib/net40/EmbeddedResourceVirtualPathProvider.dll": {}
+        },
+        "runtime": {
+          "lib/net40/EmbeddedResourceVirtualPathProvider.dll": {}
+        }
+      },
+      "EntityFramework/6.1.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        }
+      },
+      "jQuery/2.1.4": {
+        "type": "package"
+      },
+      "jquery-globalize/0.1.1": {
+        "type": "package"
+      },
+      "jQuery.UI.Combined/1.11.4": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.6.4"
+        }
+      },
+      "jQuery.UI.i18n/1.10.2": {
+        "type": "package",
+        "dependencies": {
+          "jQuery.UI.Combined": "1.10.2"
+        }
+      },
+      "jQuery.Validation/1.8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.3.2"
+        }
+      },
+      "jQuery.vsdoc/1.6.0": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "(, )"
+        }
+      },
+      "Microsoft.AspNet.Mvc/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.AspNet.WebPages": "[3.2.3, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/System.Web.Razor.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {},
+          "lib/net45/System.Web.WebPages.Deployment.dll": {},
+          "lib/net45/System.Web.WebPages.Razor.dll": {},
+          "lib/net45/System.Web.WebPages.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Modernizr/2.0.6": {
+        "type": "package"
+      },
+      "Newtonsoft.Json/9.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "System.Linq.Dynamic.Core/1.0.6.10": {
+        "type": "package",
+        "compile": {
+          "lib/net451/System.Linq.Dynamic.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net451/System.Linq.Dynamic.Core.dll": {}
+        }
+      },
+      "Mvc.JQuery.DataTables/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.2.3",
+          "Mvc.JQuery.DataTables.Common": "1.0.0"
+        }
+      },
+      "Mvc.JQuery.DataTables.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "System.Linq.Dynamic.Core": "1.0.6.10"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AristojQueryUITheme/1.2.0": {
+      "sha512": "wKSy9BR30CS2H4uhrq2QstAkYAAVzK63gKu+1a9whaj4Q9e4Ak8Kd5bq/8jf8ERVAsv2WTTZz6k65vY85oewaQ==",
+      "type": "package",
+      "path": "aristojqueryuitheme/1.2.0",
+      "files": [
+        "Content/Content/themes/Aristo/images/bg_fallback.png",
+        "Content/Content/themes/Aristo/images/icon_sprite.png",
+        "Content/Content/themes/Aristo/images/progress_bar.gif",
+        "Content/Content/themes/Aristo/images/slider_handles.png",
+        "Content/Content/themes/Aristo/images/ui-icons_222222_256x240.png",
+        "Content/Content/themes/Aristo/images/ui-icons_454545_256x240.png",
+        "Content/Content/themes/Aristo/jquery-ui-1.8.7.custom.css",
+        "aristojqueryuitheme.1.2.0.nupkg.sha512",
+        "aristojqueryuitheme.nuspec"
+      ]
+    },
+    "EmbeddedResourceVirtualPathProvider/1.3.2": {
+      "sha512": "KHJ7+6HwwVOR8sRqWD1nxKYfEzUqWitffzU6KoOe6QhUCM+Ak7Vogrn8FJBXVqcyvoOMqnV3MardyQ+V3WxDMQ==",
+      "type": "package",
+      "path": "embeddedresourcevirtualpathprovider/1.3.2",
+      "files": [
+        "content/App_Code/RegisterVirtualPathProvider.cs.pp",
+        "content/web.config.transform",
+        "embeddedresourcevirtualpathprovider.1.3.2.nupkg.sha512",
+        "embeddedresourcevirtualpathprovider.nuspec",
+        "lib/net40/EmbeddedResourceVirtualPathProvider.dll",
+        "lib/net40/EmbeddedResourceVirtualPathProvider.pdb"
+      ]
+    },
+    "EntityFramework/6.1.1": {
+      "sha512": "FdXtqmcaIMLnjS46aQjpQGKaV0PuPhAIYAVHN6vB7UMjMr4iLZsMIz4Nk7m31iUvh+hNPF9t7tZkW0CczGNr6A==",
+      "type": "package",
+      "path": "entityframework/6.1.1",
+      "files": [
+        "content/App.config.transform",
+        "content/Web.config.transform",
+        "entityframework.6.1.1.nupkg.sha512",
+        "entityframework.nuspec",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.xml",
+        "tools/EntityFramework.PowerShell.Utility.dll",
+        "tools/EntityFramework.PowerShell.dll",
+        "tools/EntityFramework.psd1",
+        "tools/EntityFramework.psm1",
+        "tools/about_EntityFramework.help.txt",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/migrate.exe"
+      ]
+    },
+    "jQuery/2.1.4": {
+      "sha512": "X8mRMt2HNI6kxYMWyQEcOumpAzEAs95DWSjM6FlX3DEVM5afuj8Abj0Y6i6H9wK7I7n3bJ0fnDA80OfKV19HQA==",
+      "type": "package",
+      "path": "jquery/2.1.4",
+      "files": [
+        "Content/Scripts/jquery-2.1.4-vsdoc.js",
+        "Content/Scripts/jquery-2.1.4.js",
+        "Content/Scripts/jquery-2.1.4.min.js",
+        "Content/Scripts/jquery-2.1.4.min.map",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-2.1.4.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.2.1.4.nupkg.sha512",
+        "jquery.nuspec"
+      ]
+    },
+    "jquery-globalize/0.1.1": {
+      "sha512": "lBYanC7inpujB/aW711GkmwG+qQdDigNMW9Ux0wQpFRnXyC21Vz8roGKdKcZXuoY8+9gTuqPbkOaLAgmhwE3tg==",
+      "type": "package",
+      "path": "jquery-globalize/0.1.1",
+      "files": [
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.af-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.af.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.am-ET.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.am.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-AE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-BH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-DZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-EG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-IQ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-JO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-KW.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-LB.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-LY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-MA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-OM.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-QA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-SA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-SY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-TN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar-YE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ar.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.arn-CL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.arn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.as-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.as.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.az-Cyrl-AZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.az-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.az-Latn-AZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.az-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.az.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ba-RU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ba.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.be-BY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.be.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bg-BG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bg.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bn-BD.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bn-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bo-CN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bo.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.br-FR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.br.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bs-Cyrl-BA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bs-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bs-Latn-BA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bs-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.bs.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ca-ES.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ca.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.co-FR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.co.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.cs-CZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.cs.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.cy-GB.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.cy.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.da-DK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.da.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de-AT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de-CH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de-DE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de-LI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de-LU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.de.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.dsb-DE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.dsb.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.dv-MV.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.dv.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.el-GR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.el.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-029.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-AU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-BZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-CA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-GB.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-IE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-JM.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-MY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-NZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-PH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-SG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-TT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-US.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.en-ZW.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-AR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-BO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-CL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-CO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-CR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-DO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-EC.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-ES.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-GT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-HN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-MX.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-NI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-PA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-PE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-PR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-PY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-SV.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-US.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-UY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es-VE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.es.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.et-EE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.et.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.eu-ES.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.eu.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fa-IR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fa.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fi-FI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fi.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fil-PH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fil.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fo-FO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fo.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-BE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-CA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-CH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-FR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-LU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr-MC.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fy-NL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.fy.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ga-IE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ga.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gd-GB.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gd.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gl-ES.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gsw-FR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gsw.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gu-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.gu.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ha-Latn-NG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ha-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ha.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.he-IL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.he.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hi-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hi.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hr-BA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hr-HR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hsb-DE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hsb.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hu-HU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hu.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hy-AM.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.hy.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.id-ID.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.id.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ig-NG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ig.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ii-CN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ii.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.is-IS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.is.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.it-CH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.it-IT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.it.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.iu-Cans-CA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.iu-Cans.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.iu-Latn-CA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.iu-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.iu.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ja-JP.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ja.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ka-GE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ka.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kk-KZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kk.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kl-GL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.km-KH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.km.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kn-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ko-KR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ko.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kok-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.kok.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ky-KG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ky.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lb-LU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lb.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lo-LA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lo.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lt-LT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lt.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lv-LV.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.lv.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mi-NZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mi.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mk-MK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mk.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ml-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ml.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mn-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mn-MN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mn-Mong-CN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mn-Mong.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.moh-CA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.moh.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mr-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ms-BN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ms-MY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ms.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mt-MT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.mt.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nb-NO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nb.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ne-NP.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ne.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nl-BE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nl-NL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nn-NO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.no.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nso-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.nso.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.oc-FR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.oc.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.or-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.or.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pa-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pa.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pl-PL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.prs-AF.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.prs.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ps-AF.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ps.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pt-BR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pt-PT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.pt.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.qut-GT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.qut.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.quz-BO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.quz-EC.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.quz-PE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.quz.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.rm-CH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.rm.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ro-RO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ro.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ru-RU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ru.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.rw-RW.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.rw.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sa-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sa.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sah-RU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sah.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.se-FI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.se-NO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.se-SE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.se.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.si-LK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.si.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sk-SK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sk.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sl-SI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sma-NO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sma-SE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sma.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.smj-NO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.smj-SE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.smj.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.smn-FI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.smn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sms-FI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sms.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sq-AL.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sq.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Cyrl-BA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Cyrl-CS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Cyrl-ME.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Cyrl-RS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Latn-BA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Latn-CS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Latn-ME.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Latn-RS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sv-FI.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sv-SE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sv.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sw-KE.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.sw.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.syr-SY.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.syr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ta-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ta.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.te-IN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.te.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tg-Cyrl-TJ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tg-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tg.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.th-TH.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.th.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tk-TM.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tk.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tn-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tr-TR.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tr.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tt-RU.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tt.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tzm-Latn-DZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tzm-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.tzm.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ug-CN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ug.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uk-UA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uk.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ur-PK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.ur.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uz-Cyrl-UZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uz-Cyrl.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uz-Latn-UZ.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uz-Latn.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.uz.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.vi-VN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.vi.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.wo-SN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.wo.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.xh-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.xh.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.yo-NG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.yo.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-CHS.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-CHT.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-CN.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-HK.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-Hans.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-Hant.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-MO.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-SG.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh-TW.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zh.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zu-ZA.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.culture.zu.js",
+        "Content/Scripts/jquery.globalize/cultures/globalize.cultures.js",
+        "Content/Scripts/jquery.globalize/globalize.js",
+        "jquery-globalize.0.1.1.nupkg.sha512",
+        "jquery-globalize.nuspec"
+      ]
+    },
+    "jQuery.UI.Combined/1.11.4": {
+      "sha512": "yH5feeb4V4vX9KQdMlNH64f90yXYbthxAXpkbRr99LwwJmTl7+0KBTE61gXFrc9VXg/VxzEyF4u/gOgi+5ZqGw==",
+      "type": "package",
+      "path": "jquery.ui.combined/1.11.4",
+      "files": [
+        "Content/Content/themes/base/accordion.css",
+        "Content/Content/themes/base/all.css",
+        "Content/Content/themes/base/autocomplete.css",
+        "Content/Content/themes/base/base.css",
+        "Content/Content/themes/base/button.css",
+        "Content/Content/themes/base/core.css",
+        "Content/Content/themes/base/datepicker.css",
+        "Content/Content/themes/base/dialog.css",
+        "Content/Content/themes/base/draggable.css",
+        "Content/Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png",
+        "Content/Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png",
+        "Content/Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png",
+        "Content/Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png",
+        "Content/Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png",
+        "Content/Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png",
+        "Content/Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png",
+        "Content/Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png",
+        "Content/Content/themes/base/images/ui-icons_222222_256x240.png",
+        "Content/Content/themes/base/images/ui-icons_2e83ff_256x240.png",
+        "Content/Content/themes/base/images/ui-icons_454545_256x240.png",
+        "Content/Content/themes/base/images/ui-icons_888888_256x240.png",
+        "Content/Content/themes/base/images/ui-icons_cd0a0a_256x240.png",
+        "Content/Content/themes/base/menu.css",
+        "Content/Content/themes/base/progressbar.css",
+        "Content/Content/themes/base/resizable.css",
+        "Content/Content/themes/base/selectable.css",
+        "Content/Content/themes/base/selectmenu.css",
+        "Content/Content/themes/base/slider.css",
+        "Content/Content/themes/base/sortable.css",
+        "Content/Content/themes/base/spinner.css",
+        "Content/Content/themes/base/tabs.css",
+        "Content/Content/themes/base/theme.css",
+        "Content/Content/themes/base/tooltip.css",
+        "Content/Scripts/jquery-ui-1.11.4.js",
+        "Content/Scripts/jquery-ui-1.11.4.min.js",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/uninstall.ps1",
+        "jquery.ui.combined.1.11.4.nupkg.sha512",
+        "jquery.ui.combined.nuspec"
+      ]
+    },
+    "jQuery.UI.i18n/1.10.2": {
+      "sha512": "TXR8vrXWt9r0+Fnr1o12xi5QLQfcZzNKlgUcreCoo0RpJMuTOFfF8RR/XMq6M8Go9847bJL+WcD+5lK+fLjItQ==",
+      "type": "package",
+      "path": "jquery.ui.i18n/1.10.2",
+      "files": [
+        "Content/Scripts/jquery-ui-i18n.js",
+        "Content/Scripts/jquery-ui-i18n.min.js",
+        "jquery.ui.i18n.1.10.2.nupkg.sha512",
+        "jquery.ui.i18n.nuspec"
+      ]
+    },
+    "jQuery.Validation/1.8.0.1": {
+      "sha512": "cSBTW8FiNcFYy7h8jY38ffnJGia25HQH/z1TP3f8OKZhn1ZSGS7Bebz9nMevKbtsAjzHhDFp/Cq0cT+ixwiB5A==",
+      "type": "package",
+      "path": "jquery.validation/1.8.0.1",
+      "files": [
+        "Content/Scripts/jquery.validate-vsdoc.js",
+        "Content/Scripts/jquery.validate.js",
+        "Content/Scripts/jquery.validate.min.js",
+        "jquery.validation.1.8.0.1.nupkg.sha512",
+        "jquery.validation.nuspec"
+      ]
+    },
+    "jQuery.vsdoc/1.6.0": {
+      "sha512": "EKBaFKv/dZDsl/6prnXwN+uYk74/ut0URqYb7DD0HtA3mtcqDBImyDzRFHl8BydNIhZ6u1Uc+lM0GXaRh3dW3Q==",
+      "type": "package",
+      "path": "jquery.vsdoc/1.6.0",
+      "files": [
+        "Content/README.jQuery.vsdoc.txt",
+        "jquery.vsdoc.1.6.0.nupkg.sha512",
+        "jquery.vsdoc.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Mvc/5.2.3": {
+      "sha512": "i8jZf5QrbcFmjiYWRD7o7qTak/oXKxV80MgP4cZ33A8GC0RBtBIdZ1VHaloGUg+qsHUz5rVkGpwenM+ugDz5PA==",
+      "type": "package",
+      "path": "microsoft.aspnet.mvc/5.2.3",
+      "files": [
+        "Content/Web.config.install.xdt",
+        "Content/Web.config.uninstall.xdt",
+        "lib/net45/System.Web.Mvc.dll",
+        "lib/net45/System.Web.Mvc.xml",
+        "microsoft.aspnet.mvc.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.mvc.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Razor/3.2.3": {
+      "sha512": "leta+Q73O7+pR8ThTqXmwaNMSqwZQQ3BHfpUHd8S1XaUWe1jRVLitMHqo1AmY7wPNLyankPA1beiUKEGj8Q3Dw==",
+      "type": "package",
+      "path": "microsoft.aspnet.razor/3.2.3",
+      "files": [
+        "lib/net45/System.Web.Razor.dll",
+        "lib/net45/System.Web.Razor.xml",
+        "microsoft.aspnet.razor.3.2.3.nupkg.sha512",
+        "microsoft.aspnet.razor.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebPages/3.2.3": {
+      "sha512": "zbtxBERla5RE/mhftwbrXOzc0r6lh8WcnjpGW7QQe+PvSDDx1BgsTUGzfCXO/vJznHNpY5oCSYLt8Q5vUu7F0g==",
+      "type": "package",
+      "path": "microsoft.aspnet.webpages/3.2.3",
+      "files": [
+        "Content/Web.config.install.xdt",
+        "Content/Web.config.uninstall.xdt",
+        "lib/net45/System.Web.Helpers.dll",
+        "lib/net45/System.Web.Helpers.xml",
+        "lib/net45/System.Web.WebPages.Deployment.dll",
+        "lib/net45/System.Web.WebPages.Deployment.xml",
+        "lib/net45/System.Web.WebPages.Razor.dll",
+        "lib/net45/System.Web.WebPages.Razor.xml",
+        "lib/net45/System.Web.WebPages.dll",
+        "lib/net45/System.Web.WebPages.xml",
+        "microsoft.aspnet.webpages.3.2.3.nupkg.sha512",
+        "microsoft.aspnet.webpages.nuspec"
+      ]
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "type": "package",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "files": [
+        "lib/net40/Microsoft.Web.Infrastructure.dll",
+        "microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+        "microsoft.web.infrastructure.nuspec"
+      ]
+    },
+    "Modernizr/2.0.6": {
+      "sha512": "00sUdD8JvygHM7jEHOxJspxNOZ/PemaCP5NKi+dtkxXVysYNhKB/eF5kc2U9LWgwYwP/9ny1KRH3BCbqBTCBuw==",
+      "type": "package",
+      "path": "modernizr/2.0.6",
+      "files": [
+        "Content/Scripts/modernizr-2.0.6-development-only.js",
+        "modernizr.2.0.6.nupkg.sha512",
+        "modernizr.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/9.0.1": {
+      "sha512": "U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
+      "type": "package",
+      "path": "newtonsoft.json/9.0.1",
+      "files": [
+        "Newtonsoft.Json.9.0.1.nupkg.sha512",
+        "Newtonsoft.Json.nuspec",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "tools/install.ps1"
+      ]
+    },
+    "System.Linq.Dynamic.Core/1.0.6.10": {
+      "sha512": "41AHoG435EejdMTBTaqqLT/ysI1rccHNBZXVFDIH07HCDIqum8YkBD4sxAM3XMz/BXxLmz3CWFE5gVeHFUDRTQ==",
+      "type": "package",
+      "path": "system.linq.dynamic.core/1.0.6.10",
+      "files": [
+        "lib/net35/System.Linq.Dynamic.Core.dll",
+        "lib/net35/System.Linq.Dynamic.Core.xml",
+        "lib/net40/System.Linq.Dynamic.Core.dll",
+        "lib/net40/System.Linq.Dynamic.Core.xml",
+        "lib/net45/System.Linq.Dynamic.Core.dll",
+        "lib/net45/System.Linq.Dynamic.Core.xml",
+        "lib/net451/System.Linq.Dynamic.Core.dll",
+        "lib/net451/System.Linq.Dynamic.Core.xml",
+        "lib/net452/System.Linq.Dynamic.Core.dll",
+        "lib/net452/System.Linq.Dynamic.Core.xml",
+        "lib/net46/System.Linq.Dynamic.Core.dll",
+        "lib/net46/System.Linq.Dynamic.Core.xml",
+        "lib/net461/System.Linq.Dynamic.Core.dll",
+        "lib/net461/System.Linq.Dynamic.Core.xml",
+        "lib/netcore45/System.Linq.Dynamic.Core.dll",
+        "lib/netcore45/System.Linq.Dynamic.Core.xml",
+        "lib/netcore451/System.Linq.Dynamic.Core.dll",
+        "lib/netcore451/System.Linq.Dynamic.Core.xml",
+        "lib/netcore50/System.Linq.Dynamic.Core.dll",
+        "lib/netcore50/System.Linq.Dynamic.Core.xml",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.dll",
+        "lib/netstandard1.3/System.Linq.Dynamic.Core.xml",
+        "lib/sl50/System.Linq.Dynamic.Core.dll",
+        "lib/sl50/System.Linq.Dynamic.Core.xml",
+        "lib/uap10.0/System.Linq.Dynamic.Core.dll",
+        "lib/uap10.0/System.Linq.Dynamic.Core.xml",
+        "system.linq.dynamic.core.1.0.6.10.nupkg.sha512",
+        "system.linq.dynamic.core.nuspec"
+      ]
+    },
+    "Mvc.JQuery.DataTables/1.0.0": {
+      "type": "project",
+      "path": "../Mvc.JQuery.DataTables/project.json",
+      "msbuildProject": "../Mvc.JQuery.DataTables/Mvc.JQuery.DataTables.csproj"
+    },
+    "Mvc.JQuery.DataTables.Common/1.0.0": {
+      "type": "project",
+      "path": "../Mvc.JQuery.DataTables.Common/Mvc.JQuery.DataTables.Common.csproj",
+      "msbuildProject": "../Mvc.JQuery.DataTables.Common/Mvc.JQuery.DataTables.Common.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "": [
+      "AristojQueryUITheme >= 1.2.0",
+      "EmbeddedResourceVirtualPathProvider >= 1.3.2",
+      "EntityFramework >= 6.1.1",
+      "Microsoft.AspNet.Mvc >= 5.2.3",
+      "Modernizr >= 2.0.6",
+      "jQuery >= 2.1.4",
+      "jQuery.UI.Combined >= 1.11.4",
+      "jQuery.UI.i18n >= 1.10.2",
+      "jQuery.Validation >= 1.8.0.1",
+      "jQuery.vsdoc >= 1.6.0",
+      "jquery-globalize >= 0.1.1"
+    ],
+    ".NETFramework,Version=v4.5.1": []
+  },
+  "packageFolders": {
+    "C:\\Users\\Sam\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj",
+      "projectName": "Mvc.JQuery.DataTables.Example",
+      "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj",
+      "projectJsonPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\project.json",
+      "projectStyle": "ProjectJson",
+      "frameworks": {
+        "net451": {
+          "projectReferences": {
+            "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj": {
+              "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj"
+            },
+            "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj": {
+              "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "AristojQueryUITheme": "1.2",
+      "EmbeddedResourceVirtualPathProvider": "1.3.2",
+      "jQuery": "2.1.4",
+      "jQuery.UI.Combined": "1.11.4",
+      "jQuery.UI.i18n": "1.10.2",
+      "jQuery.Validation": "1.8.0.1",
+      "jQuery.vsdoc": "1.6",
+      "jquery-globalize": "0.1.1",
+      "EntityFramework": "6.1.1",
+      "Microsoft.AspNet.Mvc": "5.2.3",
+      "Modernizr": "2.0.6"
+    },
+    "frameworks": {
+      "net451": {}
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      }
+    }
+  }
+}

@@ -11,12 +11,21 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
 {
     public class EntityFramework : Linq, IDisposable
     {
+        public class TestConfiguration : DbConfiguration
+        {
+            public TestConfiguration()
+            {
+                var connectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0", string.Empty,
+                                                                   $"Data Source=\"{DbFile}\";Password={Password}");
+                SetDefaultConnectionFactory(connectionFactory);
+            }
+        }
+
         public class SomeContext : DbContext
         {
             public DbSet<SomeModel> Models { get; set; }
         }
 
-        private readonly IDbConnectionFactory _defaultConnectionFactory;
         private SomeContext _dataContext;
         protected SomeContext DataContext
         {
@@ -32,13 +41,7 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
         protected const string Password = "1234567890";
 
         public EntityFramework()
-            : this(new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0", "",
-                string.Format("Data Source=\"{0}\";Password={1}", DbFile, Password))) { }
-
-        public EntityFramework(IDbConnectionFactory connectionFactory)
         {
-            _defaultConnectionFactory = Database.DefaultConnectionFactory;
-            Database.DefaultConnectionFactory = connectionFactory;
             var oldQueryable = SomeModelQueryable;
             DataContext = new SomeContext();
             DataContext.Database.Initialize(true);
@@ -75,7 +78,6 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
                 {
                     if (DataContext != null) { DataContext.Dispose(); }
                     if (File.Exists(DbFile)) { File.Delete(DbFile); }
-                    Database.DefaultConnectionFactory = _defaultConnectionFactory;
                 }
                 _disposed = true;
             }

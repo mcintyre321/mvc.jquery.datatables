@@ -1,14 +1,12 @@
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using Mvc.JQuery.DataTables.Models;
+//using System.Linq;
 
 namespace Mvc.JQuery.DataTables
 {
     public class DataTablesFilterAttribute : DataTablesAttributeBase
     {
         private readonly string filterType;
-        private readonly object[] options;
+        //private readonly object[] options;
         public DataTablesFilterAttribute()
         {
         }
@@ -48,7 +46,7 @@ namespace Mvc.JQuery.DataTables
             else
             {
                 if (filterType != null) colDef.Filter.type = filterType;
-                if (options != null && options.Any()) colDef.Filter.values = options;
+                //if (options != null && options.Any()) colDef.Filter.values = options;
             }
           
         }

@@ -1,0 +1,11 @@
+﻿{
+  "dependencies": {
+    "Microsoft.AspNet.Mvc": "5.2.3"
+  },
+  "frameworks": {
+    "net451": { }
+  },
+  "runtimes": {
+    "win": { }
+  }
+}

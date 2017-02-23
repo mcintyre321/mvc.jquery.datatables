@@ -143,7 +143,7 @@ namespace Mvc.JQuery.DataTables
         public int? PageLength { get; set; }
         public string GlobalJsVariableName { get; set; }
 
-        private bool _columnFilter;
+        //private bool _columnFilter;
 
         public bool FixedLayout { get; set; }
         public string AjaxErrorHandler { get; set; }

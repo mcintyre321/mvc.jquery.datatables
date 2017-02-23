@@ -26,8 +26,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Reflection.Introspections" />
-
   </ItemGroup>
 
   <ItemGroup>

@@ -11,8 +11,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
   </ItemGroup>
@@ -22,6 +20,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Mvc.JQuery.DataTables.AspNetCore\Mvc.JQuery.DataTables.AspNetCore.csproj" />
     <ProjectReference Include="..\Mvc.JQuery.DataTables.Common\Mvc.JQuery.DataTables.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="App_GlobalResources\UserViewResource.resx">
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

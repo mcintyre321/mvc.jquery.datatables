@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources {
+namespace Mvc.JQuery.DataTables.Example.App_GlobalResources {
     using System.Reflection;
     
     
@@ -39,7 +39,7 @@ namespace Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.UserViewResource", typeof(UserViewResource).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mvc.JQuery.DataTables.Example.App_GlobalResources.UserViewResource", typeof(UserViewResource).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

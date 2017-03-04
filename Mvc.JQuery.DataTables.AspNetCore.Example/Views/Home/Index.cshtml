@@ -80,7 +80,7 @@ public class SomeController : Controller
 <br />
 
 <div>
-    @if (Request.QueryString["lang"] != "de")
+    @if (Context.Request.Query["lang"] != "de")
     {
         <a href="?lang=de#language-switch" id="language-switch">See table with Language settings applied</a>
     }

@@ -1,7 +1,7 @@
-using System;
+using Mvc.JQuery.DataTables.Example.App_GlobalResources;
 using Mvc.JQuery.DataTables.Example.Domain;
 using Mvc.JQuery.DataTables.Models;
-using Resources;
+using System;
 
 namespace Mvc.JQuery.DataTables.Example.Controllers
 {

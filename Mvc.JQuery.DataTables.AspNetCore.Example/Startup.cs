@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +24,7 @@ namespace Mvc.JQuery.DataTables.AspNetCore.Example
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddMvcJQueryDataTables();
             services.AddMvc();
         }
 
@@ -49,6 +46,7 @@ namespace Mvc.JQuery.DataTables.AspNetCore.Example
 
             app.UseStaticFiles();
 
+            app.UseMvcJQueryDataTables();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

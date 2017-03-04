@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
 
 namespace Mvc.JQuery.DataTables
 {
@@ -13,7 +12,7 @@ namespace Mvc.JQuery.DataTables
         {
             if ((resourceType != null) && (resourceName != null))
             {
-                System.Reflection.PropertyInfo property = resourceType.GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
+                PropertyInfo property = resourceType.GetProperty(resourceName, BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
                 if (property == null)
                 {
                     return default(T);

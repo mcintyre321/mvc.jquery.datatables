@@ -24,8 +24,8 @@ namespace Mvc.JQuery.DataTables.AspNetCore.Example
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvcJQueryDataTables();
             services.AddMvc();
+            services.AddMvcJQueryDataTables();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

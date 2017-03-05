@@ -9,10 +9,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddMvcJQueryDataTables(this IServiceCollection services)
         {
-            var dataTablesRazorViewAssembly = typeof(Mvc.JQuery.DataTables.DataTableConfigVm).GetTypeInfo().Assembly;
+            var dataTablesViewModelType = typeof(Mvc.JQuery.DataTables.DataTableConfigVm).GetTypeInfo();
             var settings = new Mvc.JQuery.DataTables.Settings
             {
-                FileProvider = new EmbeddedFileProvider(dataTablesRazorViewAssembly),
+                FileProvider = new EmbeddedFileProvider(dataTablesViewModelType.Assembly,
+                                                        dataTablesViewModelType.Namespace),
             };
             services.AddSingleton(settings);
             services.Configure<RazorViewEngineOptions>(s => s.FileProviders.Add(settings.FileProvider));

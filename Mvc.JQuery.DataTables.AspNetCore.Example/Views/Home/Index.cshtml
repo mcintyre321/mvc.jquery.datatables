@@ -1,6 +1,6 @@
 ﻿@model Mvc.JQuery.DataTables.DataTableConfigVm
 @{
-    ViewData["Title"] = "Mvc.JQuery.DataTables";
+    ViewData["Title"] = "Mvc.JQuery.DataTables.AspNetCore";
 }
 
 <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
@@ -8,22 +8,43 @@
 
 <h1>Grid example <small> See also <a href="/facet">Faceted search example</a></small></h1>
 <pre>
-Nuget install-package Mvc.JQuery.DataTables
+Nuget install-package Mvc.JQuery.DataTables.AspNetCore
     
-Nuget install-package <a href="https://github.com/mcintyre321/EmbeddedResourceVirtualPathProvider">EmbeddedResourceVirtualPathProvider</a> <i>or</i> Nuget install-package Mvc.JQuery.DataTables.Templates
+<i>Optionally</i> Nuget install-package Mvc.JQuery.DataTables.Templates
 </pre>
 <p>
-    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">example</a>)
+    If not using Mvc.JQuery.DataTables.Templates, configure DataTables to use its embedded resources in your Startup class
+</p>
+<pre class="highlight">
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddMvc();
+        services.AddMvcJQueryDataTables();
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    {
+        ...
+        app.UseMvcJQueryDataTables();
+        app.UseMvc(...);
+    }
+}
+</pre>
+
+<p>
+    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.AspNetCore.Example/Controllers/HomeController.cs">example</a>)
 </p>
 <pre class="highlight">
 public class SomeController : Controller 
 {
-      public ActionResult Index()
+      public IActionResult Index()
         {
             var getDataUrl = Url.Action(nameof(HomeController.GetUsers));
             var vm = DataTablesHelper.DataTableVm&ltUserTableRowViewModel>("idForTableElement", getDataUrl);
             
-            ... configure data table options  (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">HomeController.cs</a>)
+            ... configure data table options  (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.AspNetCore.Example/Controllers/HomeController.cs">HomeController.cs</a>)
 
 
             return View(vm);
@@ -39,7 +60,7 @@ public class SomeController : Controller
 </pre>
 
 <p>
-    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Views/Home/Index.cshtml">example</a>)
+    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.AspNetCore.Example/Views/Home/Index.cshtml">example</a>)
 
     <pre class="highlight">
         //include these scripts to use standard features
@@ -62,7 +83,7 @@ public class SomeController : Controller
         &lt;script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js">&lt;/script>
         
         var dataTablesConfigVm = dataTablesConfigVmHtml.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
-        //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.Example/Views/Home/_ExampleTable.cshtml">example here</a>
+        //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.AspNetCore.Example.AspNetCore/Views/Home/_ExampleTable.cshtml">example here</a>
 
         @@Html.Partial("DataTable", Model)
     </pre>

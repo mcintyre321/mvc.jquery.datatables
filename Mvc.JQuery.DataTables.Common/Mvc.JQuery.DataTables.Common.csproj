@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
-    <RootNamespace>Mvc.JQuery.DataTables</RootNamespace>
+    <RootNamespace>Mvc.JQuery.DataTables.Common</RootNamespace>
     <AssemblyName>Mvc.JQuery.DataTables.Common</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables.Common</PackageId>
   </PropertyGroup>

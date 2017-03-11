@@ -592,7 +592,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mvc.JQuery.DataTables.Common\Mvc.JQuery.DataTables.Common.csproj">
-      <Project>{BFD9EA5A-FE3A-4CE2-9C09-B9E78CE208EE}</Project>
+      <Project>{bfd9ea5a-fe3a-4ce2-9c09-b9e78ce208ee}</Project>
       <Name>Mvc.JQuery.DataTables.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj">

@@ -12,9 +12,7 @@ build_script:
 - cmd: >-
     git submodule update --init --recursive
 
-
-    nuget restore
-    dotnet restore
+ 
     dotnet msbuild
 after_test:
 - cmd: >-

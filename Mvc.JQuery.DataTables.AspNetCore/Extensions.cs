@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var settings = new Mvc.JQuery.DataTables.Settings
             {
                 FileProvider = new EmbeddedFileProvider(dataTablesViewModelType.Assembly,
-                                                        dataTablesViewModelType.Namespace),
+                                                        dataTablesViewModelType.Namespace + ".Common"),
             };
             services.AddSingleton(settings);
             services.Configure<RazorViewEngineOptions>(s => s.FileProviders.Add(settings.FileProvider));

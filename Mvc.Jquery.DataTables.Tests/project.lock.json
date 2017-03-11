@@ -1169,26 +1169,26 @@
     ".NETFramework,Version=v4.5.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Sam\\.nuget\\packages\\": {}
+    "C:\\Users\\Harry\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\Mvc.JQuery.DataTables.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\Mvc.JQuery.DataTables.Tests.csproj",
       "projectName": "Mvc.JQuery.DataTables.Tests",
-      "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\Mvc.JQuery.DataTables.Tests.csproj",
-      "projectJsonPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\project.json",
+      "projectPath": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\Mvc.JQuery.DataTables.Tests.csproj",
+      "projectJsonPath": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.Jquery.DataTables.Tests\\project.json",
       "projectStyle": "ProjectJson",
       "frameworks": {
         "net451": {
           "projectReferences": {
-            "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj": {
-              "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj"
+            "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj": {
+              "projectPath": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Common\\Mvc.JQuery.DataTables.Common.csproj"
             },
-            "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj": {
-              "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj"
+            "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj": {
+              "projectPath": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables.Example\\Mvc.JQuery.DataTables.Example.csproj"
             },
-            "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj": {
-              "projectPath": "C:\\Users\\Sam\\Source\\Repos\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj"
+            "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj": {
+              "projectPath": "C:\\Users\\Harry\\OneDrive\\stuff\\mvc.jquery.datatables\\Mvc.JQuery.DataTables\\Mvc.JQuery.DataTables.csproj"
             }
           }
         }

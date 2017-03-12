@@ -82,7 +82,7 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
             return View();
         }
 
-        public DataTablesResult<UserTableRowViewModel> GetUsers(DataTablesParam dataTableParam)
+        public DataTablesResult<UserTableRowViewModel> GetUsers([FromForm] DataTablesParam dataTableParam)
         {
             return DataTablesResult.Create(FakeDatabase.Users.Select(user => new UserTableRowViewModel()
             {

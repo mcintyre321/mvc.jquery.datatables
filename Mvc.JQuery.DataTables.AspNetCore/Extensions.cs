@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.FileProviders;
 using System;
+using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using Mvc.JQuery.DataTables;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddMvcJQueryDataTables(this IServiceCollection services)
         {
+
             var dataTablesViewModelType = typeof(Mvc.JQuery.DataTables.DataTableConfigVm).GetTypeInfo();
             var settings = new Mvc.JQuery.DataTables.Settings
             {
@@ -17,7 +21,19 @@ namespace Microsoft.Extensions.DependencyInjection
             };
             services.AddSingleton(settings);
             services.Configure<RazorViewEngineOptions>(s => s.FileProviders.Add(settings.FileProvider));
+            services.AddMvc(options => { options.UseHtmlEncodeModelBinding(); });
+
             return services;
+        }
+
+        public static void UseHtmlEncodeModelBinding(this MvcOptions opts)
+        {
+            var binderToFind = opts.ModelBinderProviders.FirstOrDefault(x => x.GetType() == typeof(DataTablesModelBinderProvider));
+
+            if (binderToFind == null) return;
+
+            var index = opts.ModelBinderProviders.IndexOf(binderToFind);
+            opts.ModelBinderProviders.Insert(index, new DataTablesModelBinderProvider());
         }
     }
 }
@@ -34,7 +50,8 @@ namespace Microsoft.AspNetCore.Builder
             if(settings == null)
             {
                 throw new InvalidOperationException("Unable to find the required services. Please add all the required services by calling 'IServiceCollection.{}' inside the call to 'ConfigureServices(...)' in the application startup code.");
-            }
+            } 
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = settings.FileProvider,

@@ -100,4 +100,22 @@ namespace Mvc.JQuery.DataTables
                 : (T)valueResult.ConvertTo(typeof(T));
         }
     }
+
+    public class DataTablesModelBinderProvider : IModelBinderProvider
+    {
+        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (!context.Metadata.IsComplexType && context.Metadata.ModelType == typeof(string)) // only encode string types
+            {
+                return new DataTablesModelBinder();
+            }
+
+            return null;
+        }
+    }
 }

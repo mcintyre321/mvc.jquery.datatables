@@ -182,9 +182,7 @@
       },
       "Mvc.JQuery.DataTables/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "Microsoft.AspNet.Mvc": "5.2.3",
           "Mvc.JQuery.DataTables.Common": "1.0.0"
         }
       },
@@ -192,6 +190,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.2.3",
           "Newtonsoft.Json": "9.0.1",
           "System.Linq.Dynamic.Core": "1.0.6.10"
         }
@@ -397,9 +396,7 @@
       },
       "Mvc.JQuery.DataTables/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "Microsoft.AspNet.Mvc": "5.2.3",
           "Mvc.JQuery.DataTables.Common": "1.0.0"
         }
       },
@@ -407,6 +404,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.2.3",
           "Newtonsoft.Json": "9.0.1",
           "System.Linq.Dynamic.Core": "1.0.6.10"
         }
@@ -1146,7 +1144,7 @@
     },
     "Mvc.JQuery.DataTables/1.0.0": {
       "type": "project",
-      "path": "../Mvc.JQuery.DataTables/project.json",
+      "path": "../Mvc.JQuery.DataTables/Mvc.JQuery.DataTables.csproj",
       "msbuildProject": "../Mvc.JQuery.DataTables/Mvc.JQuery.DataTables.csproj"
     },
     "Mvc.JQuery.DataTables.Common/1.0.0": {

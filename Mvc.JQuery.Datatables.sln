@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables.AspNe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables.AspNetCore", "Mvc.JQuery.DataTables.AspNetCore\Mvc.JQuery.DataTables.AspNetCore.csproj", "{59A635A9-751E-4457-BC54-65F85A9AE317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables", "Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj", "{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Example", "Mvc.JQuery.DataTables.Example\Mvc.JQuery.DataTables.Example.csproj", "{305FA463-4D61-4E28-8A4B-55A1E74D1BD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Tests", "Mvc.JQuery.DataTables.Tests\Mvc.JQuery.DataTables.Tests.csproj", "{11A04151-EF52-4828-994F-0837AF9A586C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables", "Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj", "{2583FCEF-E898-458D-9016-2F294B31F65F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,18 +61,6 @@ Global
 		{59A635A9-751E-4457-BC54-65F85A9AE317}.Release|x64.Build.0 = Release|Any CPU
 		{59A635A9-751E-4457-BC54-65F85A9AE317}.Release|x86.ActiveCfg = Release|Any CPU
 		{59A635A9-751E-4457-BC54-65F85A9AE317}.Release|x86.Build.0 = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|x64.Build.0 = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Debug|x86.Build.0 = Debug|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|x64.ActiveCfg = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|x64.Build.0 = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|x86.ActiveCfg = Release|Any CPU
-		{C5D4CD4E-C18D-4778-8856-878ABD4E69B2}.Release|x86.Build.0 = Release|Any CPU
 		{305FA463-4D61-4E28-8A4B-55A1E74D1BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{305FA463-4D61-4E28-8A4B-55A1E74D1BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{305FA463-4D61-4E28-8A4B-55A1E74D1BD7}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -97,6 +85,18 @@ Global
 		{11A04151-EF52-4828-994F-0837AF9A586C}.Release|x64.Build.0 = Release|Any CPU
 		{11A04151-EF52-4828-994F-0837AF9A586C}.Release|x86.ActiveCfg = Release|Any CPU
 		{11A04151-EF52-4828-994F-0837AF9A586C}.Release|x86.Build.0 = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|x64.Build.0 = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Debug|x86.Build.0 = Debug|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|x64.ActiveCfg = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|x64.Build.0 = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|x86.ActiveCfg = Release|Any CPU
+		{2583FCEF-E898-458D-9016-2F294B31F65F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

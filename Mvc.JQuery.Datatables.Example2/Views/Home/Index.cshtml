@@ -1,0 +1,91 @@
+﻿@model Mvc.JQuery.DataTables.DataTableConfigVm
+@{ ViewBag.Title = "Mvc.JQuery.DataTables"; }
+
+<script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+<script type="text/javascript">    $.SyntaxHighlighter.init();</script>
+
+<h1>Grid example <small> See also <a href="/facet">Faceted search example</a></small></h1>
+<pre>
+Nuget install-package Mvc.JQuery.DataTables
+    
+Nuget install-package <a href="https://github.com/mcintyre321/EmbeddedResourceVirtualPathProvider">EmbeddedResourceVirtualPathProvider</a> <i>or</i> Nuget install-package Mvc.JQuery.DataTables.Templates
+</pre>
+<p>
+    Create a controller (see <a style="color: dodgerblue;" href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">example</a>)
+</p>
+<pre class="highlight">
+public class SomeController : Controller 
+{
+      public ActionResult Index()
+        {
+            var getDataUrl = Url.Action(nameof(HomeController.GetUsers));
+            var vm = DataTablesHelper.DataTableVm&ltUserTableRowViewModel>("idForTableElement", getDataUrl);
+            
+            ... configure data table options  (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Controllers/HomeController.cs">HomeController.cs</a>)
+
+
+            return View(vm);
+        }
+    ...
+    public DataTablesResult&lt;UserTableRowViewModel> GetUsers(DataTablesParam dataTableParam)
+    {
+        IQueryable&lt;User> users = ... //take a queryable from your database...
+        var userViews = users.Select(u => new UserTableRowViewModel(u)); //...transform it into a view object ...
+        return DataTablesResult.Create(userViews, dataTableParam)  //...and return a DataTablesResult
+    }
+}
+</pre>
+
+<p>
+    and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Views/Home/Index.cshtml">example</a>)
+
+    <pre class="highlight">
+        //include these scripts to use standard features
+        &lt;script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js">&lt;/script>
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
+        
+        //These ones if you want to use the column filters
+        &lt;link rel="stylesheet" href="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.css" />
+        &lt;script type="text/javascript" src="/Content/jquery-datatables-column-filter/media/js/jquery.dataTables.columnFilter.js">&lt;/script>
+        //And these if you want date time pickers in the filters
+        &lt;script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js">&lt;/script>
+        &lt;link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
+        
+        //and these if you want to use  TableTools (export buttons)
+        &lt;script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js">&lt;/script>
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
+        
+        //And these if you want to use column visibility
+        &lt;link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
+        &lt;script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js">&lt;/script>
+        
+        var dataTablesConfigVm = dataTablesConfigVmHtml.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
+        //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.Example/Views/Home/_ExampleTable.cshtml">example here</a>
+
+        @@Html.Partial("DataTable", Model)
+    </pre>
+</p>
+
+<h1>Voila!</h1>
+<div style="padding: 5px; border: 1px solid grey;width: 200px">
+    Custom placement for Position filter:
+    <div id="custom-filter-placeholder-position"></div>
+    Custom placement for hidden Salary filter:
+    <div id="custom-filter-placeholder-salary"></div>
+</div>
+
+@Html.Partial("_ExampleTable", Model)
+<br />
+
+<div>
+    @if (Request.QueryString["lang"] != "de")
+    {
+        <a href="?lang=de#language-switch" id="language-switch">See table with Language settings applied</a>
+    }
+    else
+    {
+        <a href="/#language-switch" id="language-switch">Turn off language settings</a>
+    }
+</div>
+
+

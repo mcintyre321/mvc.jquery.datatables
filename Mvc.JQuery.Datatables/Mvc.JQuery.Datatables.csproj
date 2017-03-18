@@ -12,10 +12,7 @@
     <AssemblyName>Mvc.JQuery.DataTables</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>Mvc.JQuery.DataTables</RootNamespace>
-    <AssemblyName>Mvc.JQuery.DataTables</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables</PackageId>
-
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>Harry McIntyre</Authors>
     <Description>Popular lib for using DataTables.net with IQueryable. Install this package to use with MVC5</Description>

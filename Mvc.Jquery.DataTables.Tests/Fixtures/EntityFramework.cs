@@ -52,7 +52,7 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
             DataContext.SaveChanges();
         }
 
-        [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
+        //[Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
         public override int[] ExecuteParams(DataTablesParam dataTablesParam)
         {
             DataContext.Dispose(); //reset datacontext in order to clear local 

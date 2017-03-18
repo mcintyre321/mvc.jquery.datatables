@@ -42,7 +42,7 @@ namespace Mvc.JQuery.DataTables.Tests.Fixtures
             return data.aaData.Select(row => ((SomeModel)row).Id).ToArray();
         }
 
-        [Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
+        //[Test, TestCaseSource(typeof(MyFactoryClass), "TestCases")]
         public virtual int[] ExecuteParamsAndTransform(DataTablesParam dataTablesParam)
         {
             var result = DataTablesResult.Create(SomeModelQueryable,

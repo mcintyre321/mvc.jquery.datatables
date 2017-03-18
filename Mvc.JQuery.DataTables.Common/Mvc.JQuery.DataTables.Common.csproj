@@ -5,6 +5,12 @@
     <RootNamespace>Mvc.JQuery.DataTables.Common</RootNamespace>
     <AssemblyName>Mvc.JQuery.DataTables.Common</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables.Common</PackageId>
+     <PackageVersion>1.0.0</PackageVersion>
+     <Authors>Harry McIntyre</Authors>
+     <Description>Popular lib for using DataTables.net with IQueryable. This package contain x-platform shared code. Install either Mvc.JQuery.DataTables for MVC5 or Mvc.JQuery.DataTables.AspNetCore for AspNetCore</Description>
+     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+     <Copyright>Harry McIntyre</Copyright>
+     <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

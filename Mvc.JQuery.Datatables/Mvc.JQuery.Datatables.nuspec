@@ -10,7 +10,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
 		<copyright>Copyright 2011</copyright>
-		<tags>jquery datatables iqueryable razor asp mvc mvc5</tags>
+		<tags>jquery datatables iqueryable razor asp mvc mvc5 aspnetcore datagrid grid</tags>
     <dependencies>
       <dependency id="Mvc.JQuery.DataTables.Core" version="[$version$]" />
     </dependencies>	

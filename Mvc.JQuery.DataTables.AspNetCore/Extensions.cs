@@ -30,10 +30,9 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var binderToFind = opts.ModelBinderProviders.FirstOrDefault(x => x.GetType() == typeof(DataTablesModelBinderProvider));
 
-            if (binderToFind == null) return;
+            if (binderToFind != null) return;
 
-            var index = opts.ModelBinderProviders.IndexOf(binderToFind);
-            opts.ModelBinderProviders.Insert(index, new DataTablesModelBinderProvider());
+            opts.ModelBinderProviders.Insert(0, new DataTablesModelBinderProvider());
         }
     }
 }

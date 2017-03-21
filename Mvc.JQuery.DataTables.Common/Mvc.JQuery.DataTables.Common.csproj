@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>  
     <RootNamespace>Mvc.JQuery.DataTables.Common</RootNamespace>
     <AssemblyName>Mvc.JQuery.DataTables.Common</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables.Common</PackageId>
-     <PackageVersion>1.0.0</PackageVersion>
-     <Authors>Harry McIntyre</Authors>
-     <Description>Popular lib for using DataTables.net with IQueryable. This package contain x-platform shared code. Install either Mvc.JQuery.DataTables for MVC5 or Mvc.JQuery.DataTables.AspNetCore for AspNetCore</Description>
-     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-     <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
-     <Copyright>Harry McIntyre</Copyright>
-     <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
-     <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.</PackageLicenseUrl>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Harry McIntyre</Authors>
+    <Description>Popular lib for using DataTables.net with IQueryable. This package contain x-platform shared code. Install either Mvc.JQuery.DataTables for MVC5 or Mvc.JQuery.DataTables.AspNetCore for AspNetCore</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
+    <Copyright>Harry McIntyre</Copyright>
+    <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

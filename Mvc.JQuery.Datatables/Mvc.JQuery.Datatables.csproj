@@ -8,12 +8,13 @@
 
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>Harry McIntyre</Authors>
-    <Description>Popular lib for using DataTables.net with IQueryable. Install this package to use with MVC5etCore</Description>
+    <Description>Popular lib for using DataTables.net with IQueryable. Install this package to use with MVC5</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
     <Copyright>Harry McIntyre</Copyright>
     <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
-    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.</PackageLicenseUrl>  </PropertyGroup>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.</PackageLicenseUrl> 
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" version="5.2.3" />

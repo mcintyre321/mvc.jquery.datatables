@@ -49,12 +49,18 @@ namespace Microsoft.AspNetCore.Builder
             if(settings == null)
             {
                 throw new InvalidOperationException("Unable to find the required services. Please add all the required services by calling 'IServiceCollection.{}' inside the call to 'ConfigureServices(...)' in the application startup code.");
-            } 
+            }
+            app.UseStaticFiles();
 
-            app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = settings.FileProvider,
-            });
+                var options = new StaticFileOptions
+                {
+                    RequestPath = "",
+                    FileProvider = settings.FileProvider
+                };
+
+                app.UseStaticFiles(options);
+            }
             return app;
         }
     }

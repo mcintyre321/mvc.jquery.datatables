@@ -4,6 +4,7 @@ using Mvc.JQuery.DataTables.Example.Helpers;
 using Mvc.JQuery.DataTables.Models;
 using Mvc.JQuery.DataTables.Serialization;
 using System.Linq;
+using System.Reflection;
 
 namespace Mvc.JQuery.DataTables.Example.Controllers
 {
@@ -109,5 +110,10 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
                 });
         }
 
+        public ContentResult EmbeddedResource()
+        {
+            var assembly = typeof(DataTableConfigVm).GetTypeInfo().Assembly;
+            return Content(string.Join("|", assembly.GetManifestResourceNames().Select(r => r)));
+        }
     }
 }

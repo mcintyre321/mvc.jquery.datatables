@@ -16,11 +16,15 @@ namespace Mvc.JQuery.DataTables
             //TODO: Consider whether this should be pushed to a worker thread...
             if (columns == 0)
             {
-                return Task.FromResult(BindV10Model(valueProvider));
+                var bindV10Model = BindV10Model(valueProvider);
+                bindingContext.Result = ModelBindingResult.Success(bindV10Model);
+                return Task.FromResult(bindV10Model);
             }
             else
             {
-                return Task.FromResult(BindLegacyModel(valueProvider, columns));
+                var bindLegacyModel = BindLegacyModel(valueProvider, columns);
+                bindingContext.Result = ModelBindingResult.Success(bindLegacyModel);
+                return Task.FromResult(bindLegacyModel);
             }
         }
 
@@ -110,7 +114,7 @@ namespace Mvc.JQuery.DataTables
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (!context.Metadata.IsComplexType && context.Metadata.ModelType == typeof(string)) // only encode string types
+            if (context.Metadata.ModelType == typeof(DataTablesParam)) // only encode string types
             {
                 return new DataTablesModelBinder();
             }

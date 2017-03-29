@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
     <Copyright>Harry McIntyre</Copyright>
     <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
-    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.</PackageLicenseUrl>  </PropertyGroup>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.0" />

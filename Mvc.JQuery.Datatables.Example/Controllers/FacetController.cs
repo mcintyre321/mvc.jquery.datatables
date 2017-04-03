@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Mvc.JQuery.DataTables.Example.Domain;
-using Mvc.JQuery.DataTables.Models;
 
 namespace Mvc.JQuery.DataTables.Example.Controllers
 {

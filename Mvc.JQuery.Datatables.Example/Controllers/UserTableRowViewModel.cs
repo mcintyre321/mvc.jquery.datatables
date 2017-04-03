@@ -2,7 +2,6 @@ using System;
 using Mvc.JQuery.DataTables.Example.Domain;
 using Mvc.JQuery.DataTables.Models;
 using Resources;
-
 namespace Mvc.JQuery.DataTables.Example.Controllers
 {
     public class UserTableRowViewModel

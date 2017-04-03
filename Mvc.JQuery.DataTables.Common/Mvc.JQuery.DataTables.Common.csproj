@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>  
+    <RootNamespace>Mvc.JQuery.DataTables.Common</RootNamespace>
+    <AssemblyName>Mvc.JQuery.DataTables.Common</AssemblyName>
+    <PackageId>Mvc.JQuery.DataTables.Common</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Harry McIntyre</Authors>
+    <Description>Popular lib for using DataTables.net with IQueryable. This package contain x-platform shared code. Install either Mvc.JQuery.DataTables for MVC5 or Mvc.JQuery.DataTables.AspNetCore for AspNetCore</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
+    <Copyright>Harry McIntyre</Copyright>
+    <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.6.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\**\*;Content\**\*;Scripts\**\*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.1.0" />
+    <PackageReference Include="System.ComponentModel.Primitives" Version="4.1.0" />
+    <PackageReference Include="System.Reflection" Version="4.1.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" Link="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.css" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css" Link="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\jquery-datatables-column-filter\media\js\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" Link="Content\jquery-datatables-column-filter\jquery-ui-timepicker-addon.js" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" Link="Content\jquery-datatables-column-filter\media\js\jquery.dataTables.columnFilter.js" />
+    <EmbeddedResource Include="..\Mvc.JQuery.Datatables.Templates\Views\Shared\DataTable.cshtml" Link="Views\Shared\DataTable.cshtml" />
+  </ItemGroup>
+
+</Project>

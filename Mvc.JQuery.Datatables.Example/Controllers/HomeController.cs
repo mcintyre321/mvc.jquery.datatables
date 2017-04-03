@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using Mvc.JQuery.DataTables;
-using Mvc.JQuery.DataTables.Example.Domain;
+﻿using Mvc.JQuery.DataTables.Example.Domain;
 using Mvc.JQuery.DataTables.Example.Helpers;
 using Mvc.JQuery.DataTables.Models;
 using Mvc.JQuery.DataTables.Serialization;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Mvc.JQuery.DataTables.Example.Controllers
 {

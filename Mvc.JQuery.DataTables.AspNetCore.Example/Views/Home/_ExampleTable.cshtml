@@ -1,0 +1,36 @@
+﻿@using Mvc.JQuery.DataTables
+@using Mvc.JQuery.DataTables.Example.Controllers
+@using Mvc.JQuery.DataTables.Models
+@using Mvc.JQuery.DataTables.Serialization
+@model DataTableConfigVm
+<script type="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js" language="javascript"></script>
+
+<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
+<!-- table tools (csv export etc) https://datatables.net/extensions/tabletools -->
+<script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
+
+<script type="text/javascript" src="/Content/jquery_datatables_column_filter/jquery-ui-timepicker-addon.js"></script>
+<link rel="stylesheet" href="/Content/jquery_datatables_column_filter/jquery-ui-timepicker-addon.css" />
+
+<link rel="stylesheet" href="/Content/jquery_datatables_column_filter/media/js/jquery.dataTables.columnFilter.css" />
+<script type="text/javascript" src="/Content/jquery_datatables_column_filter/media/js/jquery.dataTables.columnFilter.js"></script>
+
+<link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
+<script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
+
+@{
+
+    //var vm = Html.DataTableVm("table-id", (HomeController h) => h.GetUsers(null));
+    var vm = Model;
+  
+}
+
+<script type="text/javascript">
+    function encloseInEmTag(data, type, full) {
+        return '<em>' + data + '</em>';
+    }
+</script>
+@Html.Partial("DataTable", vm)

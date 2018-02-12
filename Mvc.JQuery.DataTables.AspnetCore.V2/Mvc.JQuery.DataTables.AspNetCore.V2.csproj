@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyName>Mvc.JQuery.DataTables.AspNetCore.V2</AssemblyName>
+    <RootNamespace>Mvc.JQuery.DataTables.AspNetCore.V2</RootNamespace>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageId>Mvc.JQuery.DataTables.AspNetCore</PackageId>
+    <Company>Harry McIntyre</Company>
+    <Authors>Harry McIntyre</Authors>
+    <Product>Mvc.JQuery.DataTables.AspNetCore</Product>
+    <Description>Popular lib for using DataTables.net with IQueryable. Install this package to use with AspNetCore</Description>
+    <Copyright>Harry McIntyre</Copyright>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
+    <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mvc.JQuery.DataTables.Common\Mvc.JQuery.DataTables.Common.csproj" />
+  </ItemGroup>
+
+</Project>

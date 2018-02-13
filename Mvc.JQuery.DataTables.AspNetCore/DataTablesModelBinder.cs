@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 using System;
 using System.Threading.Tasks;
 
@@ -99,9 +100,42 @@ namespace Mvc.JQuery.DataTables
         private static T GetValue<T>(IValueProvider valueProvider, string key)
         {
             ValueProviderResult valueResult = valueProvider.GetValue(key);
-            return (valueResult==null)
+            return (valueResult == null)
                 ? default(T)
-                : (T)valueResult.ConvertTo(typeof(T));
+                : ConvertTo<T>(valueResult);
+        }
+
+        /// <summary>
+        /// Attempts to convert the values in <paramref name="result"/> to the specified type.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Type"/> for conversion.</typeparam>
+        /// <param name="result">The <see cref="ValueProviderResult"/>.</param>
+        /// <returns>
+        /// The converted value, or the default value of <typeparamref name="T"/> if the value could not be converted.
+        /// </returns>
+        /// <remarks>
+        /// Copyright (c) .NET Foundation and Contributors
+        /// All rights reserved.
+        /// Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+        /// this file except in compliance with the License.You may obtain a copy of the license at:
+        /// http://www.apache.org/licenses/LICENSE-2.0
+        /// Unless required by applicable law or agreed to in writing, software distributed
+        /// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+        /// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+        /// specific language governing permissions and limitations under the License.
+        /// </remarks>
+        private static T ConvertTo<T>(ValueProviderResult result)
+        {
+            object valueToConvert = null;
+            if (result.Values.Count == 1)
+            {
+                valueToConvert = result.Values[0];
+            }
+            else if (result.Values.Count > 1)
+            {
+                valueToConvert = result.Values.ToArray();
+            }
+            return ModelBindingHelper.ConvertTo<T>(valueToConvert, result.Culture);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <RootNamespace>Mvc.JQuery.DataTables</RootNamespace>
     <AssemblyName>Mvc.JQuery.DataTables.AspNetCore</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables.AspNetCore</PackageId>
@@ -16,9 +16,9 @@
     <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>  </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.*" />
   </ItemGroup>
 
   <ItemGroup>

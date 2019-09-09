@@ -111,12 +111,14 @@ namespace Mvc.JQuery.DataTables
                 DateTimeOffset start, end;
                 if (DateTimeOffset.TryParse(parts[0] ?? "", out start))
                 {
+                    start = start.ToUniversalTime();
                     filterString = columnname + " >= @" + parametersForLinqQuery.Count;
                     parametersForLinqQuery.Add(start);
                 }
 
                 if (DateTimeOffset.TryParse(parts[1] ?? "", out end))
                 {
+                    end = end.ToUniversalTime();
                     filterString = (filterString == null ? null : filterString + " and ") + columnname + " <= @" + parametersForLinqQuery.Count;
                     parametersForLinqQuery.Add(end);
                 }
@@ -161,12 +163,14 @@ namespace Mvc.JQuery.DataTables
                 DateTime start, end;
                 if (DateTime.TryParse(parts[0] ?? "", out start))
                 {
+                    start = start.ToUniversalTime();
                     filterString = columnname + " >= @" + parametersForLinqQuery.Count;
                     parametersForLinqQuery.Add(start);
                 }
 
                 if (DateTime.TryParse(parts[1] ?? "", out end))
                 {
+                    end = end.ToUniversalTime();
                     filterString = (filterString == null ? null : filterString + " and ") + columnname + " <= @" + parametersForLinqQuery.Count;
                     parametersForLinqQuery.Add(end);
                 }

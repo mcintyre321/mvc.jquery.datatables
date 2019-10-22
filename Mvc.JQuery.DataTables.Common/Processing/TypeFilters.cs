@@ -251,11 +251,17 @@ namespace Mvc.JQuery.DataTables
 
         public static string EnumFilter(string q, string columnname, DataTablesPropertyInfo propertyInfo, List<object> parametersForLinqQuery)
         {
-
-            if (q.StartsWith("^")) q = q.Substring(1);
-            if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
-            parametersForLinqQuery.Add(ParseValue(q, propertyInfo.Type));
-            return columnname + " == @" + (parametersForLinqQuery.Count - 1);
+            try
+            {
+                if (q.StartsWith("^")) q = q.Substring(1);
+                if (q.EndsWith("$")) q = q.Substring(0, q.Length - 1);
+                parametersForLinqQuery.Add(ParseValue(q, propertyInfo.Type));
+                return columnname + " == @" + (parametersForLinqQuery.Count - 1);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

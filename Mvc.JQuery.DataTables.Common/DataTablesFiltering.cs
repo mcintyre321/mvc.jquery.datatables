@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Mvc.JQuery.DataTables
 {
-    internal class DataTablesFiltering
+    public class DataTablesFiltering
     {
         public IQueryable<T> ApplyFiltersAndSort<T>(DataTablesParam dtParameters, IQueryable<T> data, DataTablesPropertyInfo[] columns)
         {
@@ -118,7 +118,7 @@ namespace Mvc.JQuery.DataTables
 
         public static void RegisterFilter<T>(GuardedFilter filter)
         {
-            Filters.Add(Guard(arg => arg is T, filter));
+            Filters.Add(Guard(arg => arg.Type == typeof(T), filter));
         }
 
         private static string GetFilterClause(string query, DataTablesPropertyInfo column, List<object> parametersForLinqQuery)

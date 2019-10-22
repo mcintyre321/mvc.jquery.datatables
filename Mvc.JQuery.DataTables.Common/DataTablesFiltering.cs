@@ -30,7 +30,11 @@ namespace Mvc.JQuery.DataTables
                     }
                 }
                 var values = parts.Where(p => p != null);
-                data = data.Where(string.Join(" or ", values), parameters.ToArray());
+                var filterClause = string.Join(" or ", values);
+                if (string.IsNullOrWhiteSpace(filterClause) == false)
+                {
+                    data = data.Where(filterClause, parameters.ToArray());
+                }
             }
             for (int i = 0; i < dtParameters.sSearchValues.Count; i++)
             {

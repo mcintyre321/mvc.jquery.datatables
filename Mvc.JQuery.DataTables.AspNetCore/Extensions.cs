@@ -5,6 +5,9 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.JQuery.DataTables;
+#if NETCOREAPP3_1
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+#endif
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -20,7 +23,12 @@ namespace Microsoft.Extensions.DependencyInjection
                                                         dataTablesViewModelType.Namespace + ".Common"),
             };
             services.AddSingleton(settings);
+#if NETCOREAPP3_1
+            services.Configure<MvcRazorRuntimeCompilationOptions>(s => s.FileProviders.Add(settings.FileProvider));
+#elif NETSTANDARD2_0
             services.Configure<RazorViewEngineOptions>(s => s.FileProviders.Add(settings.FileProvider));
+#endif
+
             services.AddMvc(options => { options.UseHtmlEncodeModelBinding(); });
 
             return services;
@@ -46,7 +54,7 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder UseMvcJQueryDataTables(this IApplicationBuilder app)
         {
             var settings = app.ApplicationServices.GetService<global::Mvc.JQuery.DataTables.Settings>();
-            if(settings == null)
+            if (settings == null)
             {
                 throw new InvalidOperationException("Unable to find the required services. Please add all the required services by calling 'IServiceCollection.{}' inside the call to 'ConfigureServices(...)' in the application startup code.");
             }

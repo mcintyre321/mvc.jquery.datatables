@@ -170,6 +170,10 @@ namespace Mvc.JQuery.DataTables
 
                 if (DateTime.TryParse(parts[1] ?? "", out end))
                 {
+                    if (end == end.Date) {
+                      end = end.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    }
+
                     end = end.ToUniversalTime();
                     filterString = (filterString == null ? null : filterString + " and ") + columnname + " <= @" + parametersForLinqQuery.Count;
                     parametersForLinqQuery.Add(end);

@@ -1,21 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>Mvc.JQuery.DataTables</RootNamespace>
     <AssemblyName>Mvc.JQuery.DataTables.AspNetCore</AssemblyName>
     <PackageId>Mvc.JQuery.DataTables.AspNetCore</PackageId>
 
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>Harry McIntyre</Authors>
     <Description>Popular lib for using DataTables.net with IQueryable. Install this package to use with AspNetCore</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/mcintyre321/mvc.jquery.datatables</PackageProjectUrl>
     <Copyright>Harry McIntyre</Copyright>
     <PackageTags>jquery datatables iqueryable razor asp mvc mvc5</PackageTags>
-    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>  </PropertyGroup>
+    <PackageLicenseUrl>https://github.com/mcintyre321/mvc.jquery.datatables/blob/master/License.txt</PackageLicenseUrl>
+  </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.*" />

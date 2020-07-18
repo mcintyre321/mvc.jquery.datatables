@@ -21,7 +21,19 @@ namespace Mvc.JQuery.DataTables
                     {
                         try
                         {
-                            parts.Add(GetFilterClause(dtParameters.sSearch, columns[i], parameters));
+                            if(dtParameters.sColumnNames.Count> 0)
+                            {
+                                var col = columns.FirstOrDefault(c => String.Compare(c.PropertyInfo.Name.ToLower(), dtParameters.sColumnNames[i].ToLower()) == 0);
+                                if (col != null)
+                                { parts.Add(GetFilterClause(dtParameters.sSearch, col, parameters)); }
+
+                            }
+                            else
+                            {
+                                parts.Add(GetFilterClause(dtParameters.sSearch, columns[i], parameters));
+                            }
+
+
                         }
                         catch (Exception)
                         {

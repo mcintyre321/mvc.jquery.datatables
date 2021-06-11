@@ -62,8 +62,14 @@
             {
                 options["oTableTools"] = new JRaw("{ 'sSwfPath': '//cdn.datatables.net/tabletools/2.2.1/swf/copy_csv_xls_pdf.swf' }");
             }
+            if (Model.Buttons)
+            {
+                options["buttons"] = new JRaw("[ 'copy', 'csv', 'excel', 'print' ]");
+            }
+
+
             options["fnServerData"] = new JRaw(
-                "function(sSource, aoData, fnCallback) { " + 
+                "function(sSource, aoData, fnCallback) { " +
                 "    var ajaxOptions = { 'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback }; " +
                 (Model.AjaxErrorHandler == null ? "" : ("ajaxOptions['error'] = " + Model.AjaxErrorHandler) + "; ") +
                 "    $.ajax(ajaxOptions);" +
@@ -85,7 +91,7 @@
             {
                 options["fnDrawCallback"] = new JRaw(Model.DrawCallback);
             }
-            
+
         }
 
         var dt = $table.dataTable(@Html.Raw(options.ToString(Formatting.Indented)));

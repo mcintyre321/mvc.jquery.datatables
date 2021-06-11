@@ -48,6 +48,8 @@ namespace Mvc.JQuery.DataTables.Example.Controllers
             vm.ColVis = true;
             vm.ShowVisibleColumnPicker = true; //Displays a control for showing/hiding columns
 
+            //Enable Buttons
+            vm.Buttons = true;
 
             //Localizable
             if (Request.QueryString["lang"] == "de")

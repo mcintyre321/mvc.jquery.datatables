@@ -39,7 +39,7 @@ public class SomeController : Controller
 <p>
     and render the partial (see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.DataTables.Example/Views/Home/Index.cshtml">example</a>)
 
-    <pre class="highlight">
+                                <pre class="highlight">
         //include these scripts to use standard features
         &lt;script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js">&lt;/script>
         &lt;link rel="stylesheet" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" />
@@ -51,7 +51,7 @@ public class SomeController : Controller
         &lt;script type="text/javascript" src="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.js">&lt;/script>
         &lt;link rel="stylesheet" href="/Content/jquery-datatables-column-filter/jquery-ui-timepicker-addon.css" />
         
-        //and these if you want to use  TableTools (export buttons)
+        //and these if you want to use  TableTools (export buttons, deprecated with Flash). Use Buttons for new version.
         &lt;script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js">&lt;/script>
         &lt;link rel="stylesheet" href="//cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.css" />
         
@@ -59,6 +59,16 @@ public class SomeController : Controller
         &lt;link rel="stylesheet" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" />
         &lt;script type="text/javascript" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js">&lt;/script>
         
+        //And these if you need buttons, note the button colVis is included 
+        &lt;link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" /&gt;
+        &lt;script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"&gt;&lt;/script&gt;
+
         var dataTablesConfigVm = dataTablesConfigVmHtml.DataTableVm("table-id", (HomeController h) => h.GetUsers(null))
         //set options on the config here, see <a href="https://github.com/mcintyre321/mvc.jquery.datatables/tree/master/Mvc.JQuery.Datatables.Example/Views/Home/_ExampleTable.cshtml">example here</a>
 

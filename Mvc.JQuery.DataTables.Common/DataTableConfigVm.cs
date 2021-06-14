@@ -68,6 +68,8 @@ namespace Mvc.JQuery.DataTables
 
         public bool TableTools { get; set; }
 
+        public bool Buttons { get; set; }
+
         public bool AutoWidth { get; set; }
 
         public JToken SearchCols
@@ -96,6 +98,8 @@ namespace Mvc.JQuery.DataTables
                     str += "C";
                 if (this.TableTools)
                     str += "T<\"clear\">";
+                if (this.Buttons)
+                    str += "B";
                 if (this.ShowPageSizes)
                     str += "l";
                 if (this.ShowFilterInput)

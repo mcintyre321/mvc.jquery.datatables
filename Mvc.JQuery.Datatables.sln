@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables.Common", "Mvc.JQuery.DataTables.Common\Mvc.JQuery.DataTables.Common.csproj", "{BFD9EA5A-FE3A-4CE2-9C09-B9E78CE208EE}"
 EndProject
@@ -10,12 +10,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables.AspNetCore", "Mvc.JQuery.DataTables.AspNetCore\Mvc.JQuery.DataTables.AspNetCore.csproj", "{59A635A9-751E-4457-BC54-65F85A9AE317}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Example", "Mvc.JQuery.DataTables.Example\Mvc.JQuery.DataTables.Example.csproj", "{305FA463-4D61-4E28-8A4B-55A1E74D1BD7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8DA3D5E6-D714-40C3-B6CB-E88D852C5175} = {8DA3D5E6-D714-40C3-B6CB-E88D852C5175}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.DataTables.Tests", "Mvc.JQuery.DataTables.Tests\Mvc.JQuery.DataTables.Tests.csproj", "{11A04151-EF52-4828-994F-0837AF9A586C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.DataTables", "Mvc.JQuery.DataTables\Mvc.JQuery.DataTables.csproj", "{2583FCEF-E898-458D-9016-2F294B31F65F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.JQuery.Datatables.Templates", "Mvc.JQuery.Datatables.Templates\Mvc.JQuery.Datatables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.JQuery.Datatables.Templates", "Mvc.JQuery.Datatables.Templates\Mvc.JQuery.Datatables.Templates.csproj", "{8DA3D5E6-D714-40C3-B6CB-E88D852C5175}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CAB6B030-6006-4546-9A32-8F06AC054E1E}"
 	ProjectSection(SolutionItems) = preProject
@@ -119,5 +122,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C227490-FC3E-4FB8-8CC5-01887C32DABE}
 	EndGlobalSection
 EndGlobal
